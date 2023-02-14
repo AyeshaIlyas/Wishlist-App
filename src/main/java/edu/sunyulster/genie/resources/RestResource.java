@@ -8,7 +8,7 @@ public class RestResource {
 
     @GET
     public String hello() {
-        return "Hello world";
+        return "Hello world, with Wendy's change!";
     }
     
 }

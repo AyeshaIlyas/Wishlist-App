@@ -1,4 +1,4 @@
-package edu.sunyulster.genie.model;
+package edu.sunyulster.genie.models;
 
 public class Test
 {

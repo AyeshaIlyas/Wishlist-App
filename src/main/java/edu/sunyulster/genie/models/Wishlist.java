@@ -1,6 +1,8 @@
 package edu.sunyulster.genie.models;
 
-public class Wishlist {
+import java.io.Serializable;
+
+public class Wishlist implements Serializable {
 
     private String name;
     private int itemCount;

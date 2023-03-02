@@ -1,6 +1,8 @@
 package edu.sunyulster.genie.models;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String name;
     private double price;
     private String supplier;

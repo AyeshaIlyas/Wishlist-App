@@ -1,0 +1,25 @@
+#Mon Jan 23 23:34:29 GMT 2023
+lib/com.ibm.ws.org.jboss.jandex_1.0.73.jar=18560d9efd767da8b1e7bfe686768d02
+lib/io.openliberty.checkpoint_1.0.73.jar=7afa25c7c0138f1252a49757c5c70bed
+lib/com.ibm.ws.runtime.update_1.0.73.jar=51ad5fc4b775c8223d8624ee2599f092
+lib/org.eclipse.osgi_3.17.200.jar=1a4e85e8822884799bf1092e57dbfea1
+lib/com.ibm.ws.org.apache.aries.jmx.api_1.0.73.jar=af4b2142c646fd0de0f32965d7987f14
+lib/com.ibm.ws.org.eclipse.equinox.coordinator_1.0.73.jar=d6b295c8d2f5e26b5e6b27b4c274fe53
+lib/com.ibm.ws.threading_1.1.73.jar=e1e828d895ad285eca4791ad7d55068d
+lib/com.ibm.ws.kernel.equinox.module_1.0.73.jar=41c48e9574d1e7680e2b395aa0afb367
+lib/com.ibm.ws.kernel.filemonitor_1.0.73.jar=14385e586ea73eb430d758bd4209a764
+lib/com.ibm.ws.org.apache.aries.util_1.0.73.jar=ed1bdf611079ee6d0d356503fc8806bf
+lib/com.ibm.ws.kernel.service_1.3.73.jar=9d014db106d3850cc243ebab0d6e011b
+lib/com.ibm.ws.jmx_1.0.73.jar=b5de197cc59f0a7c1676f5647353e604
+lib/platform/kernelCore-1.0.mf=5436fea997241954eb9199dd12c867e6
+lib/com.ibm.ws.org.apache.felix.scr_1.0.73.jar=d233f7baa6f7a284cf852c0f08f0cc0f
+lib/com.ibm.ws.crypto.passwordutil_1.0.73.jar=a99f342a44105c8ea2f6ab611d5c7ac8
+lib/com.ibm.ws.org.eclipse.equinox.metatype_1.0.73.jar=d77ae43c0e6a4f085be02d685037af03
+lib/com.ibm.ws.diagnostics_1.0.73.jar=f1eed51ac20dbd1ed7e8fcd59d137ce1
+lib/com.ibm.ws.config_1.0.73.jar=16851e229776312408d07bee1155b595
+lib/com.ibm.ws.org.objectweb.asm_1.0.73.jar=c90672d850bf58063da0266c2902ec2e
+lib/com.ibm.ws.org.apache.aries.jmx.core.whiteboard_1.0.73.jar=05bd82e7766953bd10ccea90f9a004a8
+lib/com.ibm.ws.org.eclipse.equinox.region_1.0.73.jar=cfbe04642d3bd702daadb22ff6b87c2b
+lib/com.ibm.ws.kernel.metatype.helper_1.0.73.jar=efe6548a40d452d2918418ffce603348
+lib/com.ibm.ws.kernel.feature_1.0.73.jar=7009492e97bae7ba0d79003a8ee18aa4
+lib/com.ibm.ws.event_1.0.73.jar=cb48239644d2dd49af4463f97a0c482d

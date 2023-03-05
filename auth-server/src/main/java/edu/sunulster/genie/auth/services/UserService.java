@@ -5,6 +5,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import edu.sunulster.genie.auth.resources.DemoResource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -26,8 +27,8 @@ public class UserService {
         return "";
     }
 
-    public void login(){
-
+    public DemoResource login(String userId){
+        return new DemoResource();
     };
     
 }

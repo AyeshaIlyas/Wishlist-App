@@ -26,11 +26,8 @@ public class UserService {
         return "";
     }
 
-    public void register() {
-        
-    }
+    public void login(){
 
-    // register
-    // login
+    };
     
 }

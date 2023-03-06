@@ -28,10 +28,10 @@ public class RegisterResource {
             return result.toString();
         } catch (AuthenticationException e) {
             System.out.println(e);
-            return "Invalid registration information";
+            return "Invalid registration information: " + e.getMessage();
         } catch (MongoException e) {
             System.out.println(e);
-            return "Database error";
+            return "Database error " + e.getMessage();
         }
     }
     

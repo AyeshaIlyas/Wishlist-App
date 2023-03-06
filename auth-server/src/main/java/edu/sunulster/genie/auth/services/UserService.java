@@ -4,11 +4,16 @@ import static com.mongodb.client.model.Filters.eq;
 
 import java.util.regex.Pattern;
 
+import org.bson.BsonValue;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.InsertOneResult;
 
+import edu.sunulster.genie.auth.models.User;
+import edu.sunulster.genie.auth.resources.LoginResource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -20,30 +25,15 @@ public class UserService {
     @Inject
     MongoDatabase db;
 
-    public String getUser() {
-        System.out.println(db);
-        MongoCollection<Document> collection = db.getCollection("users");
-        collection.insertOne(new Document());
-        System.out.println(collection);
-        for (Document d : collection.find()) {
-            System.out.println(d.toJson());
-        }
-        return "";
-    }
-
-    public void login(){
-
-    }
-
-    public void register(User user) {
+    public BsonValue register(User user) throws AuthenticationException {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
         if (user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
             throw new AuthenticationException("Name is not valid");
         }
 
-        // check if email is uniqiue
+        // check if email is unique
         MongoCollection<Document> users = db.getCollection("users");
-        Document match = users.find(eq("email", user.getEmail()));
+        Document match = users.find(eq("email", user.getEmail())).first();
         if (match != null) {
             throw new AuthenticationException("email already exists");
         }
@@ -56,7 +46,10 @@ public class UserService {
             throw new AuthenticationException("Email is not valid");
         }
 
-        addToDb(user);
+        InsertOneResult result = users.insertOne(convertUserToDocument(user));
+        System.out.printf("User registration:%n- - - - - - - - - - -User: %s%nResult: %s%n",
+            user.toString(), result.toString());
+        return result.getInsertedId();
     }
 
     private boolean isEmailValid(String email) {
@@ -71,13 +64,18 @@ public class UserService {
         return password.length() >= MIN_PS_LENGTH;
     }
 
-    private Document addToDb(User user) {
-        Document userDoc = new Document();
-        userDoc.append("firstName", user.getFirstName());
-        userDoc.append("lastName", user.getLastName());
-        userDoc.append("email", user.getEmail());
-        userDoc.append("password", user.getPassword());
-
-        users.insertOne(userDoc);
+    private Document convertUserToDocument(User user) {
+        Document userDoc = new Document()
+            .append("_id", new ObjectId())
+            .append("firstName", user.getFirstName())
+            .append("lastName", user.getLastName())
+            .append("email", user.getEmail())
+            .append("password", user.getPassword());
+        return userDoc;
     }
+    
+    public LoginResource login(String userId){
+        return new LoginResource();
+    };
+    
 }

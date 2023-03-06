@@ -9,13 +9,13 @@ import jakarta.ws.rs.Path;
 
 @RequestScoped
 @Path("/login")
-public class DemoResource {
+public class LoginResource {
     @Inject 
-    UserService s;
+    UserService userService;
 
     @GET
     public String login() {
-        s.getUser();
         return "you are logged in :)";
     }
+
 }

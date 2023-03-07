@@ -2,7 +2,6 @@ package edu.sunulster.genie.auth.services;
 
 import static com.mongodb.client.model.Filters.eq;
 
-import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -22,7 +21,7 @@ public class RegisterService {
     @Inject
     MongoDatabase db;
 
-    public BsonValue register(User user) throws AuthenticationException {
+    public String register(User user) throws AuthenticationException {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
         if (user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
             throw new AuthenticationException("Name is not valid");
@@ -46,7 +45,7 @@ public class RegisterService {
         InsertOneResult result = users.insertOne(convertUserToDocument(user));
         System.out.printf("User registration:%n- - - - - - - - - - -User: %s%nResult: %s%n",
             user.toString(), result.toString());
-        return result.getInsertedId();
+        return result.getInsertedId().asObjectId().getValue().toString();
     }
 
     private Document convertUserToDocument(User user) {

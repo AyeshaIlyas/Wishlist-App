@@ -31,7 +31,7 @@ public class LoginService {
             Document match = users.find(eq("email", creds.getEmail())).first();
 
             if (match == null) {
-                throw new AuthenticationException("email no in db");
+                throw new AuthenticationException("email not in db");
             } 
 
             if (!creds.getPassword().equals(match.get("password"))) {
@@ -39,20 +39,18 @@ public class LoginService {
             }
 
             String id = match.getObjectId("_id").toString();
-            String jwt = buildJwt(creds, id, new String[] {"user"});
-            System.out.println("JWT: " + jwt);
-            return jwt;
+            return buildJwt(id);
         } catch (JwtException e) {
             throw new ServerErrorException("Could not build JWT", 500);
         }   
     }
 
-    private String buildJwt(Credentials creds, String userId, String[] roles) throws JwtException {
+    private String buildJwt(String userId) throws JwtException {
         try {
             return JwtBuilder.create("jwtBuilderConfig")
                             .claim(Claims.SUBJECT, userId)
                             .claim("upn", userId)
-                            .claim("groups", roles)
+                            .claim("groups", new String[] {"user"})
                             .claim("aud", "wishlist-app")
                             .buildJwt()
                             .compact();

@@ -9,7 +9,7 @@ public class User {
 
     public User() {
 
-    };
+    }
 
     public User(String email, String password, String firstName, String lastName){
         this.email = email;
@@ -17,6 +17,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    
     public void updateUser(String email, String password, String firstname, String lastName){
         this.email = email;
         this.password = password;

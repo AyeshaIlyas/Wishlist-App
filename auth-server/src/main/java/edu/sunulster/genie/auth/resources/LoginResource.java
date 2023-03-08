@@ -1,6 +1,5 @@
 package edu.sunulster.genie.auth.resources;
 
-
 import com.ibm.websphere.security.jwt.JwtException;
 
 import edu.sunulster.genie.auth.models.AppError;

@@ -2,6 +2,8 @@ package edu.sunulster.genie.auth.services;
 
 import static com.mongodb.client.model.Filters.eq;
 
+import java.util.regex.Pattern;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -10,10 +12,10 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 
 import edu.sunulster.genie.auth.models.User;
-import edu.sunulster.genie.auth.util.Validator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
+
 
 @ApplicationScoped
 public class RegisterService {
@@ -34,11 +36,11 @@ public class RegisterService {
             throw new AuthenticationException("email already exists");
         }
 
-        if (!Validator.isPasswordValid(user.getPassword())) {
+        if (!isPasswordValid(user.getPassword())) {
             throw new AuthenticationException("Password is not valid");
         }
 
-        if (!Validator.isEmailValid(user.getEmail())) {
+        if (!isEmailValid(user.getEmail())) {
             throw new AuthenticationException("Email is not valid");
         }
 
@@ -46,6 +48,18 @@ public class RegisterService {
         System.out.printf("User registration:%n- - - - - - - - - - -User: %s%nResult: %s%n",
             user.toString(), result.toString());
         return result.getInsertedId().asObjectId().getValue().toString();
+    }
+
+    private boolean isEmailValid(String email) {
+        return Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@" 
+        + "[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")
+        .matcher(email)
+        .matches();
+    }
+
+    private boolean isPasswordValid(String password) {
+        final int MIN_PS_LENGTH = 5;
+        return password.length() >= MIN_PS_LENGTH;
     }
 
     private Document convertUserToDocument(User user) {

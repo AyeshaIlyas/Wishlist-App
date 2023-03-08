@@ -1,8 +1,6 @@
 package edu.sunulster.genie.auth.models;
 
-import java.io.Serializable;
-
-public class AppError implements Serializable {
+public class AppError  {
 
     private int statusCode;
     private String msg;
@@ -37,5 +35,4 @@ public class AppError implements Serializable {
         return String.format("ERROR (%s) %s", statusCode, msg);
     }
 
-    
 }

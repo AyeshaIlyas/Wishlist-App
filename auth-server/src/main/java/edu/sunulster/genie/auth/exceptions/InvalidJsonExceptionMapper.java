@@ -1,4 +1,4 @@
-package edu.sunulster.genie.auth.db.exceptions;
+package edu.sunulster.genie.auth.exceptions;
 
 import edu.sunulster.genie.auth.models.AppError;
 import jakarta.json.bind.JsonbException;

@@ -6,21 +6,16 @@ import { logIn } from '../../utils/auth';
 const Login = ({setVerified}) => {
     const navigate = useNavigate()
 
-    const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, email, pwd])
+    }, [email, pwd])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +28,6 @@ const Login = ({setVerified}) => {
             );
             console.log(response.data)
             logIn(response.data.jwt)
-            setUser('');
             setEmail('');
             setPwd('');
             navigate("/wishlists")
@@ -57,17 +51,6 @@ const Login = ({setVerified}) => {
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                />
-
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"

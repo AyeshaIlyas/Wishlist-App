@@ -5,9 +5,9 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const FNAME_REGEX = /[A-Za-z]{1,}/;
-const LNAME_REGEX = /[A-Za-z]{1,}/;
+const LNAME_REGEX = /[A-Za-z'-]{1,}/;
 const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-const PWD_REGEX = /[A-Za-z]{5,}/;
+const PWD_REGEX = /^\S{5,}/;
 // const REGISTER_URL = '/register';
 
 const Register = () => {

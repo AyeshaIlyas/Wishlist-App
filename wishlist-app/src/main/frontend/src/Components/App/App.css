@@ -2,3 +2,6 @@
   text-align: center;
 }
 
+.App nav .active{
+  color: green;
+}

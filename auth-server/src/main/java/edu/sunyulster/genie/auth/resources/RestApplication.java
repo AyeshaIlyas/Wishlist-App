@@ -1,4 +1,4 @@
-package edu.sunulster.genie.auth.resources;
+package edu.sunyulster.genie.auth.resources;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

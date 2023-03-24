@@ -1,4 +1,4 @@
-package edu.sunulster.genie.auth.models;
+package edu.sunyulster.genie.auth.models;
 
 public class AppError  {
 

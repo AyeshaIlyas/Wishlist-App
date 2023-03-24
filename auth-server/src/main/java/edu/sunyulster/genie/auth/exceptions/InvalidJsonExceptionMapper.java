@@ -1,6 +1,6 @@
-package edu.sunulster.genie.auth.exceptions;
+package edu.sunyulster.genie.auth.exceptions;
 
-import edu.sunulster.genie.auth.models.AppError;
+import edu.sunyulster.genie.auth.models.AppError;
 import jakarta.json.bind.JsonbException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

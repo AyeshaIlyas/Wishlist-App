@@ -1,4 +1,4 @@
-package edu.sunulster.genie.auth.db;
+package edu.sunyulster.genie.auth.db;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -22,7 +22,7 @@ public class MongoProducer {
     int port;
 
     @Inject
-    @ConfigProperty(name = "mongo.dbname", defaultValue = "userDb")
+    @ConfigProperty(name = "mongo.dbname", defaultValue = "authDb")
     String dbName;
 
     @Produces

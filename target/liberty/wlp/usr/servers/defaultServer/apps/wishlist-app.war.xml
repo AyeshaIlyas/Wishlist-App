@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive>
+    <dir sourceOnDisk="/Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/src/main/webapp" targetInArchive="/"/>
+    <dir sourceOnDisk="/Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/classes" targetInArchive="/WEB-INF/classes"/>
+    <file sourceOnDisk="/Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/tmp/META-INF/MANIFEST.MF" targetInArchive="/META-INF/MANIFEST.MF"/>
+</archive>

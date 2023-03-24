@@ -1,33 +1,62 @@
-package edu.sunyulster.genie.services;
+package edu.sunulster.genie.auth.services;
 
-import java.util.List;
+import static com.mongodb.client.model.Filters.eq;
 
-import edu.sunyulster.genie.db.FakeDb;
-import edu.sunyulster.genie.models.User;
+import org.bson.Document;
+
+import com.ibm.websphere.security.jwt.Claims;
+import com.ibm.websphere.security.jwt.InvalidBuilderException;
+import com.ibm.websphere.security.jwt.InvalidClaimException;
+import com.ibm.websphere.security.jwt.JwtBuilder;
+import com.ibm.websphere.security.jwt.JwtException;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import edu.sunulster.genie.auth.models.Credentials;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
+import jakarta.ws.rs.ServerErrorException;
 
+
+@ApplicationScoped
 public class LoginService {
+
+    @Inject
+    MongoDatabase db;
     
-    public String login(String email, String password) throws AuthenticationException {
-        // "connect" to db - THIS IS SUPER FAKE
-        FakeDb db = new FakeDb();
-        
-        // check db for user with the email 
-        User user = db.getUser(email);
-        // if email does not exist, throw error
-        if (user == null) 
-            throw new AuthenticationException("Email does not exist");
-        
-        // if password doesnt match, throw error
-        if (!password.equals(user.getPassword()))
-            throw new AuthenticationException("Password does not match");
+    public String login(Credentials creds) throws AuthenticationException, JwtException {        
+        try {
+            MongoCollection<Document> users = db.getCollection("users");
+            Document match = users.find(eq("email", creds.getEmail())).first();
 
-        // otherwise, create and return a JWT token
-        return "jwt_token";
+            if (match == null) {
+                throw new AuthenticationException("email not in db");
+            } 
+
+            if (!creds.getPassword().equals(match.get("password"))) {
+                throw new AuthenticationException("passwords no not match");
+            }
+
+            String id = match.getObjectId("_id").toString();
+            return buildJwt(id);
+        } catch (JwtException e) {
+            throw new ServerErrorException("Could not build JWT", 500);
+        }   
     }
 
-    public List<User> getUsers() {
-        FakeDb db = new FakeDb();
-        return db.getUsers();
+    private String buildJwt(String userId) throws JwtException {
+        try {
+            return JwtBuilder.create("jwtBuilderConfig")
+                            .claim(Claims.SUBJECT, userId)
+                            .claim("upn", userId)
+                            .claim("groups", new String[] {"user"})
+                            .claim("aud", "wishlist-app")
+                            .buildJwt()
+                            .compact();
+        } catch (JwtException | InvalidClaimException | InvalidBuilderException e) {
+            throw new JwtException("Error building JWT: " + e.getMessage());
+        }
     }
+    
 }

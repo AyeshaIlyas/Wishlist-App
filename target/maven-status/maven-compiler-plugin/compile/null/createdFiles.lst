@@ -1,0 +1,10 @@
+edu/sunyulster/genie/resources/RegisterResource.class
+edu/sunyulster/genie/services/LoginService.class
+edu/sunyulster/genie/models/Wishlist.class
+edu/sunyulster/genie/models/Item.class
+edu/sunyulster/genie/resources/WishlistApplication.class
+edu/sunyulster/genie/models/AppError.class
+edu/sunyulster/genie/resources/LoginResource.class
+edu/sunyulster/genie/db/FakeDb.class
+edu/sunyulster/genie/models/User.class
+edu/sunyulster/genie/services/RegisterService.class

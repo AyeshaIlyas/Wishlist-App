@@ -1,0 +1,237 @@
+********************************************************************************
+product = Open Liberty 23.0.0.2 (wlp-1.0.74.cl230220230222-1257)
+wlp.install.dir = /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/
+java.home = /Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home
+java.version = 19.0.2
+java.runtime = Java(TM) SE Runtime Environment (19.0.2+7-44)
+os = Mac OS X (12.6.3; x86_64) (en_US)
+process = 35839@Wendys-MacBook
+Classpath = /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/bin/tools/ws-server.jar
+Java Library path = /Users/stewartw/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+********************************************************************************
+[3/8/23, 16:40:28:854 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0001I: The server defaultServer has been launched.
+[3/8/23, 16:40:32:241 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           I CWWKE0002I: The kernel started after 4.594 seconds
+[3/8/23, 16:40:32:356 EST] 00000031 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0007I: Feature update started.
+[3/8/23, 16:40:49:449 EST] 00000024 com.ibm.ws.security.registry.basic.internal.BasicRegistry    W CWWKS3103W: There are no users defined for the BasicRegistry configuration of ID com.ibm.ws.security.registry.basic.config[basic].
+[3/8/23, 16:40:49:522 EST] 00000024 com.ibm.ws.security.ready.internal.SecurityReadyServiceImpl  I CWWKS0007I: The security service is starting...
+[3/8/23, 16:40:50:127 EST] 0000003c com.ibm.ws.app.manager.internal.monitor.DropinMonitor        A CWWKZ0058I: Monitoring dropins for applications.
+[3/8/23, 16:40:51:086 EST] 0000003c com.ibm.ws.cache.ServerCache                                 I DYNA1001I: WebSphere Dynamic Cache instance named baseCache initialized successfully.
+[3/8/23, 16:40:51:089 EST] 0000003c com.ibm.ws.cache.ServerCache                                 I DYNA1071I: The cache provider default is being used.
+[3/8/23, 16:40:51:108 EST] 0000003c com.ibm.ws.cache.CacheServiceImpl                            I DYNA1056I: Dynamic Cache (object cache) initialized successfully.
+[3/8/23, 16:40:52:495 EST] 0000003c rty.security.mp.jwt.v12.config.impl.MpConfigProxyServiceImpl I CWWKS5780I: The MicroProfile JWT version 1.2 mpConfigProxy processed successfully.
+[3/8/23, 16:40:53:414 EST] 0000003d com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSIS1553I: The minimum reserved size in the configuration information of the permanent store file is 20,971,520 bytes. The maximum size is 209,715,200 bytes.
+[3/8/23, 16:40:53:448 EST] 0000003d com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSIS1557I: The minimum reserved size in the configuration information of the temporary store file is 20,971,520 bytes. The maximum size is 209,715,200 bytes.
+[3/8/23, 16:40:53:885 EST] 0000003d com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSID0108I: JMS server has started.  
+[3/8/23, 16:40:53:951 EST] 0000002d com.ibm.ws.ssl.config.WSKeyStore                             A CWPKI0820A: The default keystore has been created using the 'keystore_password' environment variable.
+[3/8/23, 16:40:53:963 EST] 0000002d com.ibm.ws.ssl.config.WSKeyStore                             I CWPKI0802I: Creating the SSL certificate. This may take a few seconds.
+[3/8/23, 16:40:53:997 EST] 00000038 com.ibm.ws.security.token.ltpa.LTPAKeyInfoManager            I CWWKS4103I: Creating the LTPA keys. This may take a few seconds.
+[3/8/23, 16:40:54:329 EST] 00000024 ibm.ws.security.authentication.internal.jaas.JAASServiceImpl I CWWKS1123I: The collective authentication plugin with class name NullCollectiveAuthenticationPlugin has been activated. 
+[3/8/23, 16:40:55:644 EST] 00000024 com.ibm.ws.security.jaspi.AuthConfigFactoryWrapper           I CWWKS1655I: The default Java Authentication SPI for Containers (JASPIC) AuthConfigFactory class com.ibm.ws.security.jaspi.ProviderRegistry is being used because the Java security property authconfigprovider.factory is not set. 
+[3/8/23, 16:40:55:696 EST] 00000038 com.ibm.ws.security.token.ltpa.LTPAKeyInfoManager            A CWWKS4104A: LTPA keys created in 1.698 seconds. LTPA key file: /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/resources/security/ltpa.keys
+[3/8/23, 16:40:55:731 EST] 00000038 com.ibm.ws.security.ready.internal.SecurityReadyServiceImpl  I CWWKS0008I: The security service is ready.
+[3/8/23, 16:40:55:733 EST] 00000038 com.ibm.ws.security.token.ltpa.internal.LTPAKeyCreateTask    I CWWKS4105I: LTPA configuration is ready after 1.740 seconds.
+[3/8/23, 16:40:55:829 EST] 00000024 com.ibm.ws.security.jwt.internal.ConsumerImpl                I CWWKS6012I: The JSON Web Token (JWT) consumer service is available.
+[3/8/23, 16:40:55:859 EST] 00000024 com.ibm.ws.security.jwt.web.JwtEndpointServices              I CWWKS6002I: The JSON Web Token (JWT) endpoint service is available.
+[3/8/23, 16:40:56:781 EST] 00000024 com.ibm.ws.session.WASSessionCore                            I SESN8501I: The session manager did not find a persistent storage location; HttpSession objects will be stored in the local application server's memory.
+[3/8/23, 16:40:57:218 EST] 00000024 .microprofile.metrics.internal.monitor.MonitorMetricsHandler I CWPMI2003I: Monitoring metrics can be retrieved through mpMetrics.
+[3/8/23, 16:40:57:676 EST] 0000003e cxf.cxf.core.3.2.jakarta:1.0.74.cl230220230222-1257(id=282)] I Aries Blueprint packages not available. So namespaces will not be registered
+[3/8/23, 16:40:59:508 EST] 0000002d com.ibm.ws.ssl.config.WSKeyStore                             A CWPKI0803A: SSL certificate created in 5.544 seconds. SSL key file: /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12
+[3/8/23, 16:40:59:509 EST] 0000002d com.ibm.ws.ssl.config.WSKeyStore                             I Successfully loaded default keystore: /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12 of type: PKCS12
+[3/8/23, 16:40:59:635 EST] 0000002d com.ibm.ws.security.mp.jwt.impl.MicroProfileJwtServiceImpl   I CWWKS5500I: The MicroProfile JWT configuration [MicroProfileJwtService] was successfully processed.
+[3/8/23, 16:40:59:643 EST] 0000002d com.ibm.ws.security.mp.jwt.impl.MicroProfileJwtConfigImpl    I CWWKS5500I: The MicroProfile JWT configuration [defaultMpJwt] was successfully processed.
+[3/8/23, 16:41:01:477 EST] 00000038 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: io.openliberty.security.jwt.internal.
+[3/8/23, 16:41:01:480 EST] 00000038 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module io.openliberty.security.jwt.internal has been bound to default_host.
+[3/8/23, 16:41:01:484 EST] 00000038 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/jwt/
+[3/8/23, 16:41:01:523 EST] 00000038 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: PrivateMicroProfileMetrics.
+[3/8/23, 16:41:01:523 EST] 00000038 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module PrivateMicroProfileMetrics has been bound to default_host.
+[3/8/23, 16:41:01:524 EST] 00000038 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/metrics/
+[3/8/23, 16:41:01:543 EST] 00000036 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: IBMJMXConnectorREST.
+[3/8/23, 16:41:01:543 EST] 00000036 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module IBMJMXConnectorREST has been bound to default_host.
+[3/8/23, 16:41:01:543 EST] 00000036 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/IBMJMXConnectorREST/
+[3/8/23, 16:41:01:571 EST] 00000034 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: health.
+[3/8/23, 16:41:01:571 EST] 00000034 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module health has been bound to default_host.
+[3/8/23, 16:41:01:572 EST] 00000034 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/health/
+[3/8/23, 16:41:01:602 EST] 00000032 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: ibm/api.
+[3/8/23, 16:41:01:602 EST] 00000032 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module ibm/api has been bound to default_host.
+[3/8/23, 16:41:01:602 EST] 00000032 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/ibm/api/
+[3/8/23, 16:41:01:732 EST] 00000035 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: OpenAPIUI.
+[3/8/23, 16:41:01:732 EST] 00000035 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module OpenAPIUI has been bound to default_host.
+[3/8/23, 16:41:01:733 EST] 00000035 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/openapi/ui/
+[3/8/23, 16:41:01:767 EST] 00000033 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: MicroProfileOpenAPI.
+[3/8/23, 16:41:01:768 EST] 00000033 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module MicroProfileOpenAPI has been bound to default_host.
+[3/8/23, 16:41:01:768 EST] 00000033 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/openapi/
+[3/8/23, 16:41:01:783 EST] 00000036 com.ibm.ws.app.manager.AppMessageHelper                      I CWWKZ0018I: Starting application wishlist-app.
+[3/8/23, 16:41:01:784 EST] 00000036 bm.ws.app.manager.war.internal.WARDeployedAppInfoFactoryImpl I CWWKZ0134I: The wishlist-app application is using the loose application definition at the /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/apps/wishlist-app.war.xml location.
+[3/8/23, 16:41:01:827 EST] 00000035 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/health
+[3/8/23, 16:41:01:828 EST] 00000032 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/metrics
+[3/8/23, 16:41:01:828 EST] 00000034 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/jwt
+[3/8/23, 16:41:01:828 EST] 00000033 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/ibm/api
+[3/8/23, 16:41:01:858 EST] 0000002d com.ibm.ws.transport.iiop.internal.ORBWrapperInternal        A CWWKI0001I: The CORBA name server is now available at corbaloc:iiop:localhost:2809/NameService.
+[3/8/23, 16:41:01:887 EST] 00000037 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/IBMJMXConnectorREST
+[3/8/23, 16:41:01:903 EST] 00000038 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: /openapi/platform.
+[3/8/23, 16:41:01:903 EST] 00000038 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module /openapi/platform has been bound to default_host.
+[3/8/23, 16:41:01:904 EST] 00000038 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/openapi/platform/
+[3/8/23, 16:41:02:012 EST] 0000005c com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/openapi/platform
+[3/8/23, 16:41:02:037 EST] 00000059 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/openapi/ui
+[3/8/23, 16:41:02:042 EST] 0000005a com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/openapi
+[3/8/23, 16:41:02:117 EST] 00000035 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:126 EST] 0000005a com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:127 EST] 00000059 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:128 EST] 0000005c com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:129 EST] 00000037 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:139 EST] 00000033 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:140 EST] 00000034 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:142 EST] 00000032 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:02:171 EST] 0000005c org.hibernate.validator.internal.util.Version                I HV000001: Hibernate Validator 7.0.4.Final
+[3/8/23, 16:41:02:533 EST] 00000059 com.ibm.ws.cache.CacheServiceImpl                            I DYNA1056I: Dynamic Cache (object cache) initialized successfully.
+[3/8/23, 16:41:02:566 EST] 0000002d org.apache.cxf.ext.logging.osgi.Activator                    I CXF message logging feature disabled
+[3/8/23, 16:41:02:667 EST] 00000059 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:796 EST] 00000032 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:799 EST] 00000034 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:830 EST] 0000005c org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:833 EST] 00000033 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:836 EST] 00000037 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:847 EST] 00000035 org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:02:850 EST] 0000005a org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:03:003 EST] 00000033 com.ibm.ws.jmx.connector.server.rest.RESTAppListener         I CWWKX0103I: The JMX REST connector is running and is available at the following service URL: service:jmx:rest://localhost:9443/IBMJMXConnectorREST
+[3/8/23, 16:41:03:005 EST] 00000033 com.ibm.ws.jmx.connector.server.rest.RESTAppListener         I CWWKX0103I: The JMX REST connector is running and is available at the following service URL: service:jmx:rest://localhost:9443/IBMJMXConnectorREST
+[3/8/23, 16:41:03:012 EST] 00000035 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.health.3.1.internal.jakarta] [/health] [HealthCheckReadinessServlet]: Initialization successful.
+[3/8/23, 16:41:03:015 EST] 00000035 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.health.3.1.internal.jakarta] [/health] [HealthCheckServlet]: Initialization successful.
+[3/8/23, 16:41:03:015 EST] 00000037 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [com.ibm.ws.jmx.connector.server.rest.jakarta] [/IBMJMXConnectorREST] [JMXRESTProxyServlet]: Initialization successful.
+[3/8/23, 16:41:03:016 EST] 00000035 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.health.3.1.internal.jakarta] [/health] [HealthCheckStartupServlet]: Initialization successful.
+[3/8/23, 16:41:03:017 EST] 00000035 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.health.3.1.internal.jakarta] [/health] [HealthCheckLivenessServlet]: Initialization successful.
+[3/8/23, 16:41:03:023 EST] 0000005a com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.openapi.2.0.internal.jakarta] [/openapi] [ApplicationServlet]: Initialization successful.
+[3/8/23, 16:41:03:031 EST] 00000032 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.microprofile.metrics.internal.private] [/metrics] [PrivateMetricsRESTProxyServlet]: Initialization successful.
+[3/8/23, 16:41:03:195 EST] 0000005b com.ibm.ws.webcontainer.osgi.mbeans.PluginGenerator          I SRVE9103I: A configuration file for a web server plugin was automatically generated for this server at /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/logs/state/plugin-cfg.xml.
+[3/8/23, 16:41:03:574 EST] 00000036 liberty.microprofile.openapi20.internal.ApplicationProcessor I CWWKO1660I: The application wishlist-app was processed and an OpenAPI document was produced.
+[3/8/23, 16:41:03:614 EST] 00000036 org.jboss.weld.Version                                       I WELD-000900: 4.0.3 (Final)
+[3/8/23, 16:41:05:395 EST] 00000036 org.jboss.weld.Event                                         I WELD-000411: Observer method [BackedAnnotatedMethod] org.apache.myfaces.config.annotation.CdiAnnotationProviderExtension.processAnnotatedType(@Observes ProcessAnnotatedType<T>) receives events for all annotated types. Consider restricting events using @WithAnnotations or a generic type with bounds.
+[3/8/23, 16:41:05:409 EST] 00000036 org.jboss.weld.Event                                         I WELD-000411: Observer method [BackedAnnotatedMethod] org.apache.myfaces.cdi.JsfArtifactProducerExtension.processAnnotatedType(@Observes ProcessAnnotatedType<T>, BeanManager) receives events for all annotated types. Consider restricting events using @WithAnnotations or a generic type with bounds.
+[3/8/23, 16:41:07:515 EST] 00000036 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: wishlist-app.
+[3/8/23, 16:41:07:515 EST] 00000036 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module wishlist-app has been bound to default_host.
+[3/8/23, 16:41:07:515 EST] 00000036 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/wishlist-app/
+[3/8/23, 16:41:07:522 EST] 0000005b com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/wishlist-app
+[3/8/23, 16:41:07:525 EST] 0000005b com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:07:562 EST] 0000005b org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:07:633 EST] 0000005b com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0001I: Application wishlist-app started in 5.850 seconds.
+[3/8/23, 16:41:07:665 EST] 00000031 com.ibm.ws.tcpchannel.internal.TCPPort                       I CWWKO0219I: TCP Channel defaultHttpEndpoint has been started and is now listening for requests on host localhost  (IPv4: 127.0.0.1) port 9081.
+[3/8/23, 16:41:07:668 EST] 00000031 com.ibm.ws.tcpchannel.internal.TCPPort                       I CWWKO0219I: TCP Channel wasJmsEndpoint471 has been started and is now listening for requests on host localhost  (IPv4: 127.0.0.1) port 7276.
+[3/8/23, 16:41:07:669 EST] 00000031 com.ibm.ws.tcpchannel.internal.TCPPort                       I CWWKO0219I: TCP Channel wasJmsEndpoint471-ssl has been started and is now listening for requests on host localhost  (IPv4: 127.0.0.1) port 7286.
+[3/8/23, 16:41:07:670 EST] 00000031 com.ibm.ws.tcpchannel.internal.TCPPort                       I CWWKO0219I: TCP Channel defaultHttpEndpoint-ssl has been started and is now listening for requests on host localhost  (IPv4: 127.0.0.1) port 9443.
+[3/8/23, 16:41:07:732 EST] 00000031 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0012I: The server installed the following features: [appAuthentication-2.0, appAuthorization-2.0, appClientSupport-2.0, appSecurity-4.0, batch-2.0, beanValidation-3.0, cdi-3.0, concurrent-2.0, connectors-2.0, connectorsInboundSecurity-2.0, distributedMap-1.0, enterpriseBeans-4.0, enterpriseBeansHome-4.0, enterpriseBeansLite-4.0, enterpriseBeansPersistentTimer-4.0, enterpriseBeansRemote-4.0, expressionLanguage-4.0, faces-3.0, jakartaee-9.1, jdbc-4.2, jndi-1.0, json-1.0, jsonb-2.0, jsonp-2.0, jwt-1.0, mail-2.0, managedBeans-2.0, mdb-4.0, messaging-3.0, messagingClient-3.0, messagingSecurity-3.0, messagingServer-3.0, microProfile-5.0, monitor-1.0, mpConfig-3.0, mpFaultTolerance-4.0, mpHealth-4.0, mpJwt-2.0, mpMetrics-4.0, mpOpenAPI-3.0, mpOpenTracing-3.0, mpRestClient-3.0, pages-3.0, persistence-3.0, persistenceContainer-3.0, restConnector-2.0, restfulWS-3.0, restfulWSClient-3.0, servlet-5.0, ssl-1.0, transportSecurity-1.0, webProfile-9.1, websocket-2.0, xmlBinding-3.0, xmlWS-3.0].
+[3/8/23, 16:41:07:733 EST] 00000031 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0008I: Feature update completed in 35.529 seconds.
+[3/8/23, 16:41:07:734 EST] 00000031 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 40.089 seconds.
+[3/8/23, 16:41:07:773 EST] 00000036 com.ibm.ws.webcontainer.osgi.mbeans.PluginGenerator          I SRVE9103I: A configuration file for a web server plugin was automatically generated for this server at /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/logs/state/plugin-cfg.xml.
+[3/8/23, 16:41:08:251 EST] 0000005b org.jboss.resteasy.resteasy_jaxrs.i18n                       I RESTEASY002225: Deploying jakarta.ws.rs.core.Application: class edu.sunyulster.genie.resources.WishlistApplication$Proxy$_$$_WeldClientProxy
+[3/8/23, 16:41:08:425 EST] 0000005b com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [wishlist-app] [/wishlist-app] [edu.sunyulster.genie.resources.WishlistApplication]: Initialization successful.
+[3/8/23, 16:41:11:098 EST] 00000033 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): http://localhost:9081/wishlist-app/
+[3/8/23, 16:41:11:100 EST] 00000033 com.ibm.ws.webcontainer.servlet                              I SRVE0253I: [wishlist-app] [/wishlist-app] [edu.sunyulster.genie.resources.WishlistApplication]: Destroy successful.
+[3/8/23, 16:41:11:128 EST] 00000033 com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0009I: The application wishlist-app has stopped successfully.
+[3/8/23, 16:41:11:134 EST] 00000033 com.ibm.ws.app.manager.AppMessageHelper                      I CWWKZ0018I: Starting application wishlist-app.
+[3/8/23, 16:41:11:134 EST] 00000033 bm.ws.app.manager.war.internal.WARDeployedAppInfoFactoryImpl I CWWKZ0134I: The wishlist-app application is using the loose application definition at the /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/apps/wishlist-app.war.xml location.
+[3/8/23, 16:41:11:179 EST] 00000031 com.ibm.ws.webcontainer.osgi.mbeans.PluginGenerator          I SRVE9103I: A configuration file for a web server plugin was automatically generated for this server at /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/logs/state/plugin-cfg.xml.
+[3/8/23, 16:41:11:328 EST] 00000033 liberty.microprofile.openapi20.internal.ApplicationProcessor I CWWKO1660I: The application wishlist-app was processed and an OpenAPI document was produced.
+[3/8/23, 16:41:11:547 EST] 00000033 org.jboss.weld.Event                                         I WELD-000411: Observer method [BackedAnnotatedMethod] org.apache.myfaces.cdi.JsfArtifactProducerExtension.processAnnotatedType(@Observes ProcessAnnotatedType<T>, BeanManager) receives events for all annotated types. Consider restricting events using @WithAnnotations or a generic type with bounds.
+[3/8/23, 16:41:11:566 EST] 00000033 org.jboss.weld.Event                                         I WELD-000411: Observer method [BackedAnnotatedMethod] org.apache.myfaces.config.annotation.CdiAnnotationProviderExtension.processAnnotatedType(@Observes ProcessAnnotatedType<T>) receives events for all annotated types. Consider restricting events using @WithAnnotations or a generic type with bounds.
+[3/8/23, 16:41:12:547 EST] 00000033 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: wishlist-app.
+[3/8/23, 16:41:12:548 EST] 00000033 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module wishlist-app has been bound to default_host.
+[3/8/23, 16:41:12:548 EST] 00000033 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://localhost:9081/wishlist-app/
+[3/8/23, 16:41:12:550 EST] 0000006a com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/wishlist-app
+[3/8/23, 16:41:12:550 EST] 0000006a com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[3/8/23, 16:41:12:571 EST] 0000006a org.apache.myfaces.ee.MyFacesContainerInitializer            I Using org.apache.myfaces.ee.MyFacesContainerInitializer
+[3/8/23, 16:41:12:593 EST] 0000006a com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0003I: The application wishlist-app updated in 1.458 seconds.
+[3/8/23, 16:41:12:720 EST] 00000033 com.ibm.ws.webcontainer.osgi.mbeans.PluginGenerator          I SRVE9103I: A configuration file for a web server plugin was automatically generated for this server at /Users/stewartw/Desktop/Coding/visualStudio/Wishlist-App/target/liberty/wlp/usr/servers/defaultServer/logs/state/plugin-cfg.xml.
+[3/8/23, 16:41:12:849 EST] 0000006a org.jboss.resteasy.resteasy_jaxrs.i18n                       I RESTEASY002225: Deploying jakarta.ws.rs.core.Application: class edu.sunyulster.genie.resources.WishlistApplication$Proxy$_$$_WeldClientProxy
+[3/8/23, 16:41:12:860 EST] 0000006a com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [wishlist-app] [/wishlist-app] [edu.sunyulster.genie.resources.WishlistApplication]: Initialization successful.
+[3/9/23, 9:17:25:931 EST] 00000032 rty.opentracing.internal.OpentracingUserFeatureAccessService W CWMOT0010W: OpenTracing cannot track JAX-RS requests because an OpentracingTracerFactory class was not provided or client libraries for tracing backend are not in the class path.
+[3/9/23, 9:17:25:952 EST] 00000032 SystemErr                                                    R java.io.FileNotFoundException: users.ser (No such file or directory)
+[3/9/23, 9:17:25:956 EST] 00000032 SystemErr                                                    R 	at java.base/java.io.FileInputStream.open0(Native Method)
+[3/9/23, 9:17:26:097 EST] 00000032 SystemErr                                                    R 	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+[3/9/23, 9:17:26:099 EST] 00000032 SystemErr                                                    R 	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:158)
+[3/9/23, 9:17:26:101 EST] 00000032 SystemErr                                                    R 	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112)
+[3/9/23, 9:17:26:109 EST] 00000032 SystemErr                                                    R 	at edu.sunyulster.genie.db.FakeDb.loadUsersFromFile(FakeDb.java:25)
+[3/9/23, 9:17:26:111 EST] 00000032 SystemErr                                                    R 	at edu.sunyulster.genie.db.FakeDb.<init>(FakeDb.java:21)
+[3/9/23, 9:17:26:113 EST] 00000032 SystemErr                                                    R 	at edu.sunyulster.genie.services.LoginService.getUsers(LoginService.java:30)
+[3/9/23, 9:17:26:116 EST] 00000032 SystemErr                                                    R 	at edu.sunyulster.genie.resources.LoginResource.users(LoginResource.java:44)
+[3/9/23, 9:17:26:130 EST] 00000032 SystemErr                                                    R 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+[3/9/23, 9:17:26:137 EST] 00000032 SystemErr                                                    R 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+[3/9/23, 9:17:26:141 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:170)
+[3/9/23, 9:17:26:178 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:130)
+[3/9/23, 9:17:26:180 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:660)
+[3/9/23, 9:17:26:181 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:524)
+[3/9/23, 9:17:26:182 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:474)
+[3/9/23, 9:17:26:182 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
+[3/9/23, 9:17:26:182 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:476)
+[3/9/23, 9:17:26:182 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:434)
+[3/9/23, 9:17:26:182 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:408)
+[3/9/23, 9:17:26:183 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:69)
+[3/9/23, 9:17:26:183 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:492)
+[3/9/23, 9:17:26:183 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:261)
+[3/9/23, 9:17:26:183 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:161)
+[3/9/23, 9:17:26:183 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
+[3/9/23, 9:17:26:184 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:164)
+[3/9/23, 9:17:26:189 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:247)
+[3/9/23, 9:17:26:189 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:255)
+[3/9/23, 9:17:26:197 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:60)
+[3/9/23, 9:17:26:197 EST] 00000032 SystemErr                                                    R 	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:55)
+[3/9/23, 9:17:26:197 EST] 00000032 SystemErr                                                    R 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:587)
+[3/9/23, 9:17:26:198 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.servlet.ServletWrapper.service(ServletWrapper.java:1260)
+[3/9/23, 9:17:26:200 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest(ServletWrapper.java:748)
+[3/9/23, 9:17:26:209 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest(ServletWrapper.java:445)
+[3/9/23, 9:17:26:210 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.invokeTarget(WebAppFilterChain.java:197)
+[3/9/23, 9:17:26:210 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:100)
+[3/9/23, 9:17:26:210 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.security.jaspi.JaspiServletFilter.doFilter(JaspiServletFilter.java:58)
+[3/9/23, 9:17:26:210 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:203)
+[3/9/23, 9:17:26:211 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:93)
+[3/9/23, 9:17:26:211 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.WebAppFilterManager.doFilter(WebAppFilterManager.java:1068)
+[3/9/23, 9:17:26:211 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.filter.WebAppFilterManager.invokeFilters(WebAppFilterManager.java:1260)
+[3/9/23, 9:17:26:212 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.webapp.WebApp.handleRequest(WebApp.java:5080)
+[3/9/23, 9:17:26:212 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.osgi.DynamicVirtualHost$2.handleRequest(DynamicVirtualHost.java:318)
+[3/9/23, 9:17:26:213 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.WebContainer.handleRequest(WebContainer.java:1038)
+[3/9/23, 9:17:26:213 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.webcontainer.osgi.DynamicVirtualHost$2.run(DynamicVirtualHost.java:283)
+[3/9/23, 9:17:26:213 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.dispatcher.internal.channel.HttpDispatcherLink$TaskWrapper.run(HttpDispatcherLink.java:1248)
+[3/9/23, 9:17:26:214 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.dispatcher.internal.channel.HttpDispatcherLink.wrapHandlerAndExecute(HttpDispatcherLink.java:470)
+[3/9/23, 9:17:26:214 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.dispatcher.internal.channel.HttpDispatcherLink.ready(HttpDispatcherLink.java:429)
+[3/9/23, 9:17:26:214 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.channel.internal.inbound.HttpInboundLink.handleDiscrimination(HttpInboundLink.java:569)
+[3/9/23, 9:17:26:214 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.channel.internal.inbound.HttpInboundLink.handleNewRequest(HttpInboundLink.java:503)
+[3/9/23, 9:17:26:220 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.channel.internal.inbound.HttpInboundLink.processRequest(HttpInboundLink.java:363)
+[3/9/23, 9:17:26:220 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.http.channel.internal.inbound.HttpICLReadCallback.complete(HttpICLReadCallback.java:72)
+[3/9/23, 9:17:26:223 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.tcpchannel.internal.WorkQueueManager.requestComplete(WorkQueueManager.java:516)
+[3/9/23, 9:17:26:223 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.tcpchannel.internal.WorkQueueManager.attemptIO(WorkQueueManager.java:586)
+[3/9/23, 9:17:26:223 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.tcpchannel.internal.WorkQueueManager.workerRun(WorkQueueManager.java:970)
+[3/9/23, 9:17:26:224 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.tcpchannel.internal.WorkQueueManager$Worker.run(WorkQueueManager.java:1059)
+[3/9/23, 9:17:26:224 EST] 00000032 SystemErr                                                    R 	at com.ibm.ws.threading.internal.ExecutorServiceImpl$RunnableWrapper.run(ExecutorServiceImpl.java:247)
+[3/9/23, 9:17:26:224 EST] 00000032 SystemErr                                                    R 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+[3/9/23, 9:17:26:224 EST] 00000032 SystemErr                                                    R 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+[3/9/23, 9:17:26:224 EST] 00000032 SystemErr                                                    R 	at java.base/java.lang.Thread.run(Thread.java:1589)
+[3/9/23, 9:17:26:229 EST] 00000032 SystemOut                                                    O [INFO] populating users for the first time serialized
+[3/9/23, 9:18:14:803 EST] 00000032 com.ibm.ws.webcontainer.extension                            W SRVE0190E: File not found: /login
+[3/9/23, 9:18:30:535 EST] 00000082 com.ibm.ws.webcontainer.extension                            W SRVE0190E: File not found: /login/users
+[3/9/23, 10:34:47:887 EST] 00000020 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0085I: The server defaultServer is stopping because the JVM is exiting.
+[3/9/23, 10:34:47:942 EST] 000000d2 com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  A CWWKE1100I: Waiting for up to 30 seconds for the server to quiesce.
+[3/9/23, 10:34:48:032 EST] 000000be com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0220I: TCP Channel defaultHttpEndpoint has stopped listening for requests on host localhost  (IPv4: 127.0.0.1) port 9081.
+[3/9/23, 10:34:48:047 EST] 000000be com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0220I: TCP Channel defaultHttpEndpoint-ssl has stopped listening for requests on host localhost  (IPv4: 127.0.0.1) port 9443.
+[3/9/23, 10:34:48:047 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/jwt/
+[3/9/23, 10:34:48:048 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/wishlist-app/
+[3/9/23, 10:34:48:049 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/openapi/platform/
+[3/9/23, 10:34:48:049 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/openapi/ui/
+[3/9/23, 10:34:48:049 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/metrics/
+[3/9/23, 10:34:48:050 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/health/
+[3/9/23, 10:34:48:050 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/IBMJMXConnectorREST/
+[3/9/23, 10:34:48:050 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/ibm/api/
+[3/9/23, 10:34:48:050 EST] 000000be com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): https://localhost:9443/openapi/
+[3/9/23, 10:34:48:126 EST] 000000cf com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0220I: TCP Channel wasJmsEndpoint471 has stopped listening for requests on host localhost  (IPv4: 127.0.0.1) port 7276.
+[3/9/23, 10:34:48:130 EST] 000000cf com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0220I: TCP Channel wasJmsEndpoint471-ssl has stopped listening for requests on host localhost  (IPv4: 127.0.0.1) port 7286.
+[3/9/23, 10:34:48:657 EST] 00000021 com.ibm.ws.kernel.launch.internal.ServerCommandListener      A CWWKE0055I: Server shutdown requested on Thursday, March 9, 2023 at 10:34 AM. The server defaultServer is shutting down.
+[3/9/23, 10:34:49:133 EST] 000000d2 com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  I CWWKE1101I: Server quiesce complete.
+[3/9/23, 10:34:49:333 EST] 000000be com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0009I: The application wishlist-app has stopped successfully.
+[3/9/23, 10:34:50:990 EST] 000000d2 com.ibm.ws.transport.iiop.internal.ORBWrapperInternal        A CWWKI0002I: The CORBA name server is no longer available at corbaloc:iiop:localhost:2809/NameService.
+[3/9/23, 10:34:51:416 EST] 000000d2 .microprofile.metrics.internal.monitor.MonitorMetricsHandler I CWPMI2004I: All monitoring metrics were unregistered from mpMetrics.
+[3/9/23, 10:34:51:464 EST] 000000d2 rty.security.mp.jwt.v12.config.impl.MpConfigProxyServiceImpl I CWWKS5782I: The MicroProfile JWT version 1.2 mpConfigProxy deactivated successfully.
+[3/9/23, 10:34:51:469 EST] 000000d2 com.ibm.ws.security.mp.jwt.impl.MicroProfileJwtConfigImpl    I CWWKS5502I: The MicroProfile JWT configuration [defaultMpJwt] was successfully deactivated.
+[3/9/23, 10:34:51:470 EST] 000000d2 com.ibm.ws.security.mp.jwt.impl.MicroProfileJwtServiceImpl   I CWWKS5502I: The MicroProfile JWT configuration [MicroProfileJwtService] was successfully deactivated.
+[3/9/23, 10:34:51:912 EST] 000000d2 ibm.ws.security.authentication.internal.jaas.JAASServiceImpl I CWWKS1124I: The collective authentication plugin with class name NullCollectiveAuthenticationPlugin has been deactivated. 
+[3/9/23, 10:34:51:924 EST] 000000d2 com.ibm.ws.security.ready.internal.SecurityReadyServiceImpl  I CWWKS0009I: The security service has stopped.
+[3/9/23, 10:34:52:495 EST] 000000d2 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSIS1589I: The file store has stopped successfully.
+[3/9/23, 10:34:52:752 EST] 000000d2 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSID0121I: JMS server stopped.  
+[3/9/23, 10:34:53:585 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0036I: The server defaultServer stopped after 1 hours, 27 minutes, 8.067 seconds.

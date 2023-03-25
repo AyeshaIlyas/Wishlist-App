@@ -1,6 +1,8 @@
 package edu.sunyulster.genie.auth.services;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.lte;
 import static edu.sunyulster.genie.auth.utils.AuthUtils.createCookie;
 
 import java.time.Instant;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import com.ibm.websphere.security.jwt.JwtException;
@@ -59,7 +62,7 @@ public class LoginService {
         int ttl = (int) unit.toSeconds(timePeriod);
         Date expirationDate =  Date.from(Instant.now().plusSeconds(ttl));
         // delete previous session for this user
-        deleteSessions((ObjectId) user.get("_id"));
+        deleteExpiredSessions((ObjectId) user.get("_id"));
         String sessionId = createSession(user, expirationDate);
         return createCookie(sessionId, ttl, expirationDate);
    }
@@ -102,10 +105,11 @@ public class LoginService {
         return sessionMatch;
     }
 
-    private void deleteSessions(ObjectId userId) {
+    private void deleteExpiredSessions(ObjectId userId) {
         // delete all sessions for the userId
         MongoCollection<Document> sessions = db.getCollection("sessions");
-        sessions.deleteMany(eq("userId", userId));
+        Bson filter = and(eq("userId", userId), lte("expiration", new Date()));
+        sessions.deleteMany(filter);
    }
     
 }

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../utils/auth"
+import './Logout.css';
+
 
 export default function Logout({setVerified}) {
     const navigate = useNavigate()

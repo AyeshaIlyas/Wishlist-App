@@ -1,3 +1,6 @@
+import './MyWishLists.css';
+
+
 export default function MyWishlists() {
     return (
         <div className="wishlistContainer">

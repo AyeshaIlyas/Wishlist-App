@@ -1,8 +1,6 @@
 package edu.sunyulster.genie.models;
 
-import java.io.Serializable;
-
-public class AppError implements Serializable {
+public class AppError {
 
     private int statusCode;
     private String msg;

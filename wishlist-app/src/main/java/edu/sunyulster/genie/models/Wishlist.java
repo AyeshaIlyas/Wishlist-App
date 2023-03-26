@@ -1,21 +1,31 @@
 package edu.sunyulster.genie.models;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class Wishlist implements Serializable {
+public class Wishlist {
 
+    private String id;
     private String name;
     private int itemCount;
-    private int itemsBought;
+    private Date dateCreated;
 
     public Wishlist() {
 
     }
 
-    public Wishlist(String name, int itemCount, int itemsBought) {
+    public Wishlist(String id, String name, int itemCount, Date dateCreated) {
+        this.id = id;
         this.name = name;
         this.itemCount = itemCount;
-        this.itemsBought = itemsBought;
+        this.dateCreated = dateCreated;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,18 +44,18 @@ public class Wishlist implements Serializable {
         this.itemCount = itemCount;
     }
 
-    public int getItemsBought() {
-        return itemsBought;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public void setItemsBought(int itemsBought) {
-        this.itemsBought = itemsBought;
+    public void setDateCreated(Date date) {
+        this.dateCreated = date;
     }
 
     @Override
     public String toString() {
         return String.format(
-            "Wishlist %s%nItems Bought: %s%nTotal Items: %s", 
-            name, itemsBought, itemCount); 
+            "Wishlist %s%nTotal Items: %s%nCreated on: %s", 
+            name, itemCount, dateCreated.toString()); 
     }
 }

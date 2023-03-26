@@ -6,17 +6,15 @@ public class User implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    private String password;
 
     public User() {
         
     }
 
-    public User(String email, String firstName, String lastName, String password){
+    public User(String email, String firstName, String lastName){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
     }
 
     public String getEmail() {
@@ -43,18 +41,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
         return String.format(
-            "Name: %s %s%nEmail: %s%nPassword: %s", 
-            firstName, lastName, email, password); 
+            "Name: %s %s%nEmail: %s", 
+            firstName, lastName, email); 
     }
 }

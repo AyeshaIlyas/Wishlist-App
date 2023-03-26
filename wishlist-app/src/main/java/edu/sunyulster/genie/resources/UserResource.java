@@ -10,8 +10,10 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.json.JsonString;
+import jakarta.security.enterprise.AuthenticationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
@@ -19,7 +21,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @RequestScoped
-@Path("/users")
+@Path("/user")
 public class UserResource {
 
     @Inject
@@ -34,7 +36,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(User user) {
         try {
-            userService.createUser(user, userId.getString());
+            userService.create(user, userId.getString());
             return Response.noContent().build();
         } catch (InvalidDataException e) {
             return Response.status(Status.BAD_REQUEST)
@@ -49,10 +51,20 @@ public class UserResource {
         }
     }
 
-    @DELETE
-    public Response deleteUser() {
-        userService.deleteUser(userId.getString());
-        return Response.noContent().build();
+    @RolesAllowed({"user"})
+    @GET
+    public Response getUser() throws AuthenticationException {
+        User user = userService.get(userId.getString());
+        return Response.ok()
+            .type(MediaType.APPLICATION_JSON)
+            .entity(user)
+            .build();
     }
-    
+
+    @RolesAllowed({"user"})
+    @DELETE
+    public Response deleteUser() throws AuthenticationException {
+        userService.delete(userId.getString());
+        return Response.noContent().build();
+    }    
 }

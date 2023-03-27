@@ -1,0 +1,18 @@
+.Feature {
+    width: 300px;
+    padding: 10px;
+    margin: 1rem;
+    text-align: center;
+    background-color: aliceblue;
+    /*maybe add a box shadow, background color, border radius*/
+    /*maybe play around with font, font size, etc*/
+    /*maybe play around with hover, transitions*/
+}
+
+.Feature-title {
+    
+}
+
+.Feature-des {
+   
+}

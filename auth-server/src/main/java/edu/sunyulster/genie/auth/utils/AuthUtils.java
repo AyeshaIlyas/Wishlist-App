@@ -34,7 +34,7 @@ public class AuthUtils {
             ttl, 
             expirationDate, 
             false, 
-            true);
+            false);
 
         return newCookie;
     }

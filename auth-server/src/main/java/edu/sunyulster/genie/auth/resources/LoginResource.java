@@ -37,7 +37,8 @@ public class LoginResource {
         Document userDetails = loginService.verifyUser(creds);
         String jwt = loginService.createJwt(userDetails, "_id", "roles");
         NewCookie cookie = loginService.getNewCookie(userDetails, TimeUnit.DAYS, 7); // generate cookie that is valid for 1 week
-        JsonObject content = Json.createObjectBuilder().add("token", jwt).build();
+        System.out.println(cookie);
+        JsonObject content = Json.createObjectBuilder().add("token", jwt).add("cookie", cookie.getValue()).build();
         return Response.ok().type(MediaType.APPLICATION_JSON)
                 .cookie(cookie)
                 .entity(content)
@@ -48,7 +49,7 @@ public class LoginResource {
     @Path("/refresh")
     // JwtException handled by JwtExceptionMapper, AuthenticationException handled by AuthenticationExceptionMapper
     public Response refresh(@CookieParam("auth-session") Cookie cookie) throws JwtException, AuthenticationException {
-        if (cookie == null) 
+        if (cookie == null)
             throw new AuthenticationException("Cookie does not exist");
         String jwt = loginService.getRefreshToken(cookie);
         JsonObject content = Json.createObjectBuilder().add("token", jwt).build();

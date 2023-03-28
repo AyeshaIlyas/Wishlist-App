@@ -35,7 +35,7 @@ public class RegisterService {
 
     public String register(User user) throws RegistrationException, JwtException {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
-        if (areRolesValid(user.getRoles()))
+        if (!areRolesValid(user.getRoles()))
             throw new RegistrationException("At least one role must be specified");
 
         if (!isEmailValid(user.getEmail())) 

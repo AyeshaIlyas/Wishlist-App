@@ -50,7 +50,7 @@ public class RegisterResource {
     public Response deleteAccount(@CookieParam("auth-session") Cookie cookie) throws AuthenticationException {
         // user cannot delete account if they are not logged in 
         if (cookie == null) 
-            throw new AuthenticationException("Cookies does not exist");
+            throw new AuthenticationException("Cookie does not exist");
         // delete user details and all session for that user if logged in 
         NewCookie expiredCookie = registerService.deregister(cookie);
         return Response.noContent()

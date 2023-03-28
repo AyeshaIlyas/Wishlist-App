@@ -28,14 +28,14 @@ public class AuthUtils {
 
     public static NewCookie createCookie(String sessionId, int ttl, Date expirationDate) {
         // create cookie with session Id
-        Cookie cookie = new Cookie("auth-session", sessionId, "/api", "localhost");
+        // Cookie cookie = new Cookie("auth-session", sessionId, "/api", "127.0.0.1");
+        Cookie cookie = new Cookie("auth-session", sessionId);
         NewCookie newCookie = new NewCookie(cookie, 
             "Session cookie for auth-server", 
             ttl, 
             expirationDate, 
             false, 
             false);
-
         return newCookie;
     }
 }

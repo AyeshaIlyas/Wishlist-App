@@ -14,7 +14,7 @@ import { loggedIn } from '../../utils/auth';
 
 function App() {
 
-  // TODO: logout when JWT expires - check if token expired whever user tries to access new route
+  // TODO: logout when JWT expires - check if token expired whenever user tries to access new route
   const [verified, setVerified]= useState();
  
 
@@ -40,7 +40,7 @@ function App() {
               <MyWishlists/>
             </Protected>
           }/>
-          <Route path="*" element={<p>Hmmm no idea what youre asking for...</p>}/>
+          <Route path="*" element={<p>Hmmm no idea what you're asking for...</p>}/>
         </Routes>
         <Footer />
     </div>

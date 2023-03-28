@@ -1,12 +1,12 @@
-.Navbar {
+ .Navbar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#Navbar-logo {
+.Navbar-logo {
     display: inline-block;
-    width: 100px;
+    width: 150px;
 }
 
 .Navbar a {
@@ -17,6 +17,8 @@
     color:blue;
 }
 
-/* .Navbar button {
+ /* .Navbar button {
     margin: 0;
-} */
+}  */
+
+

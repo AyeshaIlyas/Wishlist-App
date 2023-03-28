@@ -15,7 +15,7 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
     public Response toResponse(ForbiddenException exception) {
         return Response.status(Status.FORBIDDEN)
                     .type(MediaType.APPLICATION_JSON)
-                    .entity(new AppError(403, "Forbidde: " + exception.getMessage()))
+                    .entity(new AppError(403, "Forbidden: " + exception.getMessage()))
                     .build();
     }
     

@@ -29,7 +29,7 @@ public class UserService {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
         // role validation??
     
-        if (isNameValid(user.getFirstName()) || isNameValid(user.getLastName())) 
+        if (!isNameValid(user.getFirstName()) || !isNameValid(user.getLastName())) 
             throw new InvalidDataException("Name is not valid");
 
         if (!isEmailValid(user.getEmail())) 
@@ -47,7 +47,7 @@ public class UserService {
 
     public User get(String userId) throws AuthenticationException {
         MongoCollection<Document> users = db.getCollection("users");
-        Document user = users.find(eq("authId", userId)).first();
+        Document user = users.find(eq("authId", new ObjectId(userId))).first();
         // if user was deleted but token is still valid this is possible:
         if (user == null) 
             throw new AuthenticationException("User does not exist");

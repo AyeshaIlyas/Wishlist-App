@@ -1,0 +1,9 @@
+.FeatureDeck {
+    text-align: center;
+}
+
+.FeatureDeck-cards {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}

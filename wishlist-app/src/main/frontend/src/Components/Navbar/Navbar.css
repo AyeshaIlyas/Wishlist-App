@@ -1,0 +1,22 @@
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Navbar-logo {
+    display: inline-block;
+    width: 100px;
+}
+
+.Navbar a {
+    padding: 10px;
+}
+
+.Navbar a.active {
+    color:blue;
+}
+
+/* .Navbar button {
+    margin: 0;
+} */

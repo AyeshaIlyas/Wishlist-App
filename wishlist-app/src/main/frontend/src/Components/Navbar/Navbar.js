@@ -4,6 +4,7 @@ import "./Navbar.css";
 import logo from "./logo.png";
 import AuthContext from "../Contexts/AuthContext";
 import Cookies from "js-cookie";
+import logo_With_Name from "./logo_With_Name.png";
 
 export default function Navbar() {
     const authState = useContext(AuthContext);
@@ -12,7 +13,6 @@ export default function Navbar() {
         Cookies.remove("auth-session");
         authState.setIsLoggedIn(false);
     }
-
     return authState.isLoggedIn ? 
         (
             <nav className="Navbar">
@@ -26,8 +26,11 @@ export default function Navbar() {
             </nav>
         ) : (
             <nav className="Navbar">
-                <Link to="/"><img id="Navbar-logo" src={logo} alt="genie-logo"/></Link>
-                <h1 className="Navbar-title">Fourth Wish</h1>
+                <Link to="/"><img id="Navbar-logo" src={logo_With_Name} alt="genie-logo"/></Link>
+                <div className="Navbar-links">
+                    <NavLink key="login" to="/login">Login</NavLink>
+                    <NavLink key="register" to="/register">Sign Up</NavLink>
+                </div>
             </nav>
         );
            

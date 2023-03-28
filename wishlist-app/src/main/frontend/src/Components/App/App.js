@@ -40,7 +40,7 @@ function App() {
           <Route path="/shared" element={
             <ProtectedRoute component={<MyWishlists/>}/>
           }/>
-          <Route path="*" element={<p>Hmmm no idea what youre asking for...</p>}/>
+          <Route path="*" element={<p>Hmmm no idea what you're asking for...</p>}/>
         </Routes>
         <Footer />
       </AuthContext.Provider>

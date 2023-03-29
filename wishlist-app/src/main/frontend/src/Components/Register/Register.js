@@ -16,14 +16,14 @@ const register = async (data) => {
     try {
         console.log("In register");
         // register in auth-server
-        let response = await axios.post("http://localhost:9082/api/register",
-            {data},
+        let response = await axios.post("http://127.0.0.1:9082/api/register",
+            data,
             {headers: {'Content-Type': 'application/json'}}
         );
         const registrationToken = response.data.token;
 
         // add info to wishlist-app
-        response = await axios.post("http://localhost:9081/api/user",
+        response = await axios.post("http://127.0.0.1:9081/api/user",
             data,
             {headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + registrationToken} }
         );

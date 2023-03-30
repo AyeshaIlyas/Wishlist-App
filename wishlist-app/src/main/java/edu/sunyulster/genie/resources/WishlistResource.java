@@ -5,6 +5,7 @@ import java.util.List;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.AppError;
 import edu.sunyulster.genie.models.Wishlist;
+import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.services.WishlistService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -60,9 +61,9 @@ public class WishlistResource {
     @GET
     @Path("/{id}")
     public Response getWishlist(@PathParam("id") String id) throws AuthenticationException {
-        Wishlist wishlists = wishlistService.get(userId, id);
+        Wishlist wishlist = wishlistService.get(userId, id);
         return Response.ok()
-            .entity(wishlists)
+            .entity(wishlist)
             .build();
     }
 
@@ -90,5 +91,4 @@ public class WishlistResource {
         wishlistService.delete(userId, id);
         return Response.noContent().build();
     }
-
 }

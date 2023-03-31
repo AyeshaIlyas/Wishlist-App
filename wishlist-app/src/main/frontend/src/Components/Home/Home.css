@@ -1,19 +1,68 @@
 .Home {
-
+    padding-left: 175px;
+    padding-right: 175px;
 }
 
 .Home-title {
-/*cap locks and left alined*/
+    font-size:50px;
+    text-align: left;
+    padding-top: 100px; 
+}
+
+.sect1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#blue {
+    width: 500px;
+    height: 500px; 
+    flex: 1;
+}
+
+.fa-solid fa-code {
+    width: 550px;
+    height: 550px;
+
+    top: 250px;
+    left: 1200px;
 }
 
 .Home-blurb {
+    font-size: 25px;
+    text-align: left;
+    line-height: 1.8;
+}
 
+#blurb {
+    flex: 1;
+    align-items: center;
+    padding-right: 75px;
+}
+
+#blurbette {
+    padding-top: 150px;
+}
+
+#blurbetty {
+    padding-bottom: 200px;
+
+}
+
+#registerBtn {
+    background-color: #9ECCDD;
+    border:1px solid #9ECCDD;
+    font-size: 18px;
+    color: black;
+    padding: 20px 40px;
+
+    display: flex;
 }
 
 .Home-team {
-/*cap locks and center alined*/
+    text-align: center;
+    font-size: 50px;
+    padding-top: 100px;
 }
 
-.Home-footer {
-    /*accent color - in figma for the color code*/
-}

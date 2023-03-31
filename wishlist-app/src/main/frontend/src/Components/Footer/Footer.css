@@ -1,2 +1,13 @@
 /* .Footer {} should have background color 
  for the accent color*/
+/* .Footer {} should have background color 
+ for the accent color*/
+
+ .Footer{
+    text-align: center;
+    font-size: 20px;
+    color:white;
+    background-color: #9ECCDD;
+    height: 50px;
+    padding-top:30px;
+ }

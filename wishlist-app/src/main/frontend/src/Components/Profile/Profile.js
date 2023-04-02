@@ -5,7 +5,7 @@ import { getProfile } from '../../services/profileService';
 import AuthContext from '../Contexts/AuthContext';
 
 export default function Profile() {
-    const [profileInfo, setProfileInfo] = useState();
+    const [profileInfo, setProfileInfo] = useState({firstName:"Jenny", lastName:"Elie",email:"jenny@gmail.com"});
     const authState = useContext(AuthContext);
     
     useEffect(
@@ -22,14 +22,40 @@ export default function Profile() {
 
 
     return (
-        <section>
-            <h1>PROFILE</h1>
-            { profileInfo && 
-            <>
-                <p>{profileInfo.firstName} {profileInfo.lastName}</p>
-                <p>Email: {profileInfo.email}</p>
-            </>
-            }
-        </section>
+        <div id='Profile'>
+            {/* banner */}
+            <div id='Profile-banner-container'>
+                <div id='Profile-banner'></div>
+            </div>
+            {/* profile picture */}
+            {/* <div id='Profile-picture-container'>
+                <div id='Profile-picture'></div>
+            </div> */}
+
+            {/* profile info section */}
+            <div id='Profile-info-container'>
+                <div id='Profile-info'>
+                    {/* My profile header*/}
+                    <div id='Profile-info-header'>
+                        <h1>MY PROFILE</h1>
+                    </div>
+                    {/* profile info rows and columns */}
+                    <div className='Profile-info-row'> 
+                        <div className='Profile-info-column-1'><p>First Name:</p></div>
+                        <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.firstName}</p></div>
+                    </div>
+
+                    <div class="Profile-info-row">
+                        <div className='Profile-info-column-1'><p>Last Name:</p></div>
+                        <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.lastName}</p></div>
+                    </div>
+                        
+                    <div class="Profile-info-row">
+                        <div className='Profile-info-column-1'><p>Email:</p></div>
+                        <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.email}</p></div>
+                    </div>
+                </div>
+            </div>   
+        </div>
     );
 }

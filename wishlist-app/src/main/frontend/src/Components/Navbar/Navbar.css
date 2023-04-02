@@ -1,24 +1,77 @@
  .Navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+     display: flex;
+     align-items: center;
+     background-color: white;
+     box-shadow: 0px 4px 2px -2px black;
+     color: white;
+     justify-content: space-between;
+     left: 0;
+     text-decoration: none;
+     position: sticky;
+     width: 100%;
+     top: 0;
+     margin: -10px 0 10px 0;
+    
 
-#Navbar-logo {
+
+
+ }
+
+ 
+
+ /*Styles both logos used. The width of the images causes styling the width attibute to change the height of the navbar. Height must therefore be used*/
+ #Navbar-logo {
+     display: inline-block;
+     height: 70px;
+ }
+
+
+ .Navbar a {
+     padding: 10px;
+     display: inline;
+ }
+
+ /*Styles clickable links found within Navbar. Removes the underline the link*/
+ .Navbar a:link {
+     text-decoration: none;
+     color: black;
+ }
+
+ /*Styles the text of the visted clickable links found within Navbar. Removes the underline and sets the purple coloring to black*/
+ .Navbar a:visited {
+     text-decoration: none;
+     color: black
+ }
+
+ /*Styles the text of the currently active clickable link found within Navbar. Removes the underline and sets the current active link to blue*/
+ .Navbar a.active {
+     color: blue;
+     text-decoration: none
+ }
+
+ /*Styles the text of the clickable links found within Navbar when hovered over. Removes the underline and set the coloring to cornflower blue*/
+ .Navbar a:hover {
+     color: #6495ED;
+     text-decoration: none;
+
+ }
+
+ /*Styles the Logout button of the Navbar.*/
+ .Navbar>button {
+    background-color: #ddd;
+    border: none;
+    border-radius: 16px;
+    color: black;
+    cursor: pointer;
     display: inline-block;
-    width: 150px;
-}
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+ }
 
-.Navbar a {
-    padding: 10px;
-}
-
-.Navbar a.active {
-    color:blue;
-}
-
- /* .Navbar button {
-    margin: 0;
-}  */
-
-
+ /*Styles the Logout button when hovered over. Matches background to navbar color and sets text coloring to cornflower blue*/
+ button:hover {
+     background-color: white;
+     color: #6495ED;
+ }

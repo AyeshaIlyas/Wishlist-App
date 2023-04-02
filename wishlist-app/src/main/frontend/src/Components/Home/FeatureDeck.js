@@ -9,10 +9,7 @@ class FeatureDeck extends Component {
         { name: "Feature2", des: "Lorem ipsum dolor sit aret" },
         { name: "Feature3", des: "Lorem ipsum dolor sit aret" },
         { name: "Feature4", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature5", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature6", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature7", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature8", des: "Lorem ipsum dolor sit aret" }
+        { name: "Feature5", des: "Lorem ipsum dolor sit aret" }
     ]
 };
     render() {
@@ -30,3 +27,4 @@ class FeatureDeck extends Component {
 }
 
 export default FeatureDeck;
+

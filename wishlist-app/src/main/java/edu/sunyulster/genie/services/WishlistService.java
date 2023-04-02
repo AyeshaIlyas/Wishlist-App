@@ -21,6 +21,8 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
+import edu.sunyulster.genie.services.ItemService;
+import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -30,10 +32,7 @@ import jakarta.ws.rs.ForbiddenException;
 
 
 @ApplicationScoped
-public class WishlistService {
-
-    @Inject
-    MongoDatabase db;
+public class WishlistService extends MongoService {
 
     public Wishlist create(String userId, Wishlist w) throws InvalidDataException {
         // validate information
@@ -79,15 +78,13 @@ public class WishlistService {
         return wishlists;
     }
 
+    public Document getDocument(String userId, String id){
+        checkWishlistOwnsership(new ObjectId(id), new ObjectId(userId));
+        return super.getDocument(id,"wishlists");
+    }
+
     public Wishlist get(String userId, String id) {
-        ObjectId wishlisId = new ObjectId(id);
-        checkWishlistOwnsership(new ObjectId(userId), wishlisId);
-        
-        MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        Document match = wishlists.find(eq("_id", wishlisId)).first();
-        if (match == null) 
-            throw new NoSuchElementException("Wishlist does not exist");
-        return documentToWishlist(match);
+        return documentToWishlist(getDocument(userId, id));
     }
 
     public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
@@ -139,5 +136,4 @@ public class WishlistService {
         }
         throw new ForbiddenException("Wishlist does not belong to requesting user");
     }
-    
 }

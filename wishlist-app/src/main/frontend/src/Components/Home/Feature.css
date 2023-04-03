@@ -1,17 +1,31 @@
 .Feature {
     width: 300px;
-    padding-top: 10px;
+    padding: 10px;
     margin: 1rem;
-    text-align: center;
     background-color: #9ECCDD;
-    /*maybe add a box shadow, background color, border radius*/
-    /*maybe play around with font, font size, etc*/
-    /*maybe play around with hover, transitions*/
+    text-align: center;
+    /* box-shadow: 7px 10px 12px -5px rgba(0, 0, 0, 0.174); */
+    border-radius: 5px;
 }
 
 .Feature-title {
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
 }
 
 .Feature-des {
-   
+    font-size: 80;
+    padding-bottom: 0.5rem;
+}
+
+.Feature img {
+    transition: all ease 500ms;
+}
+
+.Feature img:hover {
+    transform: scale(1.25);
+    opacity: 0.7;
 }

@@ -5,12 +5,10 @@ import "./FeatureDeck.css"
 class FeatureDeck extends Component {
     static defaultProps = {
     features: [
-        { name: "Feature1", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature2", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature3", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature4", des: "Lorem ipsum dolor sit aret" },
-        { name: "Feature5", des: "Lorem ipsum dolor sit aret" }
-    ]
+        { name: "Streamlined", des: "Streamline the gift giving process" },
+        { name: "Personalized", des: "Create a personalized Wishlist" },
+        { name: "Anonyomus Giving", des: "Completely anonymous gift purchasing" },
+        { name: "Share Lists", des: "Send your list to family and friends" }    ]
 };
     render() {
         return (

@@ -16,8 +16,7 @@ class WishlistCard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleEdit() 
-{
+    handleEdit() {
         this.setState({isEditing: true });
     }
 

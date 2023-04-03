@@ -1,68 +1,43 @@
 .Home {
-    padding-left: 175px;
-    padding-right: 175px;
+    padding-left: 2%;
+    padding-right: 2%;
+    text-align: center;
+    margin-top: 5%;
 }
 
 .Home-title {
-    font-size:50px;
-    text-align: left;
-    padding-top: 100px; 
-}
-
-.sect1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-#blue {
-    width: 500px;
-    height: 500px; 
-    flex: 1;
-}
-
-.fa-solid fa-code {
-    width: 550px;
-    height: 550px;
-
-    top: 250px;
-    left: 1200px;
+    text-align: center;
 }
 
 .Home-blurb {
-    font-size: 25px;
-    text-align: left;
-    line-height: 1.8;
-}
-
-#blurb {
-    flex: 1;
-    align-items: center;
-    padding-right: 75px;
-}
-
-#blurbette {
-    padding-top: 150px;
-}
-
-#blurbetty {
-    padding-bottom: 200px;
-
+    text-align: center;
+    line-height: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 #registerBtn {
-    background-color: #9ECCDD;
-    border:1px solid #9ECCDD;
-    font-size: 18px;
-    color: black;
-    padding: 20px 40px;
+    text-decoration: none;
+}
 
-    display: flex;
+.Home #registerBtn button{
+    background-color: #9ECCDD;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 20px 40px;
+    transition: all ease 500ms;
+}
+
+.Home #registerBtn button:hover{
+    background-color: #badfec;
 }
 
 .Home-team {
     text-align: center;
-    font-size: 50px;
-    padding-top: 100px;
+    margin-top: 2rem;
 }
 

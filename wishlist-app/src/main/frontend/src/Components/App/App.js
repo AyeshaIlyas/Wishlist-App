@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/profile" element={
+          {/* <Route path="/profile" element={
             <ProtectedRoute component={<Profile/>}/>
           }/>
           <Route path="/wishlists" element={
@@ -39,6 +39,17 @@ function App() {
           }/>
           <Route path="/shared" element={
             <ProtectedRoute component={<MyWishlists/>}/>
+          }/>
+        </Routes> */}
+
+<Route path="/profile" element={
+            <Profile/>
+          }/>
+          <Route path="/wishlists" element={
+            <MyWishlists/>
+          }/>
+          <Route path="/shared" element={
+            <MyWishlists/>
           }/>
         </Routes>
 

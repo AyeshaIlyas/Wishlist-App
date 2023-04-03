@@ -1,4 +1,4 @@
-
+/* 
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
@@ -38,19 +38,26 @@
     font-weight: bold;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
-}
+} */
 
-input[type=email], input[type=password]{
-    border: none;
+.Login input[type=email], input[type=password]{
     border-bottom: 2px solid gray;
-    padding: 15px 15px;
-    resize: none;
-    display: flex;
     text-align: left;
-    
 }
 
-a.loginBtn {
-    padding: 15px 15px;
-    float: left;
+
+.Login {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.blue {
+    flex: 1;
+}
+
+.Login-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
 }

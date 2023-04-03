@@ -40,21 +40,32 @@
     margin-bottom: 0.5rem;
 }
 
-#blue{
-    background-color: #9ecddd;
-    padding: 4rem;
-    width: 825px;
-    float:right;
-    height: 73vh;
+.Register {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100vh;
 }
 
-input[type=text], input[type=email], input[type=password]{
+.Reigster-container {
+    flex: 1;
+    align-items: center;
+}
+
+.blue{
+    background-color: #9ecddd;
+    flex: 1;
+    height: 100%;
+}
+
+.Register input[type=text], input[type=email], input[type=password]{
     border: none;
     border-bottom: 2px solid gray;
     padding: 15px 15px;
     resize: none;
     display: flex;
-    
-    margin-left:395px;
 }
 
+.Register section {
+    display: flex;
+    flex-direction: column;
+}

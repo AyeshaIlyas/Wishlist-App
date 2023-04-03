@@ -39,3 +39,22 @@
     padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+#blue{
+    background-color: #9ecddd;
+    padding: 4rem;
+    width: 825px;
+    float:right;
+    height: 73vh;
+}
+
+input[type=text], input[type=email], input[type=password]{
+    border: none;
+    border-bottom: 2px solid gray;
+    padding: 15px 15px;
+    resize: none;
+    display: flex;
+    
+    margin-left:395px;
+}
+

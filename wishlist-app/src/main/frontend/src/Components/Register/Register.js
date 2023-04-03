@@ -111,18 +111,26 @@ const Register = () => {
         authState.isLoggedIn
         ? <Navigate to="/wishlists"  replace/>
         : (
+            <div>
+            <div id="blue"> 
+            <h2>More Stuff To Say</h2>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                unt in culpa qui officia deserunt mollit anim id est laborum."
+            </div>
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Register</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="firstName">
-                        First Name:
+                             
                         <FontAwesomeIcon icon={faCheck} className={validFirstName ? "valid" : "hide"} />
                         <FontAwesomeIcon icon={faTimes} className={validFirstName || !firstName ? "hide" : "invalid"} />
                     </label>
                     <input
                         type="text"
                         id="firstName"
+                        placeholder="First name"
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                         required
@@ -132,13 +140,14 @@ const Register = () => {
 
 
                     <label htmlFor="lastName">
-                        Last Name:
+                               
                         <FontAwesomeIcon icon={faCheck} className={validLastName ? "valid" : "hide"} />
                         <FontAwesomeIcon icon={faTimes} className={validLastName || !lastName ? "hide" : "invalid"} />
                     </label>
                     <input
                         type="text"
                         id="lastName"
+                        placeholder="Last name"
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                         required
@@ -147,13 +156,14 @@ const Register = () => {
 
 
                     <label htmlFor="Email">
-                        Email:
+                       
                         <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
                         <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
                     </label>
                     <input
                         type="email"
                         id="email"
+                        placeholder="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         required
@@ -169,13 +179,14 @@ const Register = () => {
 
 
                     <label htmlFor="password">
-                        Password:
+                        
                         <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                         <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
                     </label>
                     <input
                         type="password"
                         id="password"
+                        placeholder="Password"
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         required
@@ -199,6 +210,7 @@ const Register = () => {
                     </span>
                 </p>
             </section>
+            </div>
         )
     );
 }

@@ -1,0 +1,37 @@
+.NewItemForm {
+    padding: 1em;
+    background-color: rgba(125, 192, 89, 0.573);
+    border-radius: 1em;
+    margin-bottom: 2em;
+    text-align: left;
+}
+
+.NewItemForm button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: green;
+    font-size: 15px;
+}
+
+.NewItemForm button:hover {
+    background-color: rgb(156, 214, 156);
+}
+
+
+.NewItemForm section {
+    margin-top: 1em;
+}
+
+
+.NewItemForm input, .NewItemForm select{
+    border: none;
+    outline: none;
+    background-color: rgb(216, 212, 216);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: rgb(90, 88, 91);
+    font-size: 15px;
+    margin-right: 1em;
+}

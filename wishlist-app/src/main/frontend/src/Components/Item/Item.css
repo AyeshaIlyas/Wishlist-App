@@ -1,0 +1,43 @@
+.Item {
+    padding: 1em;
+    background-color: rgba(233, 233, 233, 0.573);
+    border-radius: 1em;
+    margin-bottom: 2em;
+    text-align: left;
+}
+
+.Item button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: green;
+    font-size: 15px;
+}
+
+.Item button:hover {
+    background-color: rgb(156, 214, 156);
+}
+
+.Item section {
+    margin-top: 1em;
+}
+
+
+.Item input {
+    border: none;
+    outline: none;
+    background-color: rgb(216, 185, 216);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: blueviolet;
+    font-size: 15px;
+    margin-right: 1em;
+}
+
+.Item-link {
+    display: block;
+    padding-bottom: .8em;
+    color: green;
+    font-size: 20px;
+}

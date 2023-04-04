@@ -1,0 +1,43 @@
+.WishlistCard {
+    padding: 1em;
+    background-color: rgba(233, 233, 233, 0.573);
+    border-radius: 1em;
+    margin-bottom: 2em;
+    text-align: left;
+}
+
+
+.WishlistCard button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: green;
+    font-size: 15px;
+}
+
+.WishlistCard button:hover {
+    background-color: rgb(156, 214, 156);
+}
+
+.WishlistCard section {
+    margin-top: 1em;
+}
+
+.WishlistCard input {
+    border: none;
+    outline: none;
+    background-color: rgb(170, 170, 170);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: rgb(83, 83, 83);
+    font-size: 15px;
+    margin-right: 1em;
+}
+
+.WishlistCard-link {
+    display: block;
+    padding-bottom: .8em;
+    color: green;
+    font-size: 20px;
+}

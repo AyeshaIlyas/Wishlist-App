@@ -3,3 +3,7 @@
 * {
     font-family: 'Nunito', sans-serif;
 }
+
+html {
+    scroll-behavior: smooth;
+}

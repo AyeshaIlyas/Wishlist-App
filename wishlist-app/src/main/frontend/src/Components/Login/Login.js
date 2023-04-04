@@ -64,19 +64,19 @@ const Login = () => {
         authState.isLoggedIn
         ? <Navigate to="/wishlists" replace/>
         : (
-            <div className='Login'>
-                <div className="blue"> 
+            <div className="Login">
+                {/* <div className="Login-blue"> 
                     <h1> More Stuff To Say</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                     sed do eiusmod tempor incididunt ut labore et dolore magna 
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                </div>
+                </div> */}
 
             <section className="Login-container">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Login</h1>
-                <form  onSubmit={handleSubmit}>
+                <form className="Login-form" onSubmit={handleSubmit}>
                     <label htmlFor="email"></label>
                     <input
                         type="email"
@@ -96,9 +96,9 @@ const Login = () => {
                         value={pwd}
                         required
                     />
-                    <button id='loginBtn'>Login</button>
+                    <button className='Login-button'>Login</button>
                 </form>
-                <p>
+                <p className="Login-regLink">
                     Need an Account?<br />
                     <span className="line">
                         <Link to="/register">Register</Link>

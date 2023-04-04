@@ -2,9 +2,9 @@ import { useEffect, useContext, useState } from "react";
 import { createWishlist, getWishlists, removeWishlist, updateWishlist } from "../../services/wishlistService";
 import WishlistCard from "../WishlistCard/WishlistCard";
 import WishlistForm from "../WishlistForm/WishlistForm";
-import {authWrapper} from "./../../services/utils";
+import {authWrapper} from "../../services/utils";
 import './MyWishlists.css';
-import AuthContext from "./../Contexts/AuthContext";
+import AuthContext from "../Contexts/AuthContext";
 
 export default function MyWishlists() {
     const {setIsLoggedIn} = useContext(AuthContext);

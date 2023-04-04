@@ -1,63 +1,58 @@
-/* 
-.instructions {
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
-    padding: 0.25rem;
-    position: relative;
-    bottom: -10px;
-}
-
-.instructions > svg {
-    margin-right: 0.25rem;
-}
-
-.offscreen {
-    position: absolute;
-    left: -9999px;
-}
-
-.hide {
-    display: none;
-}
-
-.valid {
-    color: limegreen;
-    margin-left: 0.25rem;
-}
-
-.invalid {
-    color: red;
-    margin-left: 0.25rem;
-}
-
-.errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-} */
-
-.Login input[type=email], input[type=password]{
-    border-bottom: 2px solid gray;
-    text-align: left;
-}
-
-
 .Login {
-    display: flex;
-    flex-direction: row-reverse;
+    text-align: center;
 }
 
-.blue {
-    flex: 1;
-}
-
-.Login-container {
+.Login section {
+    width: 90%;
+    margin: 3em auto;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.Login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+.Login input[type="text"],
+.Login input[type="password"],
+.Login input[type="email"],
+.Login button,
+.Login textarea {
+    border-radius: 0.5rem;
+    border-color: #badfec;
+    border-style: solid;
+    font-size: 1.2rem;
+    padding: 0.25rem;
+}
+
+.Login label,
+.Login button {
+  margin-top: 1rem;
+}
+
+.Login button {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  background-color: #9ECCDD;
+  color: black;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  transition: all ease 500ms;
+}
+
+.Login button:hover{
+    background-color: #badfec;
+}
+
+.Login .line a{
+    color: black;
 }

@@ -6,7 +6,7 @@ import Home from "./../Home/Home";
 import Register from "./../Register/Register";
 import Login from "./../Login/Login";
 import Profile from "./../Profile/Profile";
-import MyWishlists from "./../MyWishlists/MyWishlists";
+import MyWishlists from "../MyWishlists/MyWishlists";
 import ProtectedRoute from "./../Utils/ProtectedRoute";
 import Cookies from "js-cookie";
 import AuthContext from '../Contexts/AuthContext';

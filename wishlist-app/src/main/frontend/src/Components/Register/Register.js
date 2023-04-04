@@ -28,6 +28,7 @@ const register = async (data) => {
         );
         return {success: true};
     } catch (err) {
+        console.log(err);
         return {success: false, 
                 status: !err.response 
                 ? 0 

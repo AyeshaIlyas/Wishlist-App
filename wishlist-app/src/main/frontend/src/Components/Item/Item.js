@@ -16,7 +16,8 @@ export default function Item(props) {
         props.remove(props.id);
     }
 
-    const handleUpdate = () => {
+    const handleUpdate = e => {
+        e.preventDefault();
         if (name.trim().length === 0) { // name must exist
             setError("Please specify a name");
         } else if (price + "".trim().length > 0 && isNaN(parseFloat(price))) { // price must be a valid decimal
@@ -62,7 +63,7 @@ export default function Item(props) {
                 
             </div>
         ) : (
-            <form className="Item">
+            <form className="Item" onSubmit={handleUpdate}>
                 <h2>{name.trim() ? name : "_"}</h2>
                 <section>
                     <label htmlFor="name">Name: </label>
@@ -92,7 +93,7 @@ export default function Item(props) {
                 <p>{error && error}</p>
 
                 <section>
-                    <button type="button" onClick={handleUpdate}>Update</button>
+                    <button>Update</button>
                     <button type="button" onClick={handleCancel}>Cancel</button>
                 </section>
             </form>

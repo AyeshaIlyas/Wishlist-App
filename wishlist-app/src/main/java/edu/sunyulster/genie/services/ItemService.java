@@ -15,18 +15,22 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
 import jakarta.ws.rs.ForbiddenException;
 
 
 @ApplicationScoped
-public class ItemService extends MongoService {
+public class ItemService {
+    @Inject
+    MongoDatabase db;
 
     public Item create(String userId, String wishlistId, Item i) throws ForbiddenException, InvalidDataException, AuthenticationException{
         ObjectId wId = new ObjectId(wishlistId);

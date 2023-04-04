@@ -15,19 +15,22 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
 import jakarta.ws.rs.ForbiddenException;
 
 
 @ApplicationScoped
-public class WishlistService extends MongoService {
+public class WishlistService {
+    @Inject
+    MongoDatabase db;
 
     public Wishlist create(String userId, Wishlist w) throws InvalidDataException {
         // validate information
@@ -98,11 +101,8 @@ public class WishlistService extends MongoService {
 
         // replace previous wishlist data with new data
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        UpdateResult result = wishlists.updateOne(eq("_id", wishlistId), update);
-        // // throw exception if the wishlist does not exist
-        // if (result.getModifiedCount() == 0)
-        //     throw new NoSuchElementException("Wishlist does not exists");
-        
+        wishlists.updateOne(eq("_id", wishlistId), update);
+    
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
     }
 

@@ -36,6 +36,7 @@ public class AuthUtils {
             expirationDate, 
             false, 
             false);
+            System.out.println(newCookie);
         return newCookie;
     }
 }

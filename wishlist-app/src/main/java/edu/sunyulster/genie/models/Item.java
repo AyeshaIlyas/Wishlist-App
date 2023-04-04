@@ -1,19 +1,35 @@
 package edu.sunyulster.genie.models;
 
+import java.util.Date;
+
 public class Item {
+    private String id;
     private String name;
-    private double price;
+    private Double price;
     private String supplier;
     private boolean purchased;
+    private Date dateCreated;
 
     public Item() {
 
     }
 
-    public Item(String name, double price, String supplier) {
+    public Item(String id, String name, Double price, 
+        String supplier, boolean purchased, Date dateCreated) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.supplier = supplier;
+        this.purchased = purchased;
+        this.dateCreated = dateCreated;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,11 +40,11 @@ public class Item {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -48,10 +64,18 @@ public class Item {
         this.purchased = purchased;
     }
 
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     @Override
     public String toString() {
         return String.format(
-            "Item Name: %s%nPrice: %.2d%nSupplier: %s%n", 
-            name, price, supplier); 
+            "Item Name: %s", 
+            name); 
     }
 }

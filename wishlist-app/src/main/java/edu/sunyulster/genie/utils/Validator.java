@@ -2,6 +2,7 @@ package edu.sunyulster.genie.utils;
 
 import java.util.regex.Pattern;
 
+import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
 
 public class Validator {
@@ -19,4 +20,9 @@ public class Validator {
     public static boolean isWishlistValid(Wishlist w) {
         return w.getName() != null && !w.getName().isEmpty();
     }
+
+    public static boolean isItemValid(Item i) {
+        return i.getName() != null && !i.getName().isEmpty();
+    }
+
 }

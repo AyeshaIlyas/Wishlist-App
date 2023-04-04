@@ -13,10 +13,13 @@ const login = async (creds) => {
         );
         // add jwt to session storage
         sessionStorage.setItem("token", response.data.token);
+        console.log(response.data.cookie);
         // since cookie isnt automatically being set....
-        Cookies.set("auth-session", response.data.cookie);
+        const {name, value, ...info} = response.data.cookie;
+        Cookies.set(name, value, info);
         return {success: true};
     } catch (err) {
+        console.log(err)
         return {success: false, 
                 status: !err.response 
                 ? 0 

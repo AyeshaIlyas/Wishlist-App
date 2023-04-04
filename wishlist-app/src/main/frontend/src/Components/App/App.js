@@ -29,8 +29,9 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
         <Navbar/>
+        <div className="App-content">
         <Routes>
-        <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/profile" element={
@@ -46,7 +47,7 @@ function App() {
             <ProtectedRoute component={<SharedWishlists/>}/>
           }/>
         </Routes> 
-
+        </div>
         <Footer />
       </AuthContext.Provider>
     </div>

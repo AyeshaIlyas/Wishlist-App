@@ -30,7 +30,7 @@ export default function Navbar() {
                 <Link to="/"><img id="Navbar-logo" src={logo} alt="genie-logo"/></Link>
                 <div className="Navbar-links">
                     <NavLink key="login" to="/login">Login</NavLink>
-                    <NavLink key="register" to="/register">Sign Up</NavLink>
+                    <NavLink key="register" to="/register">Register</NavLink>
                 </div>
             </nav>
         );

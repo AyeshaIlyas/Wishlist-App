@@ -1,6 +1,7 @@
 .NewItemForm {
     padding: 1em;
-    background-color: rgba(125, 192, 89, 0.573);
+    background-color: #395676;
+    color: #bbb;
     border-radius: 1em;
     margin-bottom: 2em;
     text-align: left;
@@ -11,12 +12,12 @@
     background-color: rgb(213, 213, 213);
     padding: .2em 1em;
     border-radius: 1em;
-    color: green;
+    color: #395676;;
     font-size: 15px;
 }
 
 .NewItemForm button:hover {
-    background-color: rgb(156, 214, 156);
+    background-color: #a6bbd2;
 }
 
 

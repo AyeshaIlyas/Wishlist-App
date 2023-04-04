@@ -16,7 +16,7 @@ class FeatureDeck extends Component {
                 <h1>Features</h1>
                 <div className="FeatureDeck-cards">
                     {this.props.features.map((f) => (
-                        <Feature name={f.name} des={f.des}/>
+                        <Feature key={f.name} name={f.name} des={f.des}/>
                     ))}
                 </div>
             </div>

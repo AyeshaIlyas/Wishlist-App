@@ -4,12 +4,32 @@
     right: 3em;
     padding: 1em 2em;
     border: none;
-    background-color: green;
+    background-color: #395676;
     border-radius: 10px;
     color: rgb(213, 213, 213);
     font-size: 15px;
 }
 
 .MyWishlists-cards {
-    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.MyWishlists-cards > .WishlistCard, 
+.MyWishlists-cards > .WishlistForm {
+    margin: 1em;
+    width: 250px;
+}
+
+.MyWishlists-container {
+    width: 90%;
+    margin: 3em auto;
+    text-align: center;
+
+}
+
+.WishlistCard-error {
+    color: rgb(206, 97, 97);
+    margin-bottom: 1em;
 }

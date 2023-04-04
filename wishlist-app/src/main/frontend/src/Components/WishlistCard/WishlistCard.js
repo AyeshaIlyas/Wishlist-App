@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./WishlistCard.css";
 
 export default function WishlistCard(props)  {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(props.name);
-    const [isNameValid, setIsNameValid] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        setIsNameValid(name.trim().length !== 0);
-        setError(null);
-    }, [name])
-
+        if (name.trim().length === 0) {
+            setError("Please specifiy a name");
+        } else {
+            setError(null);
+        }
+    }, [name]);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -36,7 +35,6 @@ export default function WishlistCard(props)  {
     const handleSubmit = e => {
         e.preventDefault();
         if (name.trim().length === 0) {
-            setError("Please specifiy a name");
             return;
         }
         props.update(props.id, {name});
@@ -45,26 +43,25 @@ export default function WishlistCard(props)  {
 
     return(
         <div className="WishlistCard">
-            <h2 className="Wishlist-title">{props.name}</h2>
+            <header>
+                <h2 className="Wishlist-title">{props.name}</h2>
+                <p>Items: {props.itemCount}</p>
+            </header>
             <div>
                 {isEditing ?
                 (
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="name">
-                            Name: 
-                            <FontAwesomeIcon icon={faCheck} className={isNameValid ? "valid" : "hide"} />
-                        </label>
+                        <label className="WishlistCard-label" htmlFor="name"> Name: </label>
                         <input 
                         type="text" 
                         value={name} 
                         onChange={handleChange}
                         />
-
+                        {error && <p className="WishlistCard-error">{error}</p>}
                         <div>
                             <button>Sumbit</button>
                             <button type="button" onClick={handleCancel}>Cancel</button>
                         </div>
-                        <p>{error && error}</p>
                     </form>
                 ) : (
                     <>

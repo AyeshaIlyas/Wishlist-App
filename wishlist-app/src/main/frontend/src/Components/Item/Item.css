@@ -11,12 +11,12 @@
     background-color: rgb(213, 213, 213);
     padding: .2em 1em;
     border-radius: 1em;
-    color: green;
+    color: #395676;
     font-size: 15px;
 }
 
 .Item button:hover {
-    background-color: rgb(156, 214, 156);
+    background-color: #a6bbd2;;
 }
 
 .Item section {
@@ -27,10 +27,10 @@
 .Item input {
     border: none;
     outline: none;
-    background-color: rgb(216, 185, 216);
+    background-color: #fff;
     padding: .2em 1em;
     border-radius: 1em;
-    color: blueviolet;
+    color: #395676;
     font-size: 15px;
     margin-right: 1em;
 }
@@ -38,6 +38,6 @@
 .Item-link {
     display: block;
     padding-bottom: .8em;
-    color: green;
+    color: #395676;;
     font-size: 20px;
 }

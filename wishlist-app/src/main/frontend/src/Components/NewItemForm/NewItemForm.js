@@ -37,6 +37,7 @@ export function NewItemForm(props) {
                     id="name" 
                     name="name" 
                     value={name}
+                    autoFocus
                     onChange={e => setName(e.target.value)}/>
             </section>
 

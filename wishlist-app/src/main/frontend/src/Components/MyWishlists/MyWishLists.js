@@ -84,13 +84,12 @@ export default function MyWishlists() {
     const displayWishlists = () => {
         return (
             <>
+                {wishlists.length === 0 && <p className="MyWishlists-msg">{"No wishlists yet :<"}</p>}
                 { isFormDisplaying && <WishlistForm create={create} cancel={cancel}/> }
-                {
-                    wishlists.length === 0 ?
-                    <p>No wishlists yet</p>
-                    :   <div className="MyWishlists-cards">
+                { wishlists.length !== 0 &&
+                        <div className="MyWishlists-cards">
                             {wishlists.map((w) => (
-                                <WishlistCard key={w.id} id={w.id} name={w.name} update={update} remove={remove}/>
+                                <WishlistCard key={w.id} id={w.id} {...w} update={update} remove={remove}/>
                             ))}
                         </div>
                 }
@@ -101,9 +100,11 @@ export default function MyWishlists() {
         
     return (
         <div className="MyWishlists">
-             <h1>Wishlists</h1>
-             {error && <p>{error}</p>}
-            { isLoading ? <p>Loading</p> : displayWishlists() }
+            <div className="MyWishlists-container">
+                <h1>Wishlists</h1>
+                {error && <p>{error}</p>}
+                { isLoading ? <p className="MyWishlists-msg">Loading...</p> : displayWishlists() }
+            </div> 
         </div>
     );
 }

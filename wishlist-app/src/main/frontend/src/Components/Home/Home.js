@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import "./Home.css";
 import FeatureDeck from "./FeatureDeck";
+import { useContext } from "react";
+import AuthContext from "../Contexts/AuthContext";
 
 export default function Home() {
+    const {isLoggedIn} = useContext(AuthContext);
     
     return (
         <div className="Home">
             <header>
                 <h1 className="Home-title">FOURTH WISH</h1>
-                    <section>
-                        <p className="Home-blurb">Welcome to our new app, Fourth Wish.
-                        With this app you can set up a Wishlist with your most wanted gifts for your 
-                        loved ones to see. You can create lists of any items you wish, and share it with
-                        friends, family and even co-workers! All gift purchases are completely anonymous so 
-                        the surprise will never be spoiled. We strive to innovate the gift giving process by 
-                        offering a new, simple way to have all a person’s wants in one convenient place. This
-                        will offer all users the certainty that the gifts being bought are what the recipient 
-                        truly wants to avoid the stress that comes with picking out gifts. Say goodbye to gift 
-                        cards! 
+                <section>
+                    <p className="Home-blurb">Welcome to our new app, Fourth Wish.
+                    With this app you can set up a Wishlist with your most wanted gifts for your 
+                    loved ones to see. You can create lists of any items you wish, and share it with
+                    friends, family and even co-workers! All gift purchases are completely anonymous so 
+                    the surprise will never be spoiled. We strive to innovate the gift giving process by 
+                    offering a new, simple way to have all a person’s wants in one convenient place. This
+                    will offer all users the certainty that the gifts being bought are what the recipient 
+                    truly wants to avoid the stress that comes with picking out gifts. Say goodbye to gift 
+                    cards! 
 
-                        </p>                
-                    </section>
-                
-                <Link to="/register" id="registerBtn"><button>Sign Up</button></Link>
+                    </p>                
+                </section>
+                {!isLoggedIn && <Link to="/register" id="registerBtn"><button>Sign Up</button></Link>}
             </header>
             
             <section>

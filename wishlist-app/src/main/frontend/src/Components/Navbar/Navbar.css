@@ -1,14 +1,14 @@
  .Navbar {
      display: flex;
      align-items: center;
-     background-color: rgb(242, 242, 242);
+     background-color: rgb(233, 233, 233);
      justify-content: space-between;
      left: 0;
      text-decoration: none;
      position: sticky;
      width: 100%;
      top: 0;
-     box-shadow: 7px 5px 12px -5px rgba(0, 0, 0, 0.174);
+     /* box-shadow: 7px 5px 12px -5px rgba(0, 0, 0, 0.174); */
  }
 
  
@@ -63,6 +63,7 @@
     text-decoration: none;
     margin: 4px 2px;
     transition: all ease 500ms;
+    margin-right: 1rem;
  }
 
  /*Styles the Logout button when hovered over. Matches background to navbar color and sets text coloring to cornflower blue*/

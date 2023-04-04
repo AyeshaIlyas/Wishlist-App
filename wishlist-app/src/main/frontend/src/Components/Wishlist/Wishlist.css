@@ -1,16 +1,21 @@
-.Wishlist {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin: 0 2em;
+.Wishlist-container {
+    width: 90%;
+    margin: 3em auto;
+    text-align: center;
+
 }
 
-.Wishlist-header {
-    font-size: 2em;
+.Wishlist-items {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
 }
 
-.Wishlist-content-container {
-   max-width: 600px;
-   /* margin: auto; */
+.Wishlist-items > .Item {
+    margin: 1em;
+    width: 250px;
 }
+
 
 .Wishlist-error  {
     padding: 1.5em;
@@ -27,8 +32,14 @@
     right: 3em;
     padding: 1em 2em;
     border: none;
-    background-color: green;
+    background-color: #395676;
     border-radius: 10px;
     color: rgb(213, 213, 213);
     font-size: 15px;
 }
+
+/* .Wishlist #back {
+    position: fixed;
+    top: 8.5em;
+    left: 3em
+} */

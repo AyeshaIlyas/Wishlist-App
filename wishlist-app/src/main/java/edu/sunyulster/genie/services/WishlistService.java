@@ -15,18 +15,13 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
-import edu.sunyulster.genie.services.ItemService;
-import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
 import jakarta.ws.rs.ForbiddenException;
 
@@ -53,7 +48,7 @@ public class WishlistService extends MongoService {
         // add wishlist id to user
         MongoCollection<Document> users = db.getCollection("users");
         Bson update = Updates.addToSet("wishlists", newWishlist.getObjectId("_id"));
-        users.updateOne(eq("authId", userId), update, null);
+        users.updateOne(eq("authId", new ObjectId(userId)), update);
 
         return documentToWishlist(newWishlist);
     }
@@ -61,7 +56,7 @@ public class WishlistService extends MongoService {
     public List<Wishlist> getAll(String userId) throws AuthenticationException {
         // get all wishlists for the user 
         MongoCollection<Document> users = db.getCollection("users");
-        Document match = users.find(eq("authId", userId)).first();
+        Document match = users.find(eq("authId", new ObjectId((userId)))).first();
         // occurs if user is deleted but still has valid jwt for example
         if (match == null)
             throw new AuthenticationException("User does not exist!");
@@ -78,13 +73,15 @@ public class WishlistService extends MongoService {
         return wishlists;
     }
 
-    public Document getDocument(String userId, String id){
-        checkWishlistOwnsership(new ObjectId(id), new ObjectId(userId));
-        return super.getDocument(id,"wishlists");
-    }
-
     public Wishlist get(String userId, String id) {
-        return documentToWishlist(getDocument(userId, id));
+        ObjectId wishlisId = new ObjectId(id);
+        checkWishlistOwnsership(new ObjectId(userId), wishlisId);
+
+        MongoCollection<Document> wishlists = db.getCollection("wishlists");
+        Document match = wishlists.find(eq("_id", wishlisId)).first();
+        if (match == null) 
+            throw new NoSuchElementException("Wishlist does not exist");
+        return documentToWishlist(match);
     }
 
     public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
@@ -96,14 +93,15 @@ public class WishlistService extends MongoService {
             throw new InvalidDataException("Wishlist must have a name");
 
         // get updated info
-        Document updatedWishlist = new Document().append("name", newWishlist.getName());
+        Bson update = Updates.set("name", newWishlist.getName());
+
 
         // replace previous wishlist data with new data
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        UpdateResult result = wishlists.replaceOne(eq("_id", wishlistId), updatedWishlist);
-        // throw exception if the wishlist does not exist
-        if (result.getModifiedCount() == 0)
-            throw new NoSuchElementException("Wishlist does not exists");
+        UpdateResult result = wishlists.updateOne(eq("_id", wishlistId), update);
+        // // throw exception if the wishlist does not exist
+        // if (result.getModifiedCount() == 0)
+        //     throw new NoSuchElementException("Wishlist does not exists");
         
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
     }
@@ -112,15 +110,24 @@ public class WishlistService extends MongoService {
         ObjectId wishlistId = new ObjectId(id);
         checkWishlistOwnsership(new ObjectId(userId), wishlistId);
 
+        // delete all items from wishlist
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        DeleteResult result = wishlists.deleteOne(eq("_id", wishlistId));
-        if (result.getDeletedCount() == 0) 
-            throw new NoSuchElementException("Wishlist does not exists");
+        MongoCollection<Document> items = db.getCollection("items");
+        List<ObjectId> itemsToDelete = (List<ObjectId>) wishlists.find(eq("_id", wishlistId)).first().get("items");
+        items.deleteMany(in("_id", itemsToDelete));
+        
+        // delete wishlist
+        wishlists.deleteOne(eq("_id", wishlistId));
+
+        // delete wishlist object id from user
+        MongoCollection<Document> users = db.getCollection("users");
+        users.updateOne(eq("authId", new ObjectId(userId)), Updates.pull("wishlists", wishlistId));
     }
 
     private Wishlist documentToWishlist(Document d) {
         int itemCount = ((ArrayList<ObjectId>) d.get("items")).size();
-        return new Wishlist(d.getObjectId("_id").toString(), 
+        return new Wishlist(
+            d.getObjectId("_id").toString(), 
             d.getString("name"), 
             itemCount, 
             d.getDate("dateCreated"));

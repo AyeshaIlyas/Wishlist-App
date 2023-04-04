@@ -6,11 +6,13 @@ import Home from "./../Home/Home";
 import Register from "./../Register/Register";
 import Login from "./../Login/Login";
 import Profile from "./../Profile/Profile";
-import MyWishlists from "./../MyWishlists/MyWishLists";
+import MyWishlists from "./../MyWishlists/MyWishlists";
 import ProtectedRoute from "./../Utils/ProtectedRoute";
 import Cookies from "js-cookie";
 import AuthContext from '../Contexts/AuthContext';
 import Footer from "./../Footer/Footer";
+import Wishlist from '../Wishlist/Wishlist';
+import SharedWishlists from "./../SharedWishlists/SharedWishlists";
 
 function App() {
 
@@ -37,9 +39,13 @@ function App() {
           <Route path="/wishlists" element={
             <ProtectedRoute component={<MyWishlists/>}/>
           }/>
-          <Route path="/shared" element={
-            <ProtectedRoute component={<MyWishlists/>}/>
+           <Route path="/wishlists/:wishlistId" element={
+             <ProtectedRoute component={<Wishlist/>}/>
           }/>
+          <Route path="/shared" element={
+            <ProtectedRoute component={<SharedWishlists/>}/>
+          }/>
+
         </Routes>
 
         <Footer />

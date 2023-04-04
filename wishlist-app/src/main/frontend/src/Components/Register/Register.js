@@ -14,7 +14,6 @@ const PWD_REGEX = /^\S{5,}/;
 
 const register = async (data) => {
     try {
-        console.log("In register");
         // register in auth-server
         let response = await axios.post("http://127.0.0.1:9082/api/register",
             data,

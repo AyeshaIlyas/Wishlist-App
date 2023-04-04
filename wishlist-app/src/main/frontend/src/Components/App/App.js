@@ -45,8 +45,7 @@ function App() {
           <Route path="/shared" element={
             <ProtectedRoute component={<SharedWishlists/>}/>
           }/>
-
-        </Routes>
+        </Routes> 
 
         <Footer />
       </AuthContext.Provider>

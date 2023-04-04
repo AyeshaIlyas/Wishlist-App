@@ -39,3 +39,33 @@
     padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+.Register {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100vh;
+}
+
+.Reigster-container {
+    flex: 1;
+    align-items: center;
+}
+
+.blue{
+    background-color: #9ecddd;
+    flex: 1;
+    height: 100%;
+}
+
+.Register input[type=text], input[type=email], input[type=password]{
+    border: none;
+    border-bottom: 2px solid gray;
+    padding: 15px 15px;
+    resize: none;
+    display: flex;
+}
+
+.Register section {
+    display: flex;
+    flex-direction: column;
+}

@@ -6,7 +6,7 @@ class Feature extends Component {
         return (
 
             <div className="Feature">
-                <h1 className="Feature-title">{this.props.name}</h1>
+                <h3 className="Feature-title">{this.props.name}</h3>
                 {/*<img src={} />*/}
                 <div className="Feature-des">{this.props.des}</div>
             </div>

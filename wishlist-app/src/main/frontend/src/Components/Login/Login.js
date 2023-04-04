@@ -64,23 +64,34 @@ const Login = () => {
         authState.isLoggedIn
         ? <Navigate to="/wishlists" replace/>
         : (
-            <section>
+            <div className='Login'>
+                <div className="blue"> 
+                    <h1> More Stuff To Say</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna 
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                </div>
+
+            <section className="Login-container">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email:</label>
+                <form  onSubmit={handleSubmit}>
+                    <label htmlFor="email"></label>
                     <input
                         type="email"
                         id="email"
+                        placeholder='Email'
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         required
                     />
 
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password"></label>
                     <input
                         type="password"
                         id="password"
+                        placeholder='Password'
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         required
@@ -90,11 +101,11 @@ const Login = () => {
                 <p>
                     Need an Account?<br />
                     <span className="line">
-                        {/*put router link here*/}
                         <Link to="/register">Register</Link>
                     </span>
                 </p>
             </section> 
+            </div>
         )
     );
 }

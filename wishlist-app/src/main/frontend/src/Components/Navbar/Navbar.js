@@ -27,7 +27,7 @@ export default function Navbar() {
             </nav>
         ) : (
             <nav className="Navbar">
-                <Link to="/"><img id="Navbar-logo" src={logo_With_Name} alt="genie-logo"/></Link>
+                <Link to="/"><img id="Navbar-logo" src={logo} alt="genie-logo"/></Link>
                 <div className="Navbar-links">
                     <NavLink key="login" to="/login">Login</NavLink>
                     <NavLink key="register" to="/register">Sign Up</NavLink>

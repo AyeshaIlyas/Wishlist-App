@@ -76,3 +76,8 @@
     padding: 1%;
     margin-right: 1rem;
  }
+
+ .Navbar .logo {
+    display: flex;
+    align-items: center;
+ }

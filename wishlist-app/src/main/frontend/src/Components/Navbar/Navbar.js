@@ -11,6 +11,7 @@ export default function Navbar() {
     
     const logout = () => {
         Cookies.remove("auth-session");
+        sessionStorage.removeItem("token");
         authState.setIsLoggedIn(false);
     }
     return authState.isLoggedIn ? 

@@ -5,7 +5,7 @@ import { getProfile } from '../../services/profileService';
 import AuthContext from '../Contexts/AuthContext';
 
 export default function Profile() {
-    const [profileInfo, setProfileInfo] = useState(null);
+    const [profileInfo, setProfileInfo] = useState({});
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ export default function Profile() {
         }, [setIsLoggedIn]
     );
 
-    const getProfile = () => {
+    const displayProfile = () => {
         return (
             <div id='Profile'>
                 {/* banner */}
@@ -49,12 +49,12 @@ export default function Profile() {
                             <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.firstName}</p></div>
                         </div>
     
-                        <div class="Profile-info-row">
+                        <div className="Profile-info-row">
                             <div className='Profile-info-column-1'><p>Last Name:</p></div>
                             <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.lastName}</p></div>
                         </div>
                             
-                        <div class="Profile-info-row">
+                        <div className="Profile-info-row">
                             <div className='Profile-info-column-1'><p>Email:</p></div>
                             <div className='Profile-info-column-2'><p className='Profile-users-data'>{profileInfo.email}</p></div>
                         </div>
@@ -66,7 +66,7 @@ export default function Profile() {
 
     return (
         <>
-            {loading ? <p>Loading...</p> : getProfile()}
+            {loading ? <p>Loading...</p> : displayProfile()}
         </>
     );
 }

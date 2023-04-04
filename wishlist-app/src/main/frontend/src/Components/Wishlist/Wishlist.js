@@ -1,5 +1,7 @@
 import {useState, useEffect, useContext} from "react";
 import {useParams, Link} from "react-router-dom";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Item from "../Item/Item";
 import "./Wishlist.css";
 import { getItems, removeItem, updateItem, createItem} from "./../../services/itemService";
@@ -103,8 +105,12 @@ export default function Wishlist() {
         return (
             <>
                 <header className="Wishlist-header">
+                    <Link id="back" to="/wishlists">
+                            <FontAwesomeIcon icon={faArrowLeft}/>
+                            <span>All Wishlists</span>
+                    </Link>
                     <h1>{wishlist.name}</h1>
-                    <Link id="back" to="/wishlists">All Wishlists</Link>
+                    
                 </header>
                 <div className="Wishlist-content-container">
                     {error && <p className="Wishlist-error">{error}</p>}

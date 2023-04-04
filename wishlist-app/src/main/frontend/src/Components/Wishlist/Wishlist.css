@@ -38,8 +38,23 @@
     font-size: 15px;
 }
 
-/* .Wishlist #back {
-    position: fixed;
-    top: 8.5em;
-    left: 3em
-} */
+.Wishlist header  {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Wishlist #back {
+    align-self: start;
+    text-decoration: none;
+    color: #395676;
+    font-size: 1.2em;
+}
+
+.Wishlist #back span {
+    margin-left: .8em;
+}
+
+.Wishlist h1 {
+    align-self: center;
+}

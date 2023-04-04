@@ -38,11 +38,11 @@
     <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 
-    <cors domain="/"
+    <cors domain="/api"
           allowedOrigins="http://127.0.0.1:3000, http://localhost:3000, http://127.0.0.1:9081, http://localhost:9081"
-          allowedMethods="GET, DELETE, POST, PUT"
-          allowedHeaders="origin, content-type, accept, authorization, cache-control, x-requested-with, access-control-allow-header, access-control-request-method, access-control-request-readers"
+          allowedMethods="GET, DELETE, POST, PATCH, PUT, OPTIONS"
+          allowedHeaders="origin, content-type, accept, authorization, cache-control, x-requested-with, access-control-allow-header, access-control-request-method"
           maxAge="3600" 
-          allowCredentials="true"
+          exposeHeaders="cookies"
           />
 </server>

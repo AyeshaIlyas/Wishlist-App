@@ -5,8 +5,11 @@ import "./WishlistCard.css";
 
 export default function WishlistCard(props)  {
     const [isEditing, setIsEditing] = useState(false);
+    const [isSharing, setIsSharing] = useState(false);
     const [name, setName] = useState(props.name);
     const [error, setError] = useState(null);
+    const [email, setEmail] = useState(props.email);
+    
 
     useEffect(() => {
         if (name.trim().length === 0) {
@@ -26,10 +29,15 @@ export default function WishlistCard(props)  {
 
     const handleCancel = () => {
         setIsEditing(false);
+        setIsSharing(false);
     }
 
     const handleChange = e => {
         setName(e.target.value);
+    }
+
+    const handleShareChange = e => {
+        setEmail(e.target.value);
     }
 
     const handleSubmit = e => {
@@ -39,6 +47,19 @@ export default function WishlistCard(props)  {
         }
         props.update(props.id, {name});
         setIsEditing(false);
+    }
+
+    const handleShareSubmit = e => {
+        e.preventDefault();
+        if (email.trim().length === 0) {
+            return;
+        }
+        //share list
+        setIsSharing(false);
+    }
+
+    const handleShare = () => {
+        setIsSharing(true);
     }
 
     return(
@@ -64,13 +85,34 @@ export default function WishlistCard(props)  {
                         </div>
                     </form>
                 ) : (
-                    <>
-                        <p><Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>View</Link></p>
-                        <div>
-                            <button onClick={handleEdit}>Edit</button>
-                            <button onClick={handleRemove}>Delete</button>
-                        </div>
-                    </>
+                    <div>
+                        {isSharing ?
+                        (
+                            <form onSubmit={handleShareSubmit}>
+                                <label className="WishlistCard-label" htmlFor="email"> Email: </label>
+                                <input 
+                                type="text" 
+                                value={email} 
+                                onChange={handleShareChange}
+                                />
+                                {error && <p className="WishlistCard-error">{error}</p>}
+                                <div>
+                                    <button>Sumbit</button>
+                                    <button type="button" onClick={handleCancel}>Cancel</button>
+                                </div>
+                            </form>
+                        ) : (
+
+                            <>
+                                <p><Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>View</Link></p>
+                                <div>
+                                    <button onClick={handleEdit}>Edit</button>
+                                    <button onClick={handleRemove}>Delete</button>
+                                    <button onClick={handleShare}>Share</button>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

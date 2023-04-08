@@ -45,10 +45,24 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.3.2</version>
                 </plugin>
+                <!--<plugin>
+                    <groupId>io.openliberty.tools</groupId>
+                    <artifactId>liberty-maven-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+            -->
                 <plugin>
                     <groupId>io.openliberty.tools</groupId>
                     <artifactId>liberty-maven-plugin</artifactId>
                     <version>3.7.1</version>
+                    <configuration>
+                        <runtimeArtifact>
+                            <groupId>io.openliberty</groupId>
+                            <artifactId>openliberty-runtime</artifactId>
+                            <version>23.0.0.2</version>
+                            <type>zip</type>
+                        </runtimeArtifact>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -151,6 +165,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+
         </plugins>
 
     </build>

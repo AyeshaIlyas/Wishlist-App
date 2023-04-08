@@ -89,7 +89,7 @@ export default function MyWishlists() {
                 { wishlists.length !== 0 &&
                         <div className="MyWishlists-cards">
                             {wishlists.map((w) => (
-                                <WishlistCard key={w.id} id={w.id} {...w} update={update} remove={remove}/>
+                                <WishlistCard key={w.id} id={w.id} {...w} update={update} remove={remove} />
                             ))}
                         </div>
                 }

@@ -46,6 +46,9 @@ function App() {
           <Route path="/shared" element={
             <ProtectedRoute component={<SharedWishlists/>}/>
           }/>
+          <Route path="*" element={
+            <p style={{textAlign: "center", margin: "3em"}}>Hmm... not quite sure what you're looking for :&lt;</p>
+          }/>
         </Routes> 
         </div>
         <Footer />

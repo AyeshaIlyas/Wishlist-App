@@ -29,7 +29,7 @@ public class SharedlistService {
 
         // get user email
         MongoCollection<Document> users = db.getCollection("users");
-        Document user = users.find(Filters.eq("_id", new ObjectId(userId))).first();
+        Document user = users.find(Filters.eq("authId", new ObjectId(userId))).first();
         if (user == null) 
             throw new AuthenticationException("User does not exist");
         String email = user.getString("email");

@@ -42,6 +42,7 @@ public class WishlistService {
             .append("_id", new ObjectId())
             .append("name", w.getName())
             .append("items", new ArrayList<ObjectId>())
+            .append("sharedWith", new ArrayList<String>())
             .append("dateCreated", new Date());
 
         // add to wishlist collection
@@ -126,11 +127,13 @@ public class WishlistService {
 
     private Wishlist documentToWishlist(Document d) {
         int itemCount = ((ArrayList<ObjectId>) d.get("items")).size();
-        return new Wishlist(
+        Wishlist list =  new Wishlist(
             d.getObjectId("_id").toString(), 
             d.getString("name"), 
             itemCount, 
             d.getDate("dateCreated"));
+        list.setSharedWith((List<String>) d.get("sharedWith"));
+        return list;
     }
 
     private Document checkWishlistOwnsership(ObjectId userId, ObjectId wishlistId) {

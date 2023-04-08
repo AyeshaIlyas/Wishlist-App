@@ -1,6 +1,8 @@
 package edu.sunyulster.genie.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Wishlist {
 
@@ -8,6 +10,7 @@ public class Wishlist {
     private String name;
     private int itemCount;
     private Date dateCreated;
+    private List<String> sharedWith;
 
     public Wishlist() {
 
@@ -18,6 +21,15 @@ public class Wishlist {
         this.name = name;
         this.itemCount = itemCount;
         this.dateCreated = dateCreated;
+        this.sharedWith = new ArrayList<>();
+    }
+
+    public List<String> getSharedWith() {
+        return sharedWith;
+    }
+
+    public void setSharedWith(List<String> sharedWith) {
+        this.sharedWith = sharedWith;
     }
 
     public String getId() {

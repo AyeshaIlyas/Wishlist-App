@@ -13,8 +13,6 @@ export default function MyWishlists() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-
-
     useEffect(() => {
         const loadWishlists = async () => {
             const safeGet = authWrapper(setIsLoggedIn, getWishlists);

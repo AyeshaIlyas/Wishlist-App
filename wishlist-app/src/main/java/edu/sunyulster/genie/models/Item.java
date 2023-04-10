@@ -8,6 +8,7 @@ public class Item {
     private Double price;
     private String supplier;
     private boolean purchased;
+    private String gifter;
     private Date dateCreated;
 
     public Item() {
@@ -15,13 +16,23 @@ public class Item {
     }
 
     public Item(String id, String name, Double price, 
-        String supplier, boolean purchased, Date dateCreated) {
+        String supplier, Date dateCreated, String gifter) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.supplier = supplier;
-        this.purchased = purchased;
+        this.gifter = gifter; 
+        this.purchased = !(gifter == null);
         this.dateCreated = dateCreated;
+    }
+
+    public void setGifter(String gifter) {
+        this.gifter = gifter; // null or value
+        this.purchased = !(gifter == null); // if null gifter, item it not purchased otherwise it is purchased
+    }
+
+    public String getGifter() {
+        return gifter;
     }
 
     public String getId() {
@@ -60,9 +71,9 @@ public class Item {
         return purchased;
     }
 
-    public void setPerchased(boolean purchased) {
-        this.purchased = purchased;
-    }
+    // public void setPerchased(boolean purchased) {
+    //     this.purchased = purchased;
+    // }
 
     public Date getDateCreated() {
         return dateCreated;

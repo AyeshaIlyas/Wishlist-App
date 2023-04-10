@@ -45,7 +45,7 @@ public class ItemService {
         Document newItem = new Document()
             .append("_id", itemId)
             .append("name", i.getName())
-            .append("purchased", false)
+            .append("gifter", null)
             .append("dateCreated", new Date());
 
         // price is optional data
@@ -108,7 +108,7 @@ public class ItemService {
         // get updated info
         Document updatedItem = new Document()
             .append("dateCreated", match.getDate("dateCreated"))
-            .append("purchased", match.getBoolean("purchased"))
+            .append("gifter", match.getString("gifter"))
             .append("name", newItem.getName());
 
         // price is optional data
@@ -149,8 +149,8 @@ public class ItemService {
             d.getString("name"),
             d.getDouble("price"),
             d.getString("supplier"),
-            d.getBoolean("purchased"),
-            d.getDate("dateCreated"));
+            d.getDate("dateCreated"),
+            d.getString("gifter"));
     }
 
     private Document checkItemOwnsership(ObjectId userId, ObjectId wishlistId, ObjectId itemId) throws AuthenticationException {

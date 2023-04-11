@@ -58,3 +58,22 @@
 .Wishlist h1 {
     align-self: center;
 }
+
+#Wishlist-share-button {
+    background-color: #395676;
+    border-radius: 10px;
+    color: rgb(213, 213, 213);
+    font-size: 14px;
+    padding: .5em 2em;
+    border: none;
+    margin-top: .3%;
+}
+
+.Wishlist #Wishlist-share-button:hover {
+    color: #badfec;
+    text-decoration: none;
+}
+
+.Wishlist h1{
+    text-decoration: underline;
+}

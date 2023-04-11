@@ -22,11 +22,12 @@ export default function ShareForm(props) {
 
     return (
         <form className="ShareForm" onSubmit={handleSubmit}>
-            <h2>{"New Email"}</h2>
+            
             <section>
-                <label htmlFor="email">Email: </label>
+                <label htmlFor="email"> </label>
                 <input type="email" 
                     id="email" 
+                    placeholder='Email'
                     name="email" 
                     value={email}
                     autoFocus
@@ -36,7 +37,7 @@ export default function ShareForm(props) {
             <p>{error}</p>
 
             <section>
-                <button>Submit</button>
+                <button> Submit</button>
                 <button type="button" onClick={handleCancel}>Cancel</button>
             </section>
         </form>

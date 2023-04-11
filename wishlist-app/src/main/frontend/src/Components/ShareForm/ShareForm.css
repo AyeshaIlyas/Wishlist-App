@@ -1,0 +1,29 @@
+.ShareForm input[type="text"],
+.ShareForm input[type="password"],
+.ShareForm input[type="email"],
+.ShareForm textarea {
+    border-radius: 0.5rem;
+    border-color: #badfec;
+    border-style: solid;
+    font-size: 1.2rem;
+    text-align: left;
+    margin-top: .5%
+}
+
+.ShareForm button{
+    background-color: #395676;
+    border-radius: 10px;
+    color: rgb(213, 213, 213);
+    font-size: 14px;
+    padding: .5em 1em;
+    border: none;
+    margin-right: .5%;
+    margin-left: .5%;
+    margin-top: .5%;
+    
+}
+
+.ShareForm button:hover {
+    color: #badfec;
+    text-decoration: none;
+}

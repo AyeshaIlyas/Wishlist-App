@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ShareForm.css";
 
-export function NewItemForm(props) {
+export default function ShareForm(props) {
     const [email, setEmail] = useState("");
     const [error, setError] = useState(null);
 

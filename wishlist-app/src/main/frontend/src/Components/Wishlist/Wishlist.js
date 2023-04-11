@@ -9,6 +9,7 @@ import { NewItemForm } from "../NewItemForm/NewItemForm";
 import AuthContext from "../Contexts/AuthContext";
 import { getWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
+import ShareForm from "../ShareForm/ShareForm"
 
 export default function Wishlist() {
     const {wishlistId} = useParams();

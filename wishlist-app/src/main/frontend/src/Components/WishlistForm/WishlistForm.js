@@ -31,7 +31,7 @@ export default function WishlistForm(props) {
             autoFocus
             />
 
-            <button onClick={handleSubmit}>Sumbit</button>
+            <button onClick={handleSubmit}>Submit</button>
             <button type="button" onClick={props.cancel}>Cancel</button>
             <p>{error && error}</p>
         </form>

@@ -55,7 +55,7 @@ export default function Wishlist() {
                 setError(null);
             } else {
                 // error
-                setError("A mishap occured when attempting to update your item...")
+                setError("A mishap occurred when attempting to update your item...")
             }
         }
     }

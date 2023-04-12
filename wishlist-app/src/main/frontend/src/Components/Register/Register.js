@@ -101,7 +101,7 @@ const Register = () => {
             if (result.status === 0) {
                 setErrMsg('No Server Response');
             } else {
-                setErrMsg('Registration Failed')
+                setErrMsg('Registration Failed, Email Already in Use')
             }
             errRef.current.focus();
         }

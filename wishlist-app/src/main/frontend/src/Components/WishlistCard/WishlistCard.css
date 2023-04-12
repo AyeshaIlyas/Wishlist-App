@@ -38,9 +38,14 @@
 }
 
 .WishlistCard-label {
-    font-weight: 600;;
+    font-weight: 600;
 }
 
 .WishlistCard header {
-    margin-bottom: 1em
+    margin-bottom: 1em;
+}
+
+.Wishlist-title {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }

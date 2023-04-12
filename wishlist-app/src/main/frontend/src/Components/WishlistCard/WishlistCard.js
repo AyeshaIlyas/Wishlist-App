@@ -59,7 +59,7 @@ export default function WishlistCard(props)  {
                         />
                         {error && <p className="WishlistCard-error">{error}</p>}
                         <div>
-                            <button>Sumbit</button>
+                            <button>Submit</button>
                             <button type="button" onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>

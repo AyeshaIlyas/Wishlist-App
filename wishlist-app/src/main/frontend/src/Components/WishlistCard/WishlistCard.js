@@ -71,7 +71,6 @@ export default function WishlistCard(props)  {
                             <div>
                                 <button onClick={handleEdit}>Edit</button>
                                 <button onClick={handleRemove}>Delete</button>
-                                <button onClick={handleShare}>Share</button>
                             </div>
                         </>
                 )}

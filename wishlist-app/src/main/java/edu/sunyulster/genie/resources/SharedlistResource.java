@@ -36,4 +36,6 @@ public class SharedlistResource {
         Item item = service.buy(userId, wishlistId, itemId, buy);
         return Response.ok(item).type(MediaType.APPLICATION_JSON).build();
     }
+
+    //need shareList method here
 }

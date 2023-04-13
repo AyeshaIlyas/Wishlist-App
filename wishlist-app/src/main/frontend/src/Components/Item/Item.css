@@ -41,3 +41,7 @@
     color: #395676;;
     font-size: 20px;
 }
+.Item-title, .Item-link, .Item-price {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}

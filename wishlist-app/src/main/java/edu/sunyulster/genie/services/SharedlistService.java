@@ -113,7 +113,7 @@ public class SharedlistService {
 
     private Document checkWishlistOwnership(ObjectId userId, ObjectId wishlistId) {
         MongoCollection<Document> users = db.getCollection("users");
-        Document match = users.find(eq("authId", userId)).first();
+        Document match = users.find(Filters.eq("authId", userId)).first();
         List<ObjectId> wishlistIds = (ArrayList<ObjectId>) match.get("wishlists");
         for (ObjectId i : wishlistIds) {
             if (i.equals(wishlistId))

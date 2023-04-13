@@ -51,7 +51,7 @@ export function NewItemForm(props) {
             </section>
             
             <section>
-                <label htmlFor="supplier">Location: </label>
+                <label htmlFor="supplier">Location/Link: </label>
                 <input type="text" 
                     id="supplier" 
                     name="supplier" 

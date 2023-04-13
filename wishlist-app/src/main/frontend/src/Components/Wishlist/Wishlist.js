@@ -9,6 +9,7 @@ import { NewItemForm } from "../NewItemForm/NewItemForm";
 import AuthContext from "../Contexts/AuthContext";
 import { getWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
+import ShareForm from "../ShareForm/ShareForm"
 
 export default function Wishlist() {
     const {wishlistId} = useParams();
@@ -18,6 +19,7 @@ export default function Wishlist() {
     const [creating, setCreating] = useState(false);
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
+    const [sharing, setSharing] = useState(false);
 
     
     useEffect(
@@ -53,7 +55,7 @@ export default function Wishlist() {
                 setError(null);
             } else {
                 // error
-                setError("A mishap occured when attempting to update your item...")
+                setError("A mishap occurred when attempting to update your item...")
             }
         }
     }
@@ -101,6 +103,19 @@ export default function Wishlist() {
 
     console.log(wishlistId);
 
+    const handleShareForm = () => {
+        window.scrollTo(0, 0);
+        setSharing(true);
+    }
+
+    const cancelShare = () => {
+        setSharing(false);
+    }
+
+    const add = () => {
+        
+    }
+
     const displayContent = () => {
         return (
             <>
@@ -113,6 +128,8 @@ export default function Wishlist() {
                     
                 </header>
                 <div className="Wishlist-content-container">
+                    <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>
+                    {sharing && <ShareForm add={add} cancel={cancelShare}/>}
                     {error && <p className="Wishlist-error">{error}</p>}
                     {items.length === 0 && <p>No items yet...</p>}
                     {creating && <NewItemForm create={create} cancel={cancel}/>}

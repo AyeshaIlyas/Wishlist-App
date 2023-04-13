@@ -1,0 +1,34 @@
+.WishlistForm {
+    padding: 2em;
+    background-color: rgb(213, 213, 213) ;
+    border-radius: 1em;
+    text-align: left;
+}
+
+.WishlistForm button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    padding: .2em 2em;
+    border-radius: 1em;
+    color: #395676;
+    font-size: 15px
+}
+
+.WishlistForm button:hover {
+    background-color: #a6bbd2;
+}
+
+.WishlistForm input {
+    border: none;
+    outline: none;
+    background-color: rgb(213, 213, 213);
+    padding: .3em 1em;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.WishlistForm label {
+    font-weight: 500;
+
+}
+

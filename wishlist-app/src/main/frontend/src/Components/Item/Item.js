@@ -52,8 +52,8 @@ export default function Item(props) {
     return (
         !editing ? (
             <div className="Item">
-                <h2>{props.name}</h2> 
-                {props.price && <p>Price: ${props.price}</p>}
+                <h2 className="Item-title">{props.name}</h2> 
+                {props.price && <p className="Item-price">Price: ${props.price}</p>}
 
                 <div>
                     {props.supplier && getSupplier()}

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import "./WishlistForm";
+import "./WishlistForm.css";
 
 export default function WishlistForm(props) {
     const [name, setName] = useState("");

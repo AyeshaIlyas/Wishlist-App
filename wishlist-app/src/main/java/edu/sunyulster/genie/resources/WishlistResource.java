@@ -88,4 +88,7 @@ public class WishlistResource {
     public Class<ItemResource> getItemResource() {
         return ItemResource.class;
     }
+
+    //@PATCH
+    //@Path("/{wishlistId}")
 }

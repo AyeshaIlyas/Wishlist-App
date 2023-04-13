@@ -12,17 +12,27 @@ public class Wishlist {
     private int itemCount;
     private Date dateCreated;
     private List<String> sharedWith;
+    private String owner;
 
     public Wishlist() {
 
     }
 
-    public Wishlist(String id, String name, int itemCount, Date dateCreated) {
+    public Wishlist(String ownerEmail, String id, String name, int itemCount, Date dateCreated) {
         this.id = id;
         this.name = name;
         this.itemCount = itemCount;
         this.dateCreated = dateCreated;
         this.sharedWith = new ArrayList<>();
+        this.owner = ownerEmail;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String newOwner) {
+        owner=newOwner;
     }
 
     public List<String> getSharedWith() {
@@ -31,6 +41,10 @@ public class Wishlist {
 
     public void setSharedWith(List<String> sharedWith) {
         this.sharedWith = sharedWith;
+    }
+
+    public void addShared(String email) {
+        sharedWith.add(email);
     }
 
     public String getId() {

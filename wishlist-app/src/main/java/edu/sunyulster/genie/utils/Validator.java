@@ -21,6 +21,8 @@ public class Validator {
         return w.getName() != null && !w.getName().isEmpty();
     }
 
+    
+
     public static boolean isItemValid(Item i) {
         return i.getName() != null && !i.getName().isEmpty();
     }

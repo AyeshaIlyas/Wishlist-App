@@ -3,12 +3,14 @@ package edu.sunyulster.genie.services;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 import static edu.sunyulster.genie.utils.Validator.isWishlistValid;
+import static edu.sunyulster.genie.utils.Validator.isEmailValid;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -18,6 +20,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.Filters;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
@@ -43,7 +46,8 @@ public class WishlistService {
             .append("name", w.getName())
             .append("items", new ArrayList<ObjectId>())
             .append("sharedWith", new ArrayList<String>())
-            .append("dateCreated", new Date());
+            .append("dateCreated", new Date())
+            .append("owner", new String());
 
         // add to wishlist collection
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
@@ -78,11 +82,11 @@ public class WishlistService {
     }
 
     public Wishlist get(String userId, String id) {
-        ObjectId wishlisId = new ObjectId(id);
-        checkWishlistOwnsership(new ObjectId(userId), wishlisId);
+        ObjectId wishlistId = new ObjectId(id);
+        checkWishlistOwnership(new ObjectId(userId), wishlistId);
 
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        Document match = wishlists.find(eq("_id", wishlisId)).first();
+        Document match = wishlists.find(eq("_id", wishlistId)).first();
         if (match == null) 
             throw new NoSuchElementException("Wishlist does not exist");
         return documentToWishlist(match);
@@ -90,26 +94,45 @@ public class WishlistService {
 
     public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
         ObjectId wishlistId = new ObjectId(newWishlist.getId());
-        checkWishlistOwnsership(new ObjectId(userId), wishlistId);
+        checkWishlistOwnership(new ObjectId(userId), wishlistId);
         
-         // validate information
-         if (!isWishlistValid(newWishlist)) 
-            throw new InvalidDataException("Wishlist must have a name");
-
-        // get updated info
-        Bson update = Updates.set("name", newWishlist.getName());
-
-
-        // replace previous wishlist data with new data
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        wishlists.updateOne(eq("_id", wishlistId), update);
-    
+        Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
+        //Bson update = new BsonDocument();
+        Bson update = null;
+        boolean isGood=false;
+            
+         // validate information
+         if (isWishlistValid(newWishlist)) {
+            //throw new InvalidDataException("Wishlist must have a name");
+            // get updated info
+            //Bson update1 = Updates.set("name", newWishlist.getName());
+            update=Updates.combine(Updates.set("name", newWishlist.getName()), update);
+            isGood=true;
+         }
+
+        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 ){//&& isEmailValid(newWishlist.getSharedWith().get(0))) {
+        
+            update = Updates.combine(update, Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0)));
+            isGood=true;
+        }
+
+
+        
+        //combine updates
+
+
+        
+        if (update != null) {
+            wishlists.updateOne(filter, update);
+        }
+
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
     }
 
     public void delete(String userId, String id) {
         ObjectId wishlistId = new ObjectId(id);
-        checkWishlistOwnsership(new ObjectId(userId), wishlistId);
+        checkWishlistOwnership(new ObjectId(userId), wishlistId);
 
         // delete all items from wishlist
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
@@ -128,6 +151,7 @@ public class WishlistService {
     private Wishlist documentToWishlist(Document d) {
         int itemCount = ((ArrayList<ObjectId>) d.get("items")).size();
         Wishlist list =  new Wishlist(
+            d.getString("owner"),
             d.getObjectId("_id").toString(), 
             d.getString("name"), 
             itemCount, 
@@ -136,7 +160,7 @@ public class WishlistService {
         return list;
     }
 
-    private Document checkWishlistOwnsership(ObjectId userId, ObjectId wishlistId) {
+    private Document checkWishlistOwnership(ObjectId userId, ObjectId wishlistId) {
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("authId", userId)).first();
         List<ObjectId> wishlistIds = (ArrayList<ObjectId>) match.get("wishlists");

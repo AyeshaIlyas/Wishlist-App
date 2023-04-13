@@ -7,6 +7,7 @@ export default function WishlistCard(props)  {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(props.name);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         if (name.trim().length === 0) {
@@ -31,6 +32,7 @@ export default function WishlistCard(props)  {
     const handleChange = e => {
         setName(e.target.value);
     }
+
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -64,13 +66,13 @@ export default function WishlistCard(props)  {
                         </div>
                     </form>
                 ) : (
-                    <>
-                        <p><Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>View</Link></p>
-                        <div>
-                            <button onClick={handleEdit}>Edit</button>
-                            <button onClick={handleRemove}>Delete</button>
-                        </div>
-                    </>
+                        <>
+                            <p><Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>View</Link></p>
+                            <div>
+                                <button onClick={handleEdit}>Edit</button>
+                                <button onClick={handleRemove}>Delete</button>
+                            </div>
+                        </>
                 )}
             </div>
         </div>

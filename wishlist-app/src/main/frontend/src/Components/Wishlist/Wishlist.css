@@ -26,6 +26,15 @@
     font-size: 1.2em;
 }
 
+.Wishlist-feedback  {
+    padding: 1.5em;
+    background-color: rgb(137, 233, 177);
+    color: rgb(59, 88, 55);
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 1.2em;
+}
+
 #Wishlist-new-button {
     position:fixed;
     bottom: 2em;

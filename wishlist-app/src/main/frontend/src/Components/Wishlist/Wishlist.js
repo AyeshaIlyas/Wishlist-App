@@ -7,7 +7,7 @@ import "./Wishlist.css";
 import { getItems, removeItem, updateItem, createItem} from "./../../services/itemService";
 import { NewItemForm } from "../NewItemForm/NewItemForm";
 import AuthContext from "../Contexts/AuthContext";
-import { getWishlist } from "../../services/wishlistService";
+import { getWishlist, updateWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
 
@@ -16,6 +16,7 @@ export default function Wishlist() {
     const [items, setItems] = useState([]);
     const [wishlist, setWishlist] = useState({});
     const [error, setError] = useState(null);
+    const [feedback, setFeedback] = useState(null);
     const [creating, setCreating] = useState(false);
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
@@ -92,6 +93,26 @@ export default function Wishlist() {
         
     }
 
+    const share = async (email) => {
+
+        const safeUpdateWishlist = authWrapper(setIsLoggedIn, updateWishlist);
+        const response = await safeUpdateWishlist(wishlistId, {
+            "sharedWith": [email]
+        });
+        console.log(response);
+        if (response) {
+            if (response.success) {
+                setFeedback("Added " + email);
+                setTimeout(() => {
+                    setFeedback(null);
+                }, 3000);
+            } else {
+                setError("We couldn't create your item :<...")
+            }
+        }
+        
+    }
+
     const handleShowForm = () => {
         window.scrollTo(0, 0);
         setCreating(true);
@@ -112,9 +133,6 @@ export default function Wishlist() {
         setSharing(false);
     }
 
-    const add = () => {
-        
-    }
 
     const displayContent = () => {
         return (
@@ -128,9 +146,10 @@ export default function Wishlist() {
                     
                 </header>
                 <div className="Wishlist-content-container">
-                    <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>
-                    {sharing && <ShareForm add={add} cancel={cancelShare}/>}
+                    {!sharing && <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>}
+                    {sharing && <ShareForm share={share} cancel={cancelShare}/>}
                     {error && <p className="Wishlist-error">{error}</p>}
+                    {feedback && <p className="Wishlist-feedback">{feedback}</p>}
                     {items.length === 0 && <p>No items yet...</p>}
                     {creating && <NewItemForm create={create} cancel={cancel}/>}
                     {items.length !== 0 && 

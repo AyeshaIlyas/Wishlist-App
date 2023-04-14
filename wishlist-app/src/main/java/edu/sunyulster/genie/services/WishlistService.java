@@ -3,6 +3,8 @@ package edu.sunyulster.genie.services;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 import static edu.sunyulster.genie.utils.Validator.isWishlistValid;
+import static edu.sunyulster.genie.utils.Validator.isEmailValid;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +24,7 @@ import com.mongodb.client.model.Updates;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
+import edu.sunyulster.genie.models.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -103,10 +106,16 @@ public class WishlistService {
             update = Updates.set("name", newWishlist.getName());
          }
 
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 ){//&& isEmailValid(newWishlist.getSharedWith().get(0))) {
+        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0)) && isEmailReal(newWishlist.getSharedWith().get(0))) {
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
+            
+            //update user with new wishlist
+            User updatedUser=updateList(newWishlist.getId(), newWishlist.getSharedWith().get(0));
+            
         }
+
+        
      
         //combine updates
         
@@ -176,5 +185,30 @@ public class WishlistService {
                 return match;
         }
         throw new ForbiddenException("Wishlist does not belong to requesting user");
+    }
+
+    private boolean isEmailReal(String email) {
+        MongoCollection<Document> users=db.getCollection("users");
+        Document theOne=users.find(eq("email", email)).first();
+        if (theOne==null) 
+            return false;
+        else    
+            return true;
+    }
+
+    public User updateList(String wishlistId, String userEmail) {
+        //get user with userEmail
+        MongoCollection<Document> users = db.getCollection("users");
+        Document user = users.find(eq("email", userEmail)).first();
+        User newUser=UserService.documentToUser(user);
+        newUser.addSharedList(wishlistId);
+        Bson update=null;
+        Bson filter = Filters.eq("email", newUser.getEmail());
+
+        Bson listUpdate = Updates.addToSet("sharedWith", newUser.getSharedLists().get(0));
+        update = listUpdate;
+        users.updateOne(filter, update);
+
+        return UserService.documentToUser(users.find(eq("email", userEmail)).first());
     }
 }

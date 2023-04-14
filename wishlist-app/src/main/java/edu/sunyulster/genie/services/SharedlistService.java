@@ -1,8 +1,8 @@
 package edu.sunyulster.genie.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -13,9 +13,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
-import edu.sunyulster.genie.models.Item;
-import edu.sunyulster.genie.models.Wishlist;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
+import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.utils.Validator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

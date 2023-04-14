@@ -3,14 +3,12 @@ package edu.sunyulster.genie.services;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
 import static edu.sunyulster.genie.utils.Validator.isWishlistValid;
-import static edu.sunyulster.genie.utils.Validator.isEmailValid;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -18,9 +16,9 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.model.Filters;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
@@ -98,37 +96,46 @@ public class WishlistService {
         
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
-        //Bson update = new BsonDocument();
         Bson update = null;
-        boolean isGood=false;
             
          // validate information
          if (isWishlistValid(newWishlist)) {
-            //throw new InvalidDataException("Wishlist must have a name");
-            // get updated info
-            //Bson update1 = Updates.set("name", newWishlist.getName());
-            update=Updates.combine(Updates.set("name", newWishlist.getName()), update);
-            isGood=true;
+            update = Updates.set("name", newWishlist.getName());
          }
 
         if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 ){//&& isEmailValid(newWishlist.getSharedWith().get(0))) {
-        
-            update = Updates.combine(update, Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0)));
-            isGood=true;
+            Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
+            update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
         }
-
-
-        
+     
         //combine updates
-
-
         
         if (update != null) {
+            System.out.println("UPDATE + " + update);
             wishlists.updateOne(filter, update);
         }
 
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
     }
+
+    // public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
+    //     ObjectId wishlistId = new ObjectId(newWishlist.getId());
+    //     checkWishlistOwnsership(new ObjectId(userId), wishlistId);
+        
+    //      // validate information
+    //      if (!isWishlistValid(newWishlist)) 
+    //         throw new InvalidDataException("Wishlist must have a name");
+
+    //     // get updated info
+    //     Bson update = Updates.set("name", newWishlist.getName());
+
+
+    //     // replace previous wishlist data with new data
+    //     MongoCollection<Document> wishlists = db.getCollection("wishlists");
+    //     wishlists.updateOne(eq("_id", wishlistId), update);
+    
+    //     return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
+    // }
 
     public void delete(String userId, String id) {
         ObjectId wishlistId = new ObjectId(id);

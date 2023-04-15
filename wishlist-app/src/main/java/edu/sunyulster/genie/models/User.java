@@ -7,7 +7,7 @@ public class User implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    private LinkedList<Wishlist> sharedLists;
+    private LinkedList<String> sharedLists;
 
     public User() {
         
@@ -17,19 +17,19 @@ public class User implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        sharedLists = new LinkedList<Wishlist>();
+        sharedLists = new LinkedList<String>();
     }
 
-    public LinkedList<Wishlist> getSharedLists() {
+    public LinkedList<String> getSharedLists() {
         return sharedLists;
     }
 
-    public void setSharedLists(LinkedList<Wishlist> newLists) {
+    public void setSharedLists(LinkedList<String> newLists) {
         sharedLists = newLists;
     }
 
-    public void addSharedList(Wishlist wishlist) {
-        sharedLists.add(wishlist);
+    public void addSharedList(String wishlistId) {
+        sharedLists.add(wishlistId);
     }
 
     public String getEmail() {

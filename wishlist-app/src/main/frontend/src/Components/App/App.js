@@ -13,6 +13,7 @@ import AuthContext from '../Contexts/AuthContext';
 import Footer from "./../Footer/Footer";
 import Wishlist from '../Wishlist/Wishlist';
 import SharedWishlists from "./../SharedWishlists/SharedWishlists";
+import SharedWishlist from "./../SharedWishlist/SharedWishlist";
 
 function App() {
 
@@ -46,6 +47,10 @@ function App() {
           <Route path="/shared" element={
             <ProtectedRoute component={<SharedWishlists/>}/>
           }/>
+          <Route path="/shared/:wishlistId" element={
+            <ProtectedRoute component={<SharedWishlist/>}/>
+          }/>
+
           <Route path="*" element={
             <p style={{textAlign: "center", margin: "3em"}}>Hmm... not quite sure what you're looking for :&lt;</p>
           }/>

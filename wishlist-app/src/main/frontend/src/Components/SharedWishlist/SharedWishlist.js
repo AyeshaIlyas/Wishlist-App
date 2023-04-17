@@ -68,7 +68,7 @@ export default function SharedWishlist() {
                 <header className="SharedWishlist-header">
                     <Link className="SharedWishlist-header-item SharedWishlist-list-link-back" id="back" to="/shared">
                             <FontAwesomeIcon icon={faArrowLeft}/>
-                            <span><h2>Back to Shared Wishlists</h2></span>
+                            <span><h2>Shared Wishlists</h2></span>
                     </Link>
                     <h1 className="SharedWishlist-header-item SharedWishlist-list-title">{sWishlist.name}</h1>
                     <h2 className="SharedWishlist-header-item SharedWishlist-header-owner">Shared by {sWishlist.owner}</h2>

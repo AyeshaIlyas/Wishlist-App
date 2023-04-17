@@ -37,7 +37,7 @@ public class WishlistResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createWishlist(Wishlist wishlist) throws InvalidDataException {
+    public Response createWishlist(Wishlist wishlist) throws InvalidDataException, AuthenticationException {
         Wishlist newWishlist = wishlistService.create(userId, wishlist);
         return Response.ok()
             .entity(newWishlist)

@@ -2,9 +2,8 @@ package edu.sunyulster.genie.services;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
-import static edu.sunyulster.genie.utils.Validator.isWishlistValid;
 import static edu.sunyulster.genie.utils.Validator.isEmailValid;
-
+import static edu.sunyulster.genie.utils.Validator.isWishlistValid;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,8 +22,8 @@ import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
-import edu.sunyulster.genie.models.Wishlist;
 import edu.sunyulster.genie.models.User;
+import edu.sunyulster.genie.models.Wishlist;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -36,7 +35,15 @@ public class WishlistService {
     @Inject
     MongoDatabase db;
 
-    public Wishlist create(String userId, Wishlist w) throws InvalidDataException {
+    public Wishlist create(String userId, Wishlist w) throws InvalidDataException, AuthenticationException {
+        // get user's email - change to storing user id  or name later?
+        MongoCollection<Document> users = db.getCollection("users");
+        Document match = users.find(eq("authId", new ObjectId(userId))).first();
+        if (match == null)
+            throw new AuthenticationException("User does not exist!");
+        // String name = match.getString("firstName") + " " + match.getString("lastName");    
+        String userEmail = match.getString("email");
+
         // validate information
         if (!isWishlistValid(w)) 
             throw new InvalidDataException("Wishlist must have a name");
@@ -48,14 +55,13 @@ public class WishlistService {
             .append("items", new ArrayList<ObjectId>())
             .append("sharedWith", new ArrayList<String>())
             .append("dateCreated", new Date())
-            .append("owner", new String());
+            .append("owner", userEmail);
 
         // add to wishlist collection
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         wishlists.insertOne(newWishlist);
 
         // add wishlist id to user
-        MongoCollection<Document> users = db.getCollection("users");
         Bson update = Updates.addToSet("wishlists", newWishlist.getObjectId("_id"));
         users.updateOne(eq("authId", new ObjectId(userId)), update);
 
@@ -112,13 +118,9 @@ public class WishlistService {
             
             //update user with new wishlist
             User updatedUser=updateList(newWishlist.getId(), newWishlist.getSharedWith().get(0));
-            
         }
 
-        
-     
         //combine updates
-        
         if (update != null) {
             System.out.println("UPDATE + " + update);
             wishlists.updateOne(filter, update);
@@ -126,25 +128,6 @@ public class WishlistService {
 
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
     }
-
-    // public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
-    //     ObjectId wishlistId = new ObjectId(newWishlist.getId());
-    //     checkWishlistOwnsership(new ObjectId(userId), wishlistId);
-        
-    //      // validate information
-    //      if (!isWishlistValid(newWishlist)) 
-    //         throw new InvalidDataException("Wishlist must have a name");
-
-    //     // get updated info
-    //     Bson update = Updates.set("name", newWishlist.getName());
-
-
-    //     // replace previous wishlist data with new data
-    //     MongoCollection<Document> wishlists = db.getCollection("wishlists");
-    //     wishlists.updateOne(eq("_id", wishlistId), update);
-    
-    //     return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
-    // }
 
     public void delete(String userId, String id) {
         ObjectId wishlistId = new ObjectId(id);

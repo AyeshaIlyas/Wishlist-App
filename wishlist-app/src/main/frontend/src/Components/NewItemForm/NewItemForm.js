@@ -32,7 +32,7 @@ export function NewItemForm(props) {
         <form className="NewItemForm" onSubmit={handleSubmit}>
             <h2>{name.trim() ? name : "New Item"}</h2>
             <section>
-                <label htmlFor="name">Name: </label>
+                <label htmlFor="name">*Name: </label>
                 <input type="text" 
                     id="name" 
                     name="name" 

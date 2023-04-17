@@ -1,4 +1,4 @@
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import "./WishlistForm.css";
 
 export default function WishlistForm(props) {
@@ -12,7 +12,7 @@ export default function WishlistForm(props) {
     const handleSubmit = e => {
         e.preventDefault();
         if (name.trim().length === 0) {
-            setError("Please specify a name");
+            setError("Please specifiy a name");
             return;
         } else {
             setError(null);

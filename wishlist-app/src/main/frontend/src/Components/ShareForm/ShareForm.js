@@ -15,7 +15,7 @@ export default function ShareForm(props) {
             setError("Please specify an email");
         } else {
             setError(null);
-            props.add(email);
+            props.share(email);
             props.cancel();
         }
     }

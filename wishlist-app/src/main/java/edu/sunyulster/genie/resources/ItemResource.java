@@ -33,7 +33,6 @@ public class ItemResource {
 
     @Inject
     private ItemService itemService;
-
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

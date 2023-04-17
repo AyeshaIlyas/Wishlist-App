@@ -1,21 +1,23 @@
 package edu.sunyulster.genie.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
+import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
-import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.utils.Validator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -121,4 +123,38 @@ public class SharedlistService {
         }
         throw new ForbiddenException("Wishlist does not belong to requesting user");
     }
+
+    public List<Wishlist> getAll(String userId) throws AuthenticationException {
+        // get all wishlists for the user 
+        MongoCollection<Document> users = db.getCollection("users");
+        Document match = users.find(Filters.eq("authId", new ObjectId((userId)))).first();
+        // occurs if user is deleted but still has valid jwt for example
+        if (match == null)
+            throw new AuthenticationException("User does not exist!");
+
+        List<ObjectId> wishlistIds = (ArrayList<ObjectId>) match.get("sharedWishlists");
+        MongoCollection<Document> wishlistCol = db.getCollection("wishlists");
+        FindIterable<Document> matchingWishlists = wishlistCol.find(Filters.in("_id", wishlistIds))//take wishlist collection and
+            .sort(Sorts.ascending("dateCreated"));
+
+        List<Wishlist> wishlists = new ArrayList<>(wishlistIds.size()); //140-143 convert documents to wishlists
+        for (Document w : matchingWishlists) 
+            wishlists.add(documentToWishlist(w));
+
+        return wishlists;
+    }
+
+    private Wishlist documentToWishlist(Document d) {
+        int itemCount = ((ArrayList<ObjectId>) d.get("items")).size();
+        Wishlist list =  new Wishlist(
+            d.getString("owner"),
+            d.getObjectId("_id").toString(), 
+            d.getString("name"), 
+            itemCount, 
+            d.getDate("dateCreated"));
+        list.setSharedWith((List<String>) d.get("sharedWith"));
+        return list;
+    }
+
+
 }

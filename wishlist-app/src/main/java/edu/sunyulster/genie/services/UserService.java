@@ -8,10 +8,13 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.bson.conversions.Bson;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.Filters;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.User;
@@ -66,24 +69,44 @@ public class UserService {
     
     }
 
+    
 
-    private Document userToDocument(User user, String authId) {
+    public User updateList(String wishlistId, String userEmail) {
+        //get user with userEmail
+        MongoCollection<Document> users = db.getCollection("users");
+        Document user = users.find(eq("email", userEmail)).first();
+        User newUser=documentToUser(user);
+        newUser.addSharedList(wishlistId);
+        Bson update=null;
+        Bson filter = Filters.eq("email", new ObjectId(newUser.getEmail()));
+
+        Bson listUpdate = Updates.addToSet("sharedWith", newUser.getSharedLists().get(0));
+        update = listUpdate;
+        users.updateOne(filter, update);
+
+        return documentToUser(users.find(eq("email", userEmail)).first());
+    }
+
+    public static Document userToDocument(User user, String authId) {
         Document userDoc = new Document()
             .append("_id", new ObjectId())
             .append("authId", new ObjectId(authId))
             .append("email", user.getEmail())
             .append("firstName", user.getFirstName())
             .append("lastName", user.getLastName())
+            .append("sharedLists", user.getSharedLists() )
             .append("wishlists", new ArrayList<ObjectId>());
 
         return userDoc;
     }
 
-    private User documentToUser(Document user) {
+    public static User documentToUser(Document user) {
         return new User(user.getString("email"), 
             user.getString("firstName"), 
             user.getString("lastName"));
     }
     
+
+
     
 }

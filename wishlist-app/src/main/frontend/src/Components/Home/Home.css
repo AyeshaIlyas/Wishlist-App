@@ -35,6 +35,7 @@
 .Home #registerBtn button:hover{
     background-color: #badfec;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 .Home-team {

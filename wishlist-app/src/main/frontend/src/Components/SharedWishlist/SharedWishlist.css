@@ -1,0 +1,56 @@
+.SharedWishlist-container{
+    margin-top: 0.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    background-color: rgb(255, 255, 255);
+}
+.SharedWishlist-header {
+    margin-top: 0.5%;
+    min-width: 100%;
+    display: flex;
+    align-items:center;
+    flex-wrap: nowrap;
+}
+
+.SharedWishlist-header-item {
+    flex: 1;
+}
+.SharedWishlist-header-owner {
+    text-align: right;
+    padding-right: 2%;
+}
+
+.SharedWishlist-list-title {
+    text-align: center;
+}
+
+.SharedWishlist-list-link-back{
+    text-align: left;
+    padding-left: 2%;
+    text-decoration: none;
+    color: black;
+}
+.SharedWishlist-list-link-back:visited {
+    text-decoration: none;
+    color: rgb(0, 0, 0)
+}
+.SharedWishlist-list-link-back:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+.SharedWishlist-content-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    background-color: rgb(255, 255, 255);
+    width: 60%;
+    align-items: flex-start
+}
+.SharedWishlist-items{
+    width: 100%;
+}
+

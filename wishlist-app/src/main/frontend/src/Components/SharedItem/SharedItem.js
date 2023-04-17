@@ -12,9 +12,9 @@ export default function SharedItem({id, name, price, supplier, isBought, showBuy
 
     const getSupplier = () => {
         if (supplier.match(regex)) {
-            return <a className="Sharedtem-link" href={supplier}>Buy</a>;
+            return <a className="SharedItem-link" href={supplier}>Buy</a>;
         } else {
-            return <span className="Shared Item-link">{supplier}</span>;
+            return <span className="SharedItem-link">{supplier}</span>;
         }
     }
 
@@ -22,11 +22,16 @@ export default function SharedItem({id, name, price, supplier, isBought, showBuy
     
     return (
         <div className={classString}>
-            <h2 className="SharedItem-title">{name}</h2> 
-            {price && <p className="SharedItem-price">Price: ${price}</p>}
-            {supplier && getSupplier()}
+            <div className="SharedItem-container">
+                <h4 className="SharedItem-title SharedItem-info">{name}</h4> 
+                {price && <p className="SharedItem-price SharedItem-info">Price: ${price}</p>}
+                {supplier && getSupplier()}
+
+                <div className="SharedItem-buy-space">
+                    {showBuyButton && <button className="SharedItem-info SharedItem-buy-button" type="button" onClick={handleBuy}>{isBought ? "Unbuy" : "Buy"}</button>}
+                </div>
                 
-            {showBuyButton && <button type="button" onClick={handleBuy}>{isBought ? "Unbuy" : "Buy"}</button>}
+            </div>
         </div>
     );
 }

@@ -14,14 +14,32 @@ export default function SharedWishlists() {
                 const data = [
                     {
                         "id": 100,
-                        "name": "W1",
+                        "name": "Birthday Wishlist",
                         "owner": "Maryam",
-                        "itemCount": 0
+                        "itemCount": 5
                     },
                     {
                         "id": 200,
-                        "name": "W2",
+                        "name": "Graduation Gift Ideas",
                         "owner": "Ayesha",
+                        "itemCount": 10
+                    },
+                    {
+                        "id": 300,
+                        "name": "Valentine’s Day Wishlist",
+                        "owner": "Jennifer",
+                        "itemCount": 15
+                    },
+                    {
+                        "id": 400,
+                        "name": "Christmas Wishlist",
+                        "owner": "Wendy",
+                        "itemCount": 30
+                    },
+                    {
+                        "id": 500,
+                        "name": "New Year's Eve Party",
+                        "owner": "Sam",
                         "itemCount": 100
                     }
                 ]
@@ -52,7 +70,13 @@ export default function SharedWishlists() {
     return (
         <div className="SharedWishlists">
             <div className="SharedWishlists-container">
-                <h1>Shared Wishlists</h1>
+                <h1>Wishlists Shared with Me</h1>
+                {/* This div appears even when you have no shared list this need to be changed */}
+                <div className="SharedWishlists-card-header-container">
+                    <h2 className="SharedWishlists-card-header-info">Shared by:</h2>
+                    <h2 className="SharedWishlists-card-header-info">Title:</h2>
+                    <h2 className="SharedWishlists-card-header-info">Item Count:</h2>
+                </div>
                 { loading ? <p className="SharedWishlists-msg">Loading...</p> : displaySharedWishlists() }
             </div> 
         </div>

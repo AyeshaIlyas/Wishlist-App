@@ -18,7 +18,7 @@ export default function Navbar() {
             <nav className="Navbar">
                  <div className="logo">
                     <Link to="/"><img id="Navbar-logo" src={logo} alt="genie-logo"/></Link>
-                    <span>Fourth Wish</span>
+                    <Link to="/" className="Navbar-product-name"><span className="Navbar-product-name">Fourth Wish</span></Link>
                 </div>
                 <div className="Navbar-links">
                     <NavLink key="profile" to="/profile">Profile</NavLink>
@@ -31,7 +31,7 @@ export default function Navbar() {
             <nav className="Navbar"> 
                 <div className="logo">
                     <Link to="/"><img id="Navbar-logo" src={logo} alt="genie-logo"/></Link>
-                    <span>Fourth Wish</span>
+                    <Link to="/" className="Navbar-product-name"><span className="Navbar-product-name">Fourth Wish</span></Link>
                 </div>
                 <div className="Navbar-links">
                     <NavLink key="login" to="/login">Login</NavLink>

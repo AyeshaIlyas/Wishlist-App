@@ -12,7 +12,7 @@ export default function WishlistForm(props) {
     const handleSubmit = e => {
         e.preventDefault();
         if (name.trim().length === 0) {
-            setError("Please specifiy a name");
+            setError("Please specify a name");
             return;
         } else {
             setError(null);

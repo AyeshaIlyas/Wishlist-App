@@ -37,9 +37,9 @@ export default function SharedWishlist() {
                 // const wishlist = await safeGet(wishlistId);
                 const wishlist = {
                     id: 100,
-                    name: "W1",
+                    name: "Birthday Wishlist",
                     owner: "Maryam",
-                    itemCount: 0
+                    itemCount: 5
                 }
                 if (wishlist) {
                     setSWishlist(wishlist);
@@ -66,13 +66,14 @@ export default function SharedWishlist() {
         return (
             <div className="SharedWishlist-container">
                 <header className="SharedWishlist-header">
-                    <Link id="back" to="/shared">
+                    <Link className="SharedWishlist-header-item SharedWishlist-list-link-back" id="back" to="/shared">
                             <FontAwesomeIcon icon={faArrowLeft}/>
-                            <span>All Shared Wishlists</span>
+                            <span><h2>Back to Shared Wishlists</h2></span>
                     </Link>
-                    <h1>{sWishlist.name}</h1>
-                    <p>Shared by {sWishlist.owner}</p>
+                    <h1 className="SharedWishlist-header-item SharedWishlist-list-title">{sWishlist.name}</h1>
+                    <h2 className="SharedWishlist-header-item SharedWishlist-header-owner">Shared by {sWishlist.owner}</h2>
                 </header>
+                
                 <div className="SharedWishlist-content-container">
                     {items.length === 0 && <p>No items yet...</p>}
                     {items.length !== 0 && 

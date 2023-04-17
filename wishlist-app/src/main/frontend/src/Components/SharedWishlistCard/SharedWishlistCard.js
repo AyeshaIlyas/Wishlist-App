@@ -6,9 +6,11 @@ export default function SharedWishlistCard({id, name, owner, itemCount}) {
         <div className="SharedWishlistCard">
             <Link className="SharedWishlistCard-link" to={`/shared/${id}`}>
                 <header>
-                    <h2 className="SharedWishlist-title">{name}</h2>
-                    <p>Shared by {owner}</p>
-                    <p>Items: {itemCount}</p>
+                    <div className="SharedWishlistCard-info-container">
+                        <h3 className="SharedWishlistCard-info SharedWishlist-owner">{owner}</h3>
+                        <h3 className="SharedWishlistCard-info SharedWishlist-title">{name}</h3>
+                        <h4 className="SharedWishlistCard-info SharedWishlist-itemCount">Items: {itemCount}</h4>
+                    </div>
                 </header>
             </Link>
         </div>

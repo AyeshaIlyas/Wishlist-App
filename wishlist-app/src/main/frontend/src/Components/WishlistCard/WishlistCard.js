@@ -11,7 +11,7 @@ export default function WishlistCard(props)  {
 
     useEffect(() => {
         if (name.trim().length === 0) {
-            setError("Please specifiy a name");
+            setError("Please specify a name");
         } else {
             setError(null);
         }

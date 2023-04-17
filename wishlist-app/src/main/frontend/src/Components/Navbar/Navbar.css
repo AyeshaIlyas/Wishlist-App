@@ -81,3 +81,14 @@
     display: flex;
     align-items: center;
  }
+
+  /* Styles the fourth wish text to be a link the does not change color */
+  .Navbar-product-name{
+    color: black;
+ }
+ .Navbar-product-name:hover {
+    color: black;
+ }
+ .Navbar-product-name:active {
+    color: black;
+ }

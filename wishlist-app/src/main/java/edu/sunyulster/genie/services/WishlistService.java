@@ -22,7 +22,6 @@ import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
-import edu.sunyulster.genie.models.User;
 import edu.sunyulster.genie.models.Wishlist;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -88,12 +87,26 @@ public class WishlistService {
         return wishlists;
     }
 
-    public Wishlist get(String userId, String id) {
+    public Wishlist get(String userId, String id, boolean isOwner) {
         ObjectId wishlistId = new ObjectId(id);
-        checkWishlistOwnership(new ObjectId(userId), wishlistId);
+        if (isOwner)
+            checkWishlistOwnership(new ObjectId(userId), wishlistId);
+        else {
+            // see if the user has been added to the wishlist
+            MongoCollection<Document> users = db.getCollection("users");
+            Document match = users.find(Filters.and(eq("authId", new ObjectId(userId)), in("sharedWishlists", wishlistId))).first();
+            if (match == null)
+                throw new ForbiddenException("User has not been added to this wishlist");
+        }
 
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         Document match = wishlists.find(eq("_id", wishlistId)).first();
+        if (match==null){
+            System.out.println("\n\n\n\n\n-----------------------MATCH--------------------");        
+            System.out.println(match);
+            System.out.println("-------------------------------\n\n\n\n\n");
+        }
+        System.out.println(match);
         if (match == null) 
             throw new NoSuchElementException("Wishlist does not exist");
         return documentToWishlist(match);
@@ -117,12 +130,11 @@ public class WishlistService {
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
             
             //update user with new wishlist
-            User updatedUser=updateList(newWishlist.getId(), newWishlist.getSharedWith().get(0));
+            addWishlistToUser(newWishlist.getId(), newWishlist.getSharedWith().get(0));
         }
 
         //combine updates
         if (update != null) {
-            System.out.println("UPDATE + " + update);
             wishlists.updateOne(filter, update);
         }
 
@@ -179,19 +191,11 @@ public class WishlistService {
             return true;
     }
 
-    public User updateList(String wishlistId, String userEmail) {
+    private void addWishlistToUser(String wishlistId, String userEmail) {
         //get user with userEmail
         MongoCollection<Document> users = db.getCollection("users");
-        Document user = users.find(eq("email", userEmail)).first();
-        User newUser=UserService.documentToUser(user);
-        newUser.addSharedList(wishlistId);
-        Bson update=null;
-        Bson filter = Filters.eq("email", newUser.getEmail());
-
-        Bson listUpdate = Updates.addToSet("sharedWith", newUser.getSharedLists().get(0));
-        update = listUpdate;
+        Bson filter = Filters.eq("email", userEmail);
+        Bson update = Updates.addToSet("sharedWishlists", new ObjectId(wishlistId));
         users.updateOne(filter, update);
-
-        return UserService.documentToUser(users.find(eq("email", userEmail)).first());
     }
 }

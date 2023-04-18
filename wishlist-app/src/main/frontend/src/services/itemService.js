@@ -1,15 +1,16 @@
 import axios from "axios";
 
-export const getItems = async (token, wishlistId) => {
+export const getItems = async (token, wishlistId, isOwner) => {
     try {
         const res = await axios.get(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/items`, {
+            params: {isOwner: isOwner},
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return [];
@@ -51,7 +52,7 @@ export const removeItem = async (token, wishlistId, itemId) => {
         });
         return {success: true};
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {success: false, statusCode: !e.response ? 0 : 500};
@@ -72,7 +73,7 @@ export const createItem = async (token, wishlistId, item) => {
         });
         return {success: true, item: res.data};
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {success: false, statusCode: !e.response ? 0 : 500};

@@ -28,12 +28,12 @@ export default function Wishlist() {
             const loadContent = async () => {
                 // get wishlist data
                 let safeGet = authWrapper(setIsLoggedIn, getWishlist);
-                const wishlist = await safeGet(wishlistId);
+                const wishlist = await safeGet(wishlistId, true);
                 if (wishlist) {
                     setWishlist(wishlist);
                     // get item data
                     safeGet = authWrapper(setIsLoggedIn, getItems);
-                    const items = await safeGet(wishlistId);
+                    const items = await safeGet(wishlistId, true);
                     if (items) {
                         setItems(items);
                     } 

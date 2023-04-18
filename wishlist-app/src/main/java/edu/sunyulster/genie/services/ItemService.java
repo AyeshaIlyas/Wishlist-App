@@ -16,6 +16,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
@@ -73,9 +74,18 @@ public class ItemService {
         return documentToItem(newItem);
     }
 
-    public List<Item> getAll(String userId, String wishlistId) throws ForbiddenException, AuthenticationException {
+    public List<Item> getAll(String userId, String wishlistId, boolean isOwner) throws ForbiddenException, AuthenticationException {
         ObjectId wId = new ObjectId(wishlistId);
-        checkWishlistOwnsership(new ObjectId(userId), wId);
+        if (isOwner)
+            checkWishlistOwnsership(new ObjectId(userId), wId);
+        else {
+            // see if the user has been added to the wishlist
+            MongoCollection<Document> users = db.getCollection("users");
+            Document match = users.find(Filters.and(eq("authId", new ObjectId(userId)), in("sharedWishlists", new ObjectId(wishlistId)))).first();
+            System.out.println(match);
+            if (match == null)
+                throw new ForbiddenException("User has not been added to this wishlist");
+        }
 
         // get all items for the user 
         MongoCollection<Document> wishlists = db.getCollection("wishlists");

@@ -9,7 +9,7 @@ export const getSharedWishlists = async (token) => {
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return [];
@@ -28,7 +28,7 @@ export const getWishlist = async (token, wishlistId) => {
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {};
@@ -37,29 +37,6 @@ export const getWishlist = async (token, wishlistId) => {
         }
     }
 }
-
-export const updateWishlist = async (token, wishlistId, newWishlist) => {
-    try {
-        const res = await axios.patch(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`,
-        newWishlist, 
-        {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return {success: true, wishlist: res.data};
-    } catch (e) {
-        console.log("Error: " + e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {success: false, statusCode: !e.response ? 0 : 500};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        }
-    }
-}
-
 
 export const getSharedItems = async (token, wishlistId) => {
     try {
@@ -70,7 +47,7 @@ export const getSharedItems = async (token, wishlistId) => {
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return [];
@@ -80,3 +57,25 @@ export const getSharedItems = async (token, wishlistId) => {
     }
 }
 
+export const buyItem = async (token, wishlistId, itemId, shouldBuy) => {
+    try {
+        const res = await axios.patch(`http://127.0.0.1:9081/api/sharedlists/${wishlistId}/items/${itemId}`,
+        null, 
+        {
+            params: {buy: shouldBuy},
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return {success: true, wishlist: res.data};
+    } catch (e) {
+        console.log(e);
+        if (!e.response || e.response.status === 500) {
+            console.log(!e.response ? "no server response" : "server error");
+            return {success: false, statusCode: !e.response ? 0 : 500};
+        } else if (e.response.status === 401) {
+            throw new Error(401);
+        }
+    }
+}

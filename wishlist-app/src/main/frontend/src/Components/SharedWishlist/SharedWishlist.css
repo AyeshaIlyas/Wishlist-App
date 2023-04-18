@@ -55,3 +55,11 @@
     width: 100%;
 }
 
+.Wishlist-error  {
+    padding: 1.5em;
+    background-color: rgb(243, 159, 159);
+    color:rgb(143, 10, 10);
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 1.2em;
+}

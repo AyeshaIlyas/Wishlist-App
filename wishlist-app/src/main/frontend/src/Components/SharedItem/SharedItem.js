@@ -3,11 +3,11 @@ import "./SharedItem.css"
 var expression = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
 var regex = new RegExp(expression);
 
-export default function SharedItem({id, name, price, supplier, isBought, showBuyButton, buy}) {
+export default function SharedItem({id, name, price, supplier, purchased, showBuyButton, buy}) {
     
     // toggle buy status 
     const handleBuy = async () => {
-        await buy(id, !isBought);
+        await buy(id, !purchased);
     }
 
     const getSupplier = () => {
@@ -18,7 +18,7 @@ export default function SharedItem({id, name, price, supplier, isBought, showBuy
         }
     }
 
-    const classString = `SharedItem ${isBought ? "bought" : "notBought"}`
+    const classString = `SharedItem ${purchased ? "bought" : "notBought"}`
     
     return (
         <div className={classString}>
@@ -28,7 +28,7 @@ export default function SharedItem({id, name, price, supplier, isBought, showBuy
                 {supplier && getSupplier()}
 
                 <div className="SharedItem-buy-space">
-                    {showBuyButton && <button className="SharedItem-info SharedItem-buy-button" type="button" onClick={handleBuy}>{isBought ? "Unbuy" : "Buy"}</button>}
+                    {showBuyButton && <button className="SharedItem-info SharedItem-buy-button" type="button" onClick={handleBuy}>{purchased ? "Unbuy" : "Buy"}</button>}
                 </div>
                 
             </div>

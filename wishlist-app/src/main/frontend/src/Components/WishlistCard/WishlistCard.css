@@ -13,6 +13,7 @@
     border-radius: 1em;
     color: #395676;
     font-size: 15px;
+    margin-right: 0.5rem;
 }
 
 .WishlistCard button:hover {
@@ -33,8 +34,13 @@
 .WishlistCard-link {
     display: block;
     margin-bottom: .7em;
-    color: #395676;
+    color: #000000;
     font-size: 20px;
+    text-decoration: none;
+}
+
+.WishlistCard-link:after {
+    color: #000000;
 }
 
 .WishlistCard-label {

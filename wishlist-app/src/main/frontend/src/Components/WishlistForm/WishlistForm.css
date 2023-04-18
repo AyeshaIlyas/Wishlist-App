@@ -1,33 +1,58 @@
 .WishlistForm {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+.WishlistForm section {
+    width: 100%;  
+    margin: 3em auto;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.WishlistForm form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+.WishlistForm input[type="text"],
+.WishlistForm button {
+    border-radius: 0.5rem;
+    border-color: #badfec;
+    border-style: solid;
+    font-size: 1.2rem;
+    padding: 0.25rem;
+    margin-left: 45rem;
+    margin-right: 45rem  ;
+    
+}
+
+.WishlistForm label, 
+.WishlistForm button {
+    margin-top: 1rem;
 }
 
 .WishlistForm button {
+    padding: 0.5rem;
+    border-radius: 5px;
     border: none;
-    background-color: rgb(57, 86, 118);;
-    padding: .2em 1em;
-    border-radius: 1em;
-    color: rgb(170, 170, 170);
-    font-size: 15px
+    text-decoration: none;
+    background-color: #9ECCDD;
+    color: black;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    transition: all ease 500ms;
 }
 
 .WishlistForm button:hover {
-    color: #a6bbd2;
-}
-
-.WishlistForm input {
-    border: 1;
-    outline: none;
-    background-color: rgb(255, 253, 253);
-    padding: .3em 1em;
-    border-radius: 5px;
-    color: rgb(0, 0, 0);
-    font-size: 15px;
-    margin: 0 1em 1em 0;
-}
-
-.WishlistForm label {
-    font-size: 20px;
-    font-weight: 600;
-
+    background-color:#badfec;
 }

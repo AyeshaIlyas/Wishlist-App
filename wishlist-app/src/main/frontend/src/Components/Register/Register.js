@@ -5,6 +5,7 @@ import {Link, Navigate, useNavigate} from "react-router-dom";
 import './Register.css';
 import axios from "axios";
 import AuthContext from "../Contexts/AuthContext";
+import Spinner from "../Utils/Spinner";
 
 const FNAME_REGEX = /[A-Za-z]{1,}/;
 const LNAME_REGEX = /[A-Za-z'-]{1,}/;
@@ -41,6 +42,8 @@ const Register = () => {
     const navigate = useNavigate();
     const errRef = useRef();
     const authState = useContext(AuthContext);
+    const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [firstName, setFirstName] = useState('');
     const [validFirstName, setValidFirstName] = useState(false);
@@ -80,6 +83,9 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisabled(true);
+        setLoading(true);
+
         // if button enabled with JS hack
         const v1 = PWD_REGEX.test(pwd);
         const v2 = FNAME_REGEX.test(firstName);
@@ -105,6 +111,8 @@ const Register = () => {
             }
             errRef.current.focus();
         }
+        setDisabled(false);
+        setLoading(false);
     }
 
     return (
@@ -112,104 +120,97 @@ const Register = () => {
         ? <Navigate to="/wishlists"  replace/>
         : (
             <div className="Register">
-                {/* <div className="Register-blue"> 
-                    <h2>More Stuff To Say</h2>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                        unt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                </div> */}
-            <section className="Reigster-container">
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h1>Register</h1>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="firstName">
-                             
-                        <FontAwesomeIcon icon={faCheck} className={validFirstName ? "valid" : "hide"} />
-                        <FontAwesomeIcon icon={faTimes} className={validFirstName || !firstName ? "hide" : "invalid"} />
-                    </label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        placeholder="First name"
-                        onChange={(e) => setFirstName(e.target.value)}
-                        value={firstName}
-                        required
-                        aria-invalid={validFirstName ? "false" : "true"}
-        
-                    />
+                <section className="Reigster-container">
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Register</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="firstName">
+                                
+                            <FontAwesomeIcon icon={faCheck} className={validFirstName ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validFirstName || !firstName ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            placeholder="First name"
+                            onChange={(e) => setFirstName(e.target.value)}
+                            value={firstName}
+                            required
+                            aria-invalid={validFirstName ? "false" : "true"}
+            
+                        />
+
+                        <label htmlFor="lastName">    
+                            <FontAwesomeIcon icon={faCheck} className={validLastName ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validLastName || !lastName ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            placeholder="Last name"
+                            onChange={(e) => setLastName(e.target.value)}
+                            value={lastName}
+                            required
+                            aria-invalid={validLastName ? "false" : "true"}
+                        />
 
 
-                    <label htmlFor="lastName">
-                               
-                        <FontAwesomeIcon icon={faCheck} className={validLastName ? "valid" : "hide"} />
-                        <FontAwesomeIcon icon={faTimes} className={validLastName || !lastName ? "hide" : "invalid"} />
-                    </label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        placeholder="Last name"
-                        onChange={(e) => setLastName(e.target.value)}
-                        value={lastName}
-                        required
-                        aria-invalid={validLastName ? "false" : "true"}
-                    />
-
-
-                    <label htmlFor="Email">
-                       
-                        <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
-                        <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                        aria-invalid={validEmail ? "false" : "true"}
-                        aria-describedby="emailnote"
-                        onFocus={() => setEmailFocus(true)}
-                        onBlur={() => setEmailFocus(false)}
-                    />
-                    <p id="emailnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                        Email must be in the format: example<span aria-label="at symbol">@</span>email.com
-                    </p>
-
-
-                    <label htmlFor="password">
+                        <label htmlFor="Email">
                         
-                        <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                        <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
-                        aria-invalid={validPwd ? "false" : "true"}
-                        aria-describedby="pwdnote"
-                        onFocus={() => setPwdFocus(true)}
-                        onBlur={() => setPwdFocus(false)}
-                    />
-                    <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                        Minimum 5 characters.
-                    </p>
+                            <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                        />
+                        <p id="emailnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Email must be in the format: example<span aria-label="at symbol">@</span>email.com
+                        </p>
 
-                    <button id="registerBtn" disabled={!validFirstName || !validLastName || !validEmail || !validPwd ? true : false}>Sign Up</button>
-                </form>
-                <p>
-                    Already registered?<br />
-                    <span className="line">
-                        {/*put router link here*/}
-                        <Link to="/login">Login</Link>
-                    </span>
-                </p>
-            </section>
+
+                        <label htmlFor="password">
+                            
+                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
+                        />
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Minimum 5 characters.
+                        </p>
+
+                        <button id="registerBtn" disabled={!validFirstName || !validLastName || !validEmail || !validPwd || disabled ? true : false}>Sign Up</button>
+                    </form>
+                    <p>
+                        Already registered?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <Link to="/login">Login</Link>
+                        </span>
+                    </p>
+                    {loading && <Spinner/>}
+                </section>
             </div>
         )
     );

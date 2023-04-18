@@ -87,14 +87,29 @@
     margin-left: 0.25rem;
 }
 
-.Register .errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
 .Register .line a{
     color: black;
 }
+
+.Register .errmsg  {
+    padding: 1.5em;
+    background-color: rgb(243, 159, 159);
+    color:rgb(143, 10, 10);
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+}
+.Spinner {
+    margin-top: .3em;
+}
+
+#registerBtn:disabled,
+#registerBtn[disabled],
+#registerBtn:disabled:hover,
+#registerBtn[disabled]:hover {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+

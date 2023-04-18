@@ -13,12 +13,14 @@ import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -37,7 +39,7 @@ public class WishlistResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createWishlist(Wishlist wishlist) throws InvalidDataException {
+    public Response createWishlist(Wishlist wishlist) throws InvalidDataException, AuthenticationException {
         Wishlist newWishlist = wishlistService.create(userId, wishlist);
         return Response.ok()
             .entity(newWishlist)
@@ -56,8 +58,8 @@ public class WishlistResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getWishlist(@PathParam("id") String id) throws AuthenticationException {
-        Wishlist wishlist = wishlistService.get(userId, id);
+    public Response getWishlist(@PathParam("id") String id, @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) throws AuthenticationException {
+        Wishlist wishlist = wishlistService.get(userId, id, isOwner);
         System.out.println(wishlist);
         return Response.ok()
             .entity(wishlist)

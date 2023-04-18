@@ -16,10 +16,7 @@
     font-size: 14px;
     padding: .5em 1em;
     border: none;
-    margin-right: .5%;
-    margin-left: .5%;
-    margin-top: .5%;
-    
+    margin: 0.5%;
 }
 
 .ShareForm button:hover {

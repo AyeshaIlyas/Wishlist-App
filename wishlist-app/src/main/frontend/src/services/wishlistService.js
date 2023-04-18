@@ -9,7 +9,7 @@ export const getWishlists = async (token) => {
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return [];
@@ -19,17 +19,18 @@ export const getWishlists = async (token) => {
     }
 }
 
-export const getWishlist = async (token, wishlistId) => {
+export const getWishlist = async (token, wishlistId, isOwner) => {
     try {
         const res = await axios.get(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`, {
+            params : {isOwner},
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
-        if (!e.response || e.response.status === 500) {
+        console.log(e);
+        if (!e.response || e.response.status === 500 ) {
             console.log(!e.response ? "no server response" : "server error");
             return {};
         } else if (e.response.status === 401) {
@@ -50,7 +51,7 @@ export const updateWishlist = async (token, wishlistId, newWishlist) => {
         });
         return {success: true, wishlist: res.data};
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {success: false, statusCode: !e.response ? 0 : 500};
@@ -73,7 +74,7 @@ export const removeWishlist = async (token, wishlistId) => {
         });
         return {success: true};
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {success: false, statusCode: !e.response ? 0 : 500};
@@ -94,7 +95,7 @@ export const createWishlist = async (token, wishlist) => {
         });
         return {success: true, wishlist: res.data};
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return {success: false, statusCode: !e.response ? 0 : 500};

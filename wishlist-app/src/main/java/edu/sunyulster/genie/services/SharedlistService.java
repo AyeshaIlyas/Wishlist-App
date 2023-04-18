@@ -15,10 +15,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
-import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
-import edu.sunyulster.genie.utils.Validator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -29,26 +27,6 @@ public class SharedlistService {
 
     @Inject
     MongoDatabase db;
-
-
-
-    public void share(String ownerId,String userEmail, String wishlistId) throws AuthenticationException, InvalidDataException {
-
-        checkWishlistOwnership(new ObjectId(ownerId), new ObjectId(wishlistId));
-        
-
-        if  (!Validator.isEmailValid(userEmail))
-            throw new InvalidDataException("email is not valid");
-
-
-        MongoCollection<Document> wishlists = db.getCollection("wishlists");
-
-
-        Bson filter = Filters.eq("_id", new ObjectId(wishlistId));
-        Bson update = Updates.addToSet("sharedWith", userEmail);
-        wishlists.updateOne(filter, update);
-        //update db with new shared person
-    }
 
     public Item buy(String userId, String wishlistId, String itemId, boolean buy) throws AuthenticationException {
         // check that user is added to the wishlist and get their email
@@ -103,27 +81,6 @@ public class SharedlistService {
         return i;
     }
 
-    private Item documentToItem(Document d) {
-        return new Item(
-            d.getObjectId("_id").toString(),
-            d.getString("name"),
-            d.getDouble("price"),
-            d.getString("supplier"),
-            d.getDate("dateCreated"),
-            d.getString("gifter"));
-    }
-
-    private Document checkWishlistOwnership(ObjectId userId, ObjectId wishlistId) {
-        MongoCollection<Document> users = db.getCollection("users");
-        Document match = users.find(Filters.eq("authId", userId)).first();
-        List<ObjectId> wishlistIds = (ArrayList<ObjectId>) match.get("wishlists");
-        for (ObjectId i : wishlistIds) {
-            if (i.equals(wishlistId))
-                return match;
-        }
-        throw new ForbiddenException("Wishlist does not belong to requesting user");
-    }
-
     public List<Wishlist> getAll(String userId) throws AuthenticationException {
         // get all wishlists for the user 
         MongoCollection<Document> users = db.getCollection("users");
@@ -156,5 +113,14 @@ public class SharedlistService {
         return list;
     }
 
+    private Item documentToItem(Document d) {
+        return new Item(
+            d.getObjectId("_id").toString(),
+            d.getString("name"),
+            d.getDouble("price"),
+            d.getString("supplier"),
+            d.getDate("dateCreated"),
+            d.getString("gifter"));
+    }
 
 }

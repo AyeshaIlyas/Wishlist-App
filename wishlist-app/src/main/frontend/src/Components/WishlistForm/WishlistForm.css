@@ -4,11 +4,12 @@
 
 .WishlistForm button {
     border: none;
-    background-color: rgb(57, 86, 118);;
+    background-color: rgb(57, 86, 118);
     padding: .2em 1em;
     border-radius: 1em;
     color: rgb(170, 170, 170);
-    font-size: 15px
+    font-size: 15px;
+    margin-right: 0.5rem;
 }
 
 .WishlistForm button:hover {

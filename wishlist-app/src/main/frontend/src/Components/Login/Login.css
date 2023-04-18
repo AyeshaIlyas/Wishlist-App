@@ -57,10 +57,24 @@
     color: black;
 }
 
-.Login .errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
+.Login .errmsg  {
+    padding: 1.5em;
+    background-color: rgb(243, 159, 159);
+    color:rgb(143, 10, 10);
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 1.2em;
     margin-bottom: 0.5rem;
+}
+
+.Spinner {
+    margin-top: .3em;
+}
+
+.Login-button:disabled,
+.Login-button[disabled],
+.Login-button:disabled:hover,
+.Login-button[disabled]:hover {
+  background-color: #cccccc;
+  color: #666666;
 }

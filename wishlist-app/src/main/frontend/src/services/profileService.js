@@ -9,7 +9,7 @@ export const getProfile = async (token) => {
         });
         return res.data;
     } catch (e) {
-        console.log("Error: " + e);
+        console.log(e);
         if (!e.response || e.response.status === 500) {
             console.log(!e.response ? "no server response" : "server error");
             return null;

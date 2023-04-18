@@ -8,13 +8,10 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.bson.conversions.Bson;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.model.Updates;
-import com.mongodb.client.model.Filters;
 
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.User;
@@ -63,28 +60,13 @@ public class UserService {
         // remove user from db
         MongoCollection<Document> users = db.getCollection("users");
         DeleteResult result = users.deleteOne(eq("authId", new ObjectId(userId)));
+
+        // remove wishlists and wishlist items
+        
         // if user was already deleted
         if (result.getDeletedCount() == 0) 
             throw new AuthenticationException("User does not exist");
     
-    }
-
-    
-
-    public User updateList(String wishlistId, String userEmail) {
-        //get user with userEmail
-        MongoCollection<Document> users = db.getCollection("users");
-        Document user = users.find(eq("email", userEmail)).first();
-        User newUser=documentToUser(user);
-        newUser.addSharedList(wishlistId);
-        Bson update=null;
-        Bson filter = Filters.eq("email", new ObjectId(newUser.getEmail()));
-
-        Bson listUpdate = Updates.addToSet("sharedWith", newUser.getSharedLists().get(0));
-        update = listUpdate;
-        users.updateOne(filter, update);
-
-        return documentToUser(users.find(eq("email", userEmail)).first());
     }
 
     public static Document userToDocument(User user, String authId) {
@@ -94,7 +76,7 @@ public class UserService {
             .append("email", user.getEmail())
             .append("firstName", user.getFirstName())
             .append("lastName", user.getLastName())
-            .append("sharedLists", user.getSharedLists() )
+            .append("sharedWishlists", new ArrayList<ObjectId>())
             .append("wishlists", new ArrayList<ObjectId>());
 
         return userDoc;

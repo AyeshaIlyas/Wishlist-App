@@ -5,7 +5,7 @@ export default function WishlistForm(props) {
     const [name, setName] = useState("");
     const [error, setError] = useState(null);
 
-    const handleChange = e => {
+    const handleChange = e => {  
         setName(e.target.value);
     }
 
@@ -26,6 +26,8 @@ export default function WishlistForm(props) {
             <label htmlFor="name">Name: </label>
             <input 
             type="text" 
+            id="name"
+            placeholder="Name"
             value={name} 
             onChange={handleChange}
             autoFocus

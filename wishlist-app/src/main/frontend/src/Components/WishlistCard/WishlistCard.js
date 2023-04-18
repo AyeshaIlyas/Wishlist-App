@@ -22,7 +22,7 @@ export default function WishlistCard(props)  {
     }
 
     const handleRemove = () => {
-        props.remove(props.id);
+        props.remove(props);
     } 
 
     const handleCancel = () => {

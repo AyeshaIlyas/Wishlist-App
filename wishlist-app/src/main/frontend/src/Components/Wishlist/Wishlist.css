@@ -69,13 +69,15 @@
 }
 
 #Wishlist-share-button {
+    position:fixed;
+    bottom: 6em;
+    right: 3em;
+    padding: 1em 2em;
+    border: none;
     background-color: #395676;
     border-radius: 10px;
     color: rgb(213, 213, 213);
-    font-size: 14px;
-    padding: .5em 2em;
-    border: none;
-    margin-top: .3%;
+    font-size: 15px;
 }
 
 .Wishlist #Wishlist-share-button:hover {

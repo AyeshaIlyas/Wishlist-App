@@ -4,6 +4,7 @@ import "./SharedWishlists.css";
 import { getSharedWishlists } from "../../services/sharedWishlistService";
 import AuthContext from "../Contexts/AuthContext";
 import { authWrapper } from "../../services/utils";
+import Spinner from "../Utils/Spinner";
 
 export default function SharedWishlists() {
     const {setIsLoggedIn} = useContext(AuthContext);
@@ -50,7 +51,12 @@ export default function SharedWishlists() {
         <div className="SharedWishlists">
             <div className="SharedWishlists-container">
                 <h1>Wishlists Shared with Me</h1>        
-                { loading ? <p className="SharedWishlists-msg">Loading...</p> : displaySharedWishlists() }
+                { loading ? (
+                     <div>
+                        <p className="SharedWishlists-msg">Loading...</p>
+                        <Spinner/>
+                     </div>
+                ) : displaySharedWishlists() }
             </div> 
         </div>
     );

@@ -5,6 +5,8 @@ import WishlistForm from "../WishlistForm/WishlistForm";
 import {authWrapper} from "../../services/utils";
 import './MyWishlists.css';
 import AuthContext from "../Contexts/AuthContext";
+import ConfirmationDialog from "../Utils/ConfirmationDialog/ConfirmationDialog";
+import Spinner from "./../Utils/Spinner";
 
 export default function MyWishlists() {
     const {setIsLoggedIn} = useContext(AuthContext);
@@ -12,6 +14,8 @@ export default function MyWishlists() {
     const [isFormDisplaying, setIsFormDisplaying] = useState(false);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
+    const [deleteItem, setDeleteItem] = useState({});
 
     useEffect(() => {
         const loadWishlists = async () => {
@@ -63,12 +67,12 @@ export default function MyWishlists() {
         }
     }
 
-    const remove = async id => {
+    const remove = async () => {
         const safeRemove = authWrapper(setIsLoggedIn, removeWishlist);
-        const response = await safeRemove(id);
+        const response = await safeRemove(deleteItem.id);
         if (response) {
             if (response.success) {
-                const updatedWishlists = wishlists.filter((w) => ((w.id !== id)))
+                const updatedWishlists = wishlists.filter((w) => ((w.id !== deleteItem.id)))
                 setWishlists(updatedWishlists);
                 setError(null);
             }
@@ -76,18 +80,33 @@ export default function MyWishlists() {
             // error
             setError("We couldn't delete your item :<...")
         }
+        setShowDialog(false);
+        setDeleteItem({});
 
     }
+
+    const confirmRemove = wishlist => {
+        setShowDialog(true);
+        setDeleteItem(wishlist);
+    }
+
+   
+    const cancelRemove = () => {
+        setShowDialog(false);
+    }
+
 
     const displayWishlists = () => {
         return (
             <>
+                {showDialog && <ConfirmationDialog title="Delete Wishlist" details={`Are you sure you want to delete ${deleteItem.name}?`} actionLabel="Delete" action={remove} cancel={cancelRemove}/>}
+
                 {wishlists.length === 0 && <p className="MyWishlists-msg">{"No wishlists yet :<"}</p>}
                 { isFormDisplaying && <WishlistForm create={create} cancel={cancel}/> }
                 { wishlists.length !== 0 &&
                         <div className="MyWishlists-cards">
                             {wishlists.map((w) => (
-                                <WishlistCard key={w.id} id={w.id} {...w} update={update} remove={remove} />
+                                <WishlistCard key={w.id} id={w.id} {...w} update={update} remove={confirmRemove} />
                             ))}
                         </div>
                 }
@@ -101,7 +120,12 @@ export default function MyWishlists() {
             <div className="MyWishlists-container">
                 <h1>Wishlists</h1>
                 {error && <p>{error}</p>}
-                { isLoading ? <p className="MyWishlists-msg">Loading...</p> : displayWishlists() }
+                { isLoading ? (
+                    <div>
+                        <p className="MyWishlists-msg">Loading...</p>
+                        <Spinner/>
+                    </div>
+                ) : displayWishlists() }
             </div> 
         </div>
     );

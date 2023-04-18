@@ -10,6 +10,7 @@ import AuthContext from "../Contexts/AuthContext";
 import { getWishlist, updateWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
+import Spinner from "../Utils/Spinner";
 
 export default function Wishlist() {
     const {wishlistId} = useParams();
@@ -102,6 +103,7 @@ export default function Wishlist() {
         console.log(response);
         if (response) {
             if (response.success) {
+                wishlist.sharedWith.push(email);
                 setFeedback("Added " + email);
                 setTimeout(() => {
                     setFeedback(null);
@@ -122,8 +124,6 @@ export default function Wishlist() {
         setCreating(false);
     }
 
-    console.log(wishlistId);
-
     const handleShareForm = () => {
         window.scrollTo(0, 0);
         setSharing(true);
@@ -132,7 +132,6 @@ export default function Wishlist() {
     const cancelShare = () => {
         setSharing(false);
     }
-
 
     const displayContent = () => {
         return (
@@ -143,10 +142,10 @@ export default function Wishlist() {
                             <span>All Wishlists</span>
                     </Link>
                     <h1>{wishlist.name}</h1>
+                    {wishlist.sharedWith.length > 0 && <p>Shared with {wishlist.sharedWith.join(" | ")}</p>}
                     
                 </header>
                 <div className="Wishlist-content-container">
-                    {!sharing && <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>}
                     {sharing && <ShareForm share={share} cancel={cancelShare}/>}
                     {error && <p className="Wishlist-error">{error}</p>}
                     {feedback && <p className="Wishlist-feedback">{feedback}</p>}
@@ -158,6 +157,7 @@ export default function Wishlist() {
                         </div>
                     }
                 </div>
+                <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>
                 <button id="Wishlist-new-button" onClick={handleShowForm}>New Item</button>
             </>
         );
@@ -167,8 +167,12 @@ export default function Wishlist() {
         <div className="Wishlist">
             <div className="Wishlist-container">
             {
-                loading ?
-                <p>Loading...</p>
+                loading ? (
+                    <div>
+                        <p className="Wishlist-msg">Loading...</p>
+                        <Spinner/>
+                    </div>
+                )
                 : displayContent()
             }
             </div>

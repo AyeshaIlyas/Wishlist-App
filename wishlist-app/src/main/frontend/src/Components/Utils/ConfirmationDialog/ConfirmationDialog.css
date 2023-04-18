@@ -1,0 +1,26 @@
+.ConfirmationDialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #9ECCDD;
+    padding: 1em 2em;
+    border-radius: 1em;
+}
+
+.ConfirmationDialog button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    padding: .2em 1em;
+    border-radius: 1em;
+    color: #395676;
+    font-size: 15px;
+}
+
+.ConfirmationDialog-controls {
+    margin: auto;
+    margin-top: 1em;
+    display: flex;
+    max-width: 170px;
+    justify-content: space-between;
+}

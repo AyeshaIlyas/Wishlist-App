@@ -11,6 +11,7 @@ import AuthContext from "../Contexts/AuthContext";
 import { getProfile } from "../../services/profileService";
 import { authWrapper } from "../../services/utils";
 import { buyItem } from "../../services/sharedWishlistService";
+import Spinner from "../Utils/Spinner";
 
 export default function SharedWishlist() {
     const {wishlistId} = useParams();
@@ -51,7 +52,7 @@ export default function SharedWishlist() {
             }
 
         loadData();
-        setInterval(loadContent, 10 * 1000);
+        setInterval(loadContent, 5 * 1000);
     }, [setIsLoggedIn, wishlistId]);
 
 
@@ -74,7 +75,12 @@ export default function SharedWishlist() {
         return (
             <div className="SharedWishlist-container">
                 {error && <p>error</p>}
-                {loading ? <p className="SharedWishlist-error">Loading...</p> : (
+                {loading ? (
+                    <div>
+                        <p className="SharedWishlist-error">Loading...</p>
+                        <Spinner/>
+                    </div>
+                ) : (
                 <>
                     <header className="SharedWishlist-header">
                         <Link className="SharedWishlist-header-item SharedWishlist-list-link-back" id="back" to="/shared">

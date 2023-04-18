@@ -44,11 +44,13 @@ export default function WishlistCard(props)  {
     }
 
     return(
-        <div className="WishlistCard">
+        <div className="WishlistCard">                            
+        <Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>
             <header>
                 <h2 className="Wishlist-title">{props.name}</h2>
                 <p>Items: {props.itemCount}</p>
             </header>
+        </Link>
             <div>
                 {isEditing ?
                 (
@@ -67,7 +69,6 @@ export default function WishlistCard(props)  {
                     </form>
                 ) : (
                         <>
-                            <p><Link className="WishlistCard-link" to={`/wishlists/${props.id}`}>View</Link></p>
                             <div>
                                 <button onClick={handleEdit}>Edit</button>
                                 <button onClick={handleRemove}>Delete</button>

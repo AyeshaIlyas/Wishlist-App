@@ -4,6 +4,7 @@
     justify-content: space-evenly;
     flex-grow: 1;
     padding-bottom: 1rem;
+    position: absolute;
     max-width: 400px;
     margin: auto;
 }

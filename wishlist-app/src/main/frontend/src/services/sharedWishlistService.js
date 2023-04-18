@@ -19,24 +19,6 @@ export const getSharedWishlists = async (token) => {
     }
 }
 
-export const getWishlist = async (token, wishlistId) => {
-    try {
-        const res = await axios.get(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return res.data;
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        }
-    }
-}
 
 export const getSharedItems = async (token, wishlistId) => {
     try {

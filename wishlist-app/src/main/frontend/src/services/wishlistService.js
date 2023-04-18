@@ -30,7 +30,7 @@ export const getWishlist = async (token, wishlistId, isOwner) => {
         return res.data;
     } catch (e) {
         console.log(e);
-        if (!e.response || e.response.status === 500) {
+        if (!e.response || e.response.status === 500 ) {
             console.log(!e.response ? "no server response" : "server error");
             return {};
         } else if (e.response.status === 401) {

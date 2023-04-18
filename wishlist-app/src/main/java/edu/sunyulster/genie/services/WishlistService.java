@@ -96,7 +96,7 @@ public class WishlistService {
             MongoCollection<Document> users = db.getCollection("users");
             Document match = users.find(Filters.and(eq("authId", new ObjectId(userId)), in("sharedWishlists", wishlistId))).first();
             if (match == null)
-                throw new ForbiddenException("User has not been added to this wishlist");
+                throw new ForbiddenException("User has not been added to this wishlist (or this wishlist does not exist)");
         }
 
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
@@ -157,6 +157,10 @@ public class WishlistService {
         // delete wishlist object id from user
         MongoCollection<Document> users = db.getCollection("users");
         users.updateOne(eq("authId", new ObjectId(userId)), Updates.pull("wishlists", wishlistId));
+    
+        // delete wishlist from people it has been shared with
+        Bson update = Updates.pull("sharedWishlists", wishlistId);
+        users.updateMany(in("sharedWishlists", wishlistId), update);
     }
 
     private Wishlist documentToWishlist(Document d) {

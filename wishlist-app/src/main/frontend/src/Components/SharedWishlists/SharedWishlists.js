@@ -22,6 +22,7 @@ export default function SharedWishlists() {
                 }
             }
             loadData();
+            setInterval(loadData, 10 * 1000); // increase reload interval for performance
         }, [setIsLoggedIn]
     );
     

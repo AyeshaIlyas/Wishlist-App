@@ -52,7 +52,7 @@ export default function SharedWishlist() {
             }
 
         loadData();
-        setInterval(loadContent, 5 * 1000);
+        setInterval(loadContent, 10 * 1000);
     }, [setIsLoggedIn, wishlistId]);
 
 

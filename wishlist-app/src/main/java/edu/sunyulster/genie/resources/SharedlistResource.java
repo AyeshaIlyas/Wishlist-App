@@ -48,4 +48,6 @@ public class SharedlistResource {
         List<Wishlist> sharedWishlist = service.getAll(userId);
         return Response.ok(sharedWishlist).type(MediaType.APPLICATION_JSON).build();
     }
+
+
 }

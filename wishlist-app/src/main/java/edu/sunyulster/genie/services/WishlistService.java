@@ -38,6 +38,7 @@ public class WishlistService {
         // get user's email - change to storing user id  or name later?
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("authId", new ObjectId(userId))).first();
+    
         if (match == null)
             throw new AuthenticationException("User does not exist!");
         // String name = match.getString("firstName") + " " + match.getString("lastName");    

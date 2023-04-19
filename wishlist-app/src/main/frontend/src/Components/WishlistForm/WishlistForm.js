@@ -23,7 +23,6 @@ export default function WishlistForm(props) {
 
     return(
         <form className="WishlistForm">
-            <label htmlFor="name">Name: </label>
             <input 
             type="text" 
             id="name"

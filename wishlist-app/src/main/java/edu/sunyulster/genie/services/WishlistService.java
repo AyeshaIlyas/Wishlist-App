@@ -120,28 +120,18 @@ public class WishlistService {
         Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
         Bson update = null;
             
-
-         
          // validate information
          if (isWishlistValid(newWishlist)) {
             update = Updates.set("name", newWishlist.getName());
          }
 
-        
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
-            if (isEmailReal(newWishlist.getSharedWith().get(0))) {
+        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0)) && isEmailReal(newWishlist.getSharedWith().get(0))) {
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
             
             //update user with new wishlist
             addWishlistToUser(newWishlist.getId(), newWishlist.getSharedWith().get(0));
-            }
-            else {
-                throw new InvalidDataException("email is not in the db");
-            }
         }
-
-        
 
         //combine updates
         if (update != null) {

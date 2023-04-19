@@ -10,9 +10,10 @@
 }
 
 .ShareForm button{
-    background-color: #9ECCDD;
+    background-color: #395676;
     border-radius: 10px;
-    font-size: 16px;
+    color: rgb(213, 213, 213);
+    font-size: 14px;
     padding: .5em 1em;
     border: none;
     margin: 0.5%;

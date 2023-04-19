@@ -126,7 +126,9 @@ public class WishlistService {
             update = Updates.set("name", newWishlist.getName());
          }
 
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0)) && isEmailReal(newWishlist.getSharedWith().get(0))) {
+        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
+            if (!isEmailReal(newWishlist.getSharedWith().get(0)))
+                throw new InvalidDataException("Email does not exist");
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
             

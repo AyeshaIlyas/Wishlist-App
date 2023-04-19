@@ -103,14 +103,23 @@ export default function Wishlist() {
         console.log(response);
         if (response) {
             if (response.success) {
-                wishlist.sharedWith.push(email);
-                setFeedback("Added " + email);
-                setTimeout(() => {
-                    setFeedback(null);
-                }, 3000);
+                if (!wishlist.sharedWith.includes(email)) {
+                    wishlist.sharedWith.push(email);
+                    setFeedback("Added " + email);
+                    setTimeout(() => {
+                        setFeedback(null);
+                    }, 3000);
+                } else {
+                    setFeedback(email + " has already been added");
+                    setTimeout(() => {
+                        setFeedback(null);
+                    }, 3000);
+                }
             } else {
-                setError("We couldn't create your item :<...")
-            }
+                setError("We could not add " + email);
+                setTimeout(() => {
+                    setError(null);
+                }, 3000);            }
         }
         
     }

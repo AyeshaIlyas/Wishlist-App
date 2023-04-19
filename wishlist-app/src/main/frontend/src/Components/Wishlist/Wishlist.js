@@ -109,7 +109,10 @@ export default function Wishlist() {
                     setFeedback(null);
                 }, 3000);
             } else {
-                setError("We couldn't create your item :<...")
+                setError("We couldn't share with the list with "+email)
+                setTimeout(() => {
+                    setError(null);
+                }, 3000);
             }
         }
         

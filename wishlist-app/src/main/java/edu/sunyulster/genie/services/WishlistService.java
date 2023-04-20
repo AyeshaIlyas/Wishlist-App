@@ -121,17 +121,29 @@ public class WishlistService {
         Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
         Bson update = null;
             
+        MongoCollection<Document> users = db.getCollection("users");
+        Document match = users.find(eq("authId", new ObjectId(userId))).first();
+
          // validate information
-         if (isWishlistValid(newWishlist)) {
+         if (isWishlistValid(newWishlist)) 
+         {
             update = Updates.set("name", newWishlist.getName());
          }
 
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
-            if (!isEmailReal(newWishlist.getSharedWith().get(0)))
+         if ( (newWishlist.getSharedWith() != null)
+         && (newWishlist.getSharedWith().size() > 0)
+         && (isEmailValid(newWishlist.getSharedWith().get(0))))
+         //&& !(newWishlist.getSharedWith().get(0).equals(match.getString("email")))) //check to see if you are sharing the wishlist with yourself
+         {
+            if (!isEmailReal(newWishlist.getSharedWith().get(0))){
                 throw new InvalidDataException("Email does not exist");
+            }
+            else if (newWishlist.getSharedWith().get(0).equals(match.getString("email")))
+            {
+                throw new InvalidDataException("Cant share yourself to your own email!");
+            }
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
-            
             //update user with new wishlist
             addWishlistToUser(newWishlist.getId(), newWishlist.getSharedWith().get(0));
         }

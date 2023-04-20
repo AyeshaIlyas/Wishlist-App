@@ -112,7 +112,6 @@ public class SharedlistService {
         list.setSharedWith((List<String>) d.get("sharedWith"));
         return list;
     }
-
     private Item documentToItem(Document d) {
         return new Item(
             d.getObjectId("_id").toString(),
@@ -121,6 +120,30 @@ public class SharedlistService {
             d.getString("supplier"),
             d.getDate("dateCreated"),
             d.getString("gifter"));
+    }
+    
+    private Wishlist leaveSharedWishlist(String userId, String wishlistId){
+        // check that user is added to the wishlist and get their email
+
+        // get user email
+        MongoCollection<Document> users = db.getCollection("users");
+        Document user = users.find(Filters.eq("authId", new ObjectId(userId))).first();
+        if (user == null) 
+            throw new AuthenticationException("User does not exist");
+        String email = user.getString("email");
+        
+        // get wishlist
+        MongoCollection<Document> wishlists = db.getCollection("wishlists");
+        Document wishlist = wishlists.find(Filters.eq("_id", new ObjectId(wishlistId))).first();
+        if (wishlist == null) 
+            throw new NoSuchElementException("Wishlist does not exist");
+
+        Wishlist w = documentToWishlist(wishlist);
+
+        w.sharedWith.remove(email);
+        
+        Bson filter = Filters.eq("_id", new ObjectId(w.getId()));
+        Bson update = null;
     }
 
 }

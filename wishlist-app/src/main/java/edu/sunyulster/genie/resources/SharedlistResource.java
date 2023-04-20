@@ -48,6 +48,15 @@ public class SharedlistResource {
         List<Wishlist> sharedWishlist = service.getAll(userId);
         return Response.ok(sharedWishlist).type(MediaType.APPLICATION_JSON).build();
     }
+<<<<<<< Updated upstream
 
 
+=======
+    @DELETE
+    @Path("/{id}")
+    public Response leaveSharedWishlist(@PathParam("id") String id)throws AuthenticationException{
+        Wishlist leftWishlist = service.leaveSharedWishlist(userID,id);
+        return Response.ok(leftWishlist).type(MediaType.APPLICATION_JSON).build();
+    }
+>>>>>>> Stashed changes
 }

@@ -57,6 +57,8 @@ export const updateWishlist = async (token, wishlistId, newWishlist) => {
             return {success: false, statusCode: !e.response ? 0 : 500};
         } else if (e.response.status === 401) {
             throw new Error(401);
+        } else if (e.response.status === 400) {
+            return {success: false, statusCode: 400};
         }
         else if (e.response.status === 400) {
             return {success: false, statusCode: 400};

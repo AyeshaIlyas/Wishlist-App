@@ -95,7 +95,6 @@ export default function Wishlist() {
     }
 
     const share = async (email) => {
-
         const safeUpdateWishlist = authWrapper(setIsLoggedIn, updateWishlist);
         const response = await safeUpdateWishlist(wishlistId, {
             "sharedWith": [email]
@@ -116,12 +115,12 @@ export default function Wishlist() {
                     }, 3000);
                 }
             } else {
-                setError("We could not add " + email);
+                setError("We couldn't share with the list with "+email)
                 setTimeout(() => {
                     setError(null);
-                }, 3000);            }
+                }, 3000);
+            }
         }
-        
     }
 
     const handleShowForm = () => {

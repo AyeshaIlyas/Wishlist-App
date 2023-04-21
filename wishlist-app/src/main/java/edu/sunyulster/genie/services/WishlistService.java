@@ -38,7 +38,6 @@ public class WishlistService {
         // get user's email - change to storing user id  or name later?
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("authId", new ObjectId(userId))).first();
-    
         if (match == null)
             throw new AuthenticationException("User does not exist!");
         // String name = match.getString("firstName") + " " + match.getString("lastName");    
@@ -120,13 +119,13 @@ public class WishlistService {
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
         Bson update = null;
-            
-         // validate information
-         if (isWishlistValid(newWishlist)) {
-            update = Updates.set("name", newWishlist.getName());
-         }
 
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size()>0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
+         // validate information
+        if (isWishlistValid(newWishlist)) {
+            update = Updates.set("name", newWishlist.getName());
+        }
+
+        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size() > 0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
             String email = newWishlist.getSharedWith().get(0);
             if (!isEmailReal(email))
                 throw new InvalidDataException("Email does not exist");
@@ -141,7 +140,7 @@ public class WishlistService {
             // check to see if user is trying to share their own wishlist with themselves
             if (email.equals(userEmail))
                 throw new InvalidDataException("Owner cannot share wishlist with themselves");
-                
+    
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
             

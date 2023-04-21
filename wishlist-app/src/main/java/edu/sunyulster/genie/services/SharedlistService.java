@@ -122,7 +122,7 @@ public class SharedlistService {
             d.getString("gifter"));
     }
     
-    private Wishlist leaveSharedWishlist(String userId, String wishlistId){
+    public Wishlist leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException{
         // check that user is added to the wishlist and get their email
 
         // get user email
@@ -140,10 +140,11 @@ public class SharedlistService {
 
         Wishlist w = documentToWishlist(wishlist);
 
-        w.sharedWith.remove(email);
+        w.getSharedWith().remove(email);
         
         Bson filter = Filters.eq("_id", new ObjectId(w.getId()));
         Bson update = null;
+        return w;
     }
 
 }

@@ -1,29 +1,21 @@
 .WishlistForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
-    position: absolute;
-    max-width: 400px;
+    padding-bottom: .25rem;
+    max-width: 300px;
     margin: auto;
 }
 
-.WishlistForm input[type="text"],
-.WishlistForm button {
+.WishlistForm input[type="text"] {
     border-radius: 0.5rem;
     border-color: #badfec;
     border-style: solid;
     font-size: 1.2rem;
     padding: 0.25rem;
 }
-
-.WishlistForm label, 
+ 
 .WishlistForm button {
-    margin-top: 1rem;
-}
-
-.WishlistForm button {
+    margin-top: .25rem;
+    margin-left: 1em;
+    margin-right: 1em;
     padding: 0.5rem;
     border-radius: 5px;
     border: none;
@@ -33,6 +25,7 @@
     text-transform: uppercase;
     padding: 0.5rem 1rem;
     transition: all ease 500ms;
+    cursor: pointer;
 }
 
 .WishlistForm button:hover {

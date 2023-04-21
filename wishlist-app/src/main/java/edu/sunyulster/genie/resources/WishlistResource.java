@@ -70,7 +70,7 @@ public class WishlistResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException {
+    public Response updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException, AuthenticationException {
         wishlist.setId(id);
         Wishlist updatedWishlist = wishlistService.update(userId, wishlist);
         return Response.ok()

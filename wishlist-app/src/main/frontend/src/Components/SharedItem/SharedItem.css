@@ -42,17 +42,11 @@
 }
 
 /* Styles link */
-.SharedItem-link {
+.SharedItem-link,
+.SharedItem-link:visited,
+.SharedItem-link:hover,
+.SharedItem-link:active  {
     color: #395676;
-}
-.SharedItem-link:visited {
-    color:  #395676;
-}
-.SharedItem-link:hover {
-    color:  #395676;
-}
-.SharedItem-link:active {
-    color:  #395676;
 }
 
 /* Styles a bought item */

@@ -52,7 +52,7 @@ public class SharedlistResource {
     @DELETE
     @Path("/{id}")
     public Response leaveSharedWishlist(@PathParam("id") String id)throws AuthenticationException{
-        Wishlist leftWishlist = service.leaveSharedWishlist(userId,id);
-        return Response.ok(leftWishlist).type(MediaType.APPLICATION_JSON).build();
+        service.leaveSharedWishlist(userId,id);
+        return Response.ok().type(MediaType.APPLICATION_JSON).build();
     }
 }

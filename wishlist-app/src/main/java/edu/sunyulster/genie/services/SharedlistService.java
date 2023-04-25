@@ -122,7 +122,7 @@ public class SharedlistService {
             d.getString("gifter"));
     }
     
-    public Wishlist leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException{
+    public void leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException{
         // check that user is added to the wishlist and get their email
 
         // get user email
@@ -137,14 +137,21 @@ public class SharedlistService {
         Document wishlist = wishlists.find(Filters.eq("_id", new ObjectId(wishlistId))).first();
         if (wishlist == null) 
             throw new NoSuchElementException("Wishlist does not exist");
+        List<ObjectId> wishlistIds = (ArrayList<ObjectId>) user.get("sharedWishlists");
+        if(!wishlistIds.contains(new ObjectId(wishlistId)))
+        {throw new ForbiddenException("Wishlist is not shared with this user");}
 
-        Wishlist w = documentToWishlist(wishlist);
+        // remove user's email from wishlist
+        Bson filter = Filters.eq("_id", new ObjectId(wishlistId));
+        Bson update = Updates.pull("sharedWith", email);
+        wishlists.updateOne(filter, update);
 
-        w.getSharedWith().remove(email);
-        
-        Bson filter = Filters.eq("_id", new ObjectId(w.getId()));
-        Bson update = null;
-        return w;
+        // remove wishlist id from user
+        filter = Filters.eq("authId", new ObjectId(userId));
+        update = Updates.pull("sharedWishlists", new ObjectId(wishlistId));
+        users.updateOne(filter, update);
+
+        return;
     }
 
 }

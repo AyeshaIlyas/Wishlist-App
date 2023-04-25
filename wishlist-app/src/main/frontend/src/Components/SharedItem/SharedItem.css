@@ -1,3 +1,4 @@
+/* Styles the item container*/
 .SharedItem-container{
     min-width: 100%;
     display: flex;
@@ -7,34 +8,68 @@
     border: 2px solid #badfec;
     margin: 2%;
     background-color: rgb(233, 233, 233);
-    box-shadow: 0 1px 2px 0 rgba(87, 87, 87, 0.2), 0 3px 10px 0 rgba(66, 66, 66, 0.19);
+    /* box-shadow: 0 1px 2px 0 rgba(87, 87, 87, 0.2), 0 3px 10px 0 rgba(66, 66, 66, 0.19); */
 }
 
+/* Styles the info in an item */
 .SharedItem-info{
     flex: 1;
     text-align: left;
     padding-left: 2%;
+    padding-right: 2%;
     padding-top: 2.5%;
     padding-bottom: 2.5%;
 }
-
+/* Styles the mark as bought button */
 .SharedItem-buy-button{
-    /* flex: 0.3; */
-    background-color: #9ECCDD;
     border: none;
-    border-radius: 16px;
-    color: black;
+    background-color: #9ECCDD;
+    padding: .25em 1em;
+    border-radius: 1em;
+    color: #000000;
+    font-size: 16px;
+    margin-right: 0.5rem;
     cursor: pointer;
-    padding: 15% 30%;
+}
+
+/* Styles the flex size of info in an item */
+.SharedItem-price {
+    flex: 0.4;
+}
+.SharedItem-info-link, .SharedItem-buy-space {
+    flex: 0.2;
     text-align: center;
 }
-.SharedItem-buy-space {
-    flex: 0.2;
-}
-.bought {
-    color: rgb(150, 150, 150);
-}
 
-.notBought {
+/* Styles link */
+.SharedItem-link {
     color: #395676;
 }
+.SharedItem-link:visited {
+    color:  #395676;
+}
+.SharedItem-link:hover {
+    color:  #395676;
+}
+.SharedItem-link:active {
+    color:  #395676;
+}
+
+/* Styles a bought item */
+.bought{
+    color: rgb(150, 150, 150);
+}
+.bought .SharedItem-container{
+    border: 2px solid rgb(208, 208, 208);
+}
+.bought .SharedItem-link, .bought .SharedItem-link:visited, .bought .SharedItem-link:hover, .bought .SharedItem-link:active{
+    color: rgb(150, 150, 150);
+}
+.bought .SharedItem-buy-button{
+    background-color: rgb(195, 195, 195);
+    border: 2px solid rgb(188, 188, 188);
+    color: rgb(51, 51, 51);
+}
+/* .notBought {
+    color: #000000;
+} */

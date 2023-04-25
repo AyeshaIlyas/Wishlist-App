@@ -6,7 +6,7 @@
     border: 2px solid #badfec;
     margin: 2%;
     background-color: rgb(233, 233, 233);
-    box-shadow: 0 1px 2px 0 rgba(87, 87, 87, 0.2), 0 3px 10px 0 rgba(66, 66, 66, 0.19);
+    /* box-shadow: 0 1px 2px 0 rgba(87, 87, 87, 0.2), 0 3px 10px 0 rgba(66, 66, 66, 0.19); */
 }
 .SharedWishlistCard-info{
     flex: 1;

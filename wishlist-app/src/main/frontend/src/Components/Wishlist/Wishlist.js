@@ -7,10 +7,11 @@ import "./Wishlist.css";
 import { getItems, removeItem, updateItem, createItem} from "./../../services/itemService";
 import { NewItemForm } from "../NewItemForm/NewItemForm";
 import AuthContext from "../Contexts/AuthContext";
-import { getWishlist, updateWishlist } from "../../services/wishlistService";
+import { getWishlist, updateWishlist, unshareWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
 import Spinner from "../Utils/Spinner";
+import UnshareForm from "../Unshare/UnshareForm";
 
 export default function Wishlist() {
     const {wishlistId} = useParams();
@@ -22,6 +23,7 @@ export default function Wishlist() {
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const [sharing, setSharing] = useState(false);
+    const [unsharing, setUnsharing] = useState(false);
 
     
     useEffect(
@@ -123,6 +125,35 @@ export default function Wishlist() {
         }
     }
 
+   const unshare = async (email) => {
+        const safeUpdateWishlist = authWrapper(setIsLoggedIn, unshareWishlist);
+        const response = await safeUpdateWishlist(wishlistId, 
+            email
+        );
+        console.log(response);
+        if (response) {
+            if (response.success) {
+                if (wishlist.sharedWith.includes(email)) {
+                    wishlist.sharedWith.pop();
+                    setFeedback("Removed " + email);
+                    setTimeout(() => {
+                        setFeedback(null);
+                    }, 3000);
+                } else {
+                    setFeedback(email + "is not being shared with");
+                    setTimeout(() => {
+                        setFeedback(null);
+                    }, 3000);
+                }
+            } else {
+                setError("We couldn't share with the list with "+email)
+                setTimeout(() => {
+                    setError(null);
+                }, 3000);
+            }
+        }
+    }
+
     const handleShowForm = () => {
         window.scrollTo(0, 0);
         setCreating(true);
@@ -141,6 +172,16 @@ export default function Wishlist() {
         setSharing(false);
     }
 
+    const handleUnshareForm = () => {
+        window.scrollTo(0, 0);
+        setUnsharing(true);
+    }
+
+    const cancelUnshare = () => {
+        setUnsharing(false);
+    }
+
+
     const displayContent = () => {
         return (
             <>
@@ -155,6 +196,7 @@ export default function Wishlist() {
                 </header>
                 <div className="Wishlist-content-container">
                     {sharing && <ShareForm share={share} cancel={cancelShare}/>}
+                    {unsharing && <UnshareForm unshare={unshare} cancel={cancelUnshare}/>}
                     {error && <p className="Wishlist-error">{error}</p>}
                     {feedback && <p className="Wishlist-feedback">{feedback}</p>}
                     {items.length === 0 && <p>No items yet...</p>}
@@ -165,6 +207,7 @@ export default function Wishlist() {
                         </div>
                     }
                 </div>
+                <button id ="Wishlist-unshare-button" onClick={handleUnshareForm}>Unshare</button>
                 <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>
                 <button id="Wishlist-new-button" onClick={handleShowForm}>New Item</button>
             </>

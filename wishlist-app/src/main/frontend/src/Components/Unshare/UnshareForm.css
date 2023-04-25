@@ -1,0 +1,24 @@
+.UnshareForm input[type="text"],
+.UnshareForm input[type="password"],
+.UnshareForm input[type="email"],
+.UnshareForm textarea {
+    border-radius: 0.5rem;
+    border-color: #badfec;
+    border-style: solid;
+    font-size: 1.2rem;
+    padding: 0.25rem;
+}
+
+.UnshareForm button{
+    background-color: #9ECCDD;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: .5em 1em;
+    border: none;
+    margin: 0.5%;
+}
+
+.UnshareForm button:hover {
+    color: #badfec;
+    text-decoration: none;
+}

@@ -59,6 +59,18 @@
     font-size: 15px;
 }
 
+#Wishlist-unshare-button {
+    position:fixed;
+    bottom: 10em;
+    right: 3em;
+    padding: 1em 2em;
+    border: none;
+    background-color: #395676;
+    border-radius: 10px;
+    color: rgb(213, 213, 213);
+    font-size: 15px;
+}
+
 .Wishlist header  {
     display: flex;
     justify-content: center;

@@ -91,4 +91,13 @@ public class WishlistResource {
         return ItemResource.class;
     }
 
+    @DELETE
+    @Path("/{wishlistId}/sharedwith")
+    public Response deleteUser(String userEmail, @PathParam("wishlistId") String wishlistId) throws InvalidDataException{
+        wishlistService.checkStuff(userEmail, wishlistId, userId);
+        wishlistService.removeFromSharedWith(userEmail, wishlistId);
+        wishlistService.removeFromSharedLists(userEmail, wishlistId);
+        return Response.noContent().build();
+    }
+
 }

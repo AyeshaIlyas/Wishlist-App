@@ -134,7 +134,11 @@ export default function Wishlist() {
         if (response) {
             if (response.success) {
                 if (wishlist.sharedWith.includes(email)) {
-                    wishlist.sharedWith.pop();
+                    
+                    const index = wishlist.sharedWith.indexOf(email);
+                    wishlist.sharedWith.splice(index, 1);
+                    
+
                     setFeedback("Removed " + email);
                     setTimeout(() => {
                         setFeedback(null);

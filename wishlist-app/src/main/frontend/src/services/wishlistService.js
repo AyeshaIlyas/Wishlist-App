@@ -70,12 +70,13 @@ export const unshareWishlist = async (token, wishlistId, email) => {
 
     try {
         const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/sharedwith`,
-        { headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` }
-        },  
-              { params : {email} }
-    
+        { 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` 
+            },
+            data: email
+        }
     );
         return { success: true, wishlist: res.data };
     } catch (e) {

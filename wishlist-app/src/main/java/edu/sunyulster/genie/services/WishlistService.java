@@ -238,8 +238,8 @@ public class WishlistService {
 
         //check if wishlist exists
         MongoCollection<Document> lists=db.getCollection("wishlists");
-        Document theOne=lists.find(eq("id", wishlistId)).first();
-        if (theOne==null) 
+        Document theOne = lists.find(eq("_id", new ObjectId(wishlistId)).first();
+        if (theOne == null) 
             throw new InvalidDataException();
 
         //check if user exists

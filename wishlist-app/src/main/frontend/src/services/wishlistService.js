@@ -69,13 +69,11 @@ export const updateWishlist = async (token, wishlistId, newWishlist) => {
 export const unshareWishlist = async (token, wishlistId, email) => {
 
     try {
-        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/sharedwith`,
+        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/sharedwith/${email}`,
         { 
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}` 
-            },
-            data: email
+            }       
         }
     );
         return { success: true, wishlist: res.data };
@@ -87,9 +85,6 @@ export const unshareWishlist = async (token, wishlistId, email) => {
         } else if (e.response.status === 401) {
             throw new Error(401);
         } else if (e.response.status === 400) {
-            return { success: false, statusCode: 400 };
-        }
-        else if (e.response.status === 400) {
             return { success: false, statusCode: 400 };
         }
     }

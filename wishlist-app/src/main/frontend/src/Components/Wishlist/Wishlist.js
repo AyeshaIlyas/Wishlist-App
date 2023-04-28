@@ -133,24 +133,14 @@ export default function Wishlist() {
         console.log(response);
         if (response) {
             if (response.success) {
-                if (wishlist.sharedWith.includes(email)) {
-                    
-                    const index = wishlist.sharedWith.indexOf(email);
-                    wishlist.sharedWith.splice(index, 1);
-                    
-
-                    setFeedback("Removed " + email);
-                    setTimeout(() => {
-                        setFeedback(null);
-                    }, 3000);
-                } else {
-                    setFeedback(email + "is not being shared with");
-                    setTimeout(() => {
-                        setFeedback(null);
-                    }, 3000);
-                }
+                const index = wishlist.sharedWith.indexOf(email);
+                wishlist.sharedWith.splice(index, 1);
+                setFeedback("Removed " + email);
+                setTimeout(() => {
+                    setFeedback(null);
+                }, 3000);
             } else {
-                setError("We couldn't share with the list with "+email)
+                setError("We couldn't remove "+email)
                 setTimeout(() => {
                     setError(null);
                 }, 3000);

@@ -1,34 +1,40 @@
 .SharedWishlistCard-info-container{
     display: flex;
     align-items:center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; 
     border-radius: 25px;
     border: 2px solid #badfec;
     margin: 2%;
     background-color: rgb(233, 233, 233);
+    justify-content: space-between;
+ 
     /* box-shadow: 0 1px 2px 0 rgba(87, 87, 87, 0.2), 0 3px 10px 0 rgba(66, 66, 66, 0.19); */
 }
 
-.SharedWishlistCard-info{
-    /* flex: 1; */
-    text-align: left;
+
+
+.SharedWishlistCard-info {
+    /*flex: 1; */
+    text-align: center;
     padding-left: 2%;
     padding-top: 2.5%;
     padding-bottom: 2.5%;
 }
 
 .SharedWishlistCard-link {
+    align-items: center;
     flex: 1;
-    text-decoration: none;
+    /*text-decoration: none; */
     color: black;
     display: flex;
     align-items:center;
     justify-content: space-between;
-    flex-wrap: nowrap;
+    /*flex-wrap: nowrap; 
     border-radius: 25px;
     border: 2px solid #badfec;
     margin: 2%;
     background-color: rgb(233, 233, 233);
+*/
 }
 
 .SharedWishlistCard-link:visited {
@@ -41,5 +47,7 @@
 }
 
 .SharedWishlistCard #deleteBtn {
-    margin-right: 1em;
+    margin-right: .5em;
+    margin-left: .5em;
+    cursor:pointer;
 }

@@ -260,7 +260,7 @@ export default function Wishlist() {
                     }
                 </div>
                 <button id="Wishlist-new-button" onClick={handleShowForm}>New Item</button>
-                <button className='Wishlist-share-button' onClick={() => {
+                <button id='Wishlist-share-button' onClick={() => {
                     setIsOpen(!isOpen);
                     setActiveRemove(false);
                     setActiveAdd(false);

@@ -1,57 +1,51 @@
- .Navbar {
+.Navbar {
      display: flex;
      align-items: center;
      background-color: rgb(233, 233, 233);
-     justify-content: space-between;
      left: 0;
      text-decoration: none;
      position: sticky;
      width: 100%;
      top: 0;
+     justify-content: space-between;
      /* box-shadow: 7px 5px 12px -5px rgba(0, 0, 0, 0.174); */
  }
 
- 
-
  /*Styles both logos used. The width of the images causes styling the width attibute to change the height of the navbar. Height must therefore be used*/
- #Navbar-logo {
+#Navbar-logo {
      display: inline-block;
      height: 50px;
  }
 
-
- .Navbar a {
+.Navbar a {
      padding: 10px;
      display: inline;
      transition: all ease 500ms;
  }
 
  /*Styles clickable links found within Navbar. Removes the underline the link*/
- .Navbar a:link {
+ /*Styles the text of the visted clickable links found within Navbar. Removes the underline and sets the purple coloring to black*/
+.Navbar a:link,
+.Navbar a:visited {
      text-decoration: none;
      color: black;
  }
 
- /*Styles the text of the visted clickable links found within Navbar. Removes the underline and sets the purple coloring to black*/
- .Navbar a:visited {
-     text-decoration: none;
-     color: black
- }
-
  /*Styles the text of the currently active clickable link found within Navbar. Removes the underline and sets the current active link to blue*/
- .Navbar a.active {
+.Navbar a.active {
      color: #9ECCDD;
+     font-weight: bold;
      text-decoration: none
  }
 
  /*Styles the text of the clickable links found within Navbar when hovered over. Removes the underline and set the coloring to cornflower blue*/
- .Navbar a:hover {
-     color: #badfec;
+.Navbar a:hover {
+     color: #4c739c;
      text-decoration: none;
  }
 
  /*Styles the Logout button of the Navbar.*/
- .Navbar>button {
+.Navbar button {
     background-color: #9ECCDD;
     border: none;
     border-radius: 16px;
@@ -67,28 +61,34 @@
  }
 
  /*Styles the Logout button when hovered over. Matches background to navbar color and sets text coloring to cornflower blue*/
- .Navbar button:hover {
+.Navbar button:hover {
      background-color: badfec;
  }
 
- .Navbar-links {
+.Navbar-links {
     border-radius: 5px;
     padding: 1%;
-    margin-right: 1rem;
- }
+    align-items: center;
+}
 
- .Navbar .logo {
+.Navbar .logo {
     display: flex;
     align-items: center;
- }
+}
 
   /* Styles the fourth wish text to be a link the does not change color */
-  .Navbar-product-name{
+.Navbar-product-name,
+.Navbar-product-name:hover,
+.Navbar-product-name:active {
     color: black;
- }
- .Navbar-product-name:hover {
-    color: black;
- }
- .Navbar-product-name:active {
-    color: black;
- }
+}
+
+.Navbar-profile-info{
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.Navbar-userInfo {
+    display: flex;
+    align-items: center;
+}

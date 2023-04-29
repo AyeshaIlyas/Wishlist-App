@@ -61,3 +61,25 @@ export const buyItem = async (token, wishlistId, itemId, shouldBuy) => {
         }
     }
 }
+
+export const removeSelfFromList = async (token, wishlistId) => {
+    try {
+        const res = await axios.delete(`http://127.0.0.1:9081/api/sharedlists/${wishlistId}`,
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return {success: true};
+    } catch (e) {
+        console.log(e);
+        if (!e.response || e.response.status === 500) {
+            console.log(!e.response ? "no server response" : "server error");
+            return {success: false, statusCode: !e.response ? 0 : 500};
+        } else if (e.response.status === 401) {
+            throw new Error(401);
+        } else if (e.response.status === 400) {
+            return {success: false, statusCode: 400};
+        }
+    }
+}

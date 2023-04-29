@@ -1,46 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "./logo.png";
 import AuthContext from "../Contexts/AuthContext";
 import Cookies from "js-cookie";
-import {authWrapper} from "./../../services/utils";
-import { getProfile } from '../../services/profileService';
 
 export default function Navbar() {
     const authState = useContext(AuthContext);
     const navigate = useNavigate();
-    const [profileInfo, setProfileInfo] = useState({});
-
-    useEffect(
-        () => {
-            const makeRequest = async () => {
-                const safeGetProfile = authWrapper(authState.setIsLoggedIn, getProfile);
-                const profile = await safeGetProfile();
-                if (profile) {
-                    setProfileInfo(profile);
-                }
-            }
-            makeRequest();
-        }, [authState]
-    );
-
-    const displayProfile = () => {
-        return(
-            <div className="Navbar-profile-info">
-                <p>{profileInfo.firstName} {profileInfo.lastName}</p>
-                <p> {profileInfo.email}</p>               
-            </div> 
-        );      
-    }
-
+    
     const logout = () => {
         Cookies.remove("auth-session");
         sessionStorage.removeItem("token");
         authState.setIsLoggedIn(false);
         navigate("/login");
     }
-
     return authState.isLoggedIn ? 
         (
             <nav className="Navbar">
@@ -53,11 +27,7 @@ export default function Navbar() {
                     <NavLink key="wishlists" to="/wishlists">Wishlists</NavLink>
                     <NavLink key="shared" to="/shared">Shared</NavLink>
                 </div>
-                <div className="Navbar-userInfo">
-                    {displayProfile()}
-                    <button className="Navbar-logout" onClick={logout}>Logout</button>
-                </div>
-
+                <button className="Navbar-logout" onClick={logout}>Logout</button>
             </nav>
         ) : (
             <nav className="Navbar"> 

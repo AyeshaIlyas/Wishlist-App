@@ -9,7 +9,7 @@ import Spinner from "../Utils/Spinner";
 
 const FNAME_REGEX = /[A-Za-z]{1,}/;
 const LNAME_REGEX = /[A-Za-z'-]{1,}/;
-const EMAIL_REGEX = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 const PWD_REGEX = /^\S{5,}/;
 // const REGISTER_URL = '/register';
 
@@ -137,6 +137,7 @@ const Register = () => {
                             value={firstName}
                             required
                             aria-invalid={validFirstName ? "false" : "true"}
+            
                         />
 
                         <label htmlFor="lastName">    
@@ -152,6 +153,7 @@ const Register = () => {
                             required
                             aria-invalid={validLastName ? "false" : "true"}
                         />
+
 
                         <label htmlFor="Email">
                         
@@ -175,8 +177,9 @@ const Register = () => {
                             Email must be in the format: example<span aria-label="at symbol">@</span>email.com
                         </p>
 
+
                         <label htmlFor="password">
-                    
+                            
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
                         </label>

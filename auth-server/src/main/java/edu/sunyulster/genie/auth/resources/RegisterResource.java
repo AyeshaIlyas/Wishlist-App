@@ -1,8 +1,6 @@
 package edu.sunyulster.genie.auth.resources;
 
 
-import java.security.NoSuchAlgorithmException;
-
 import com.ibm.websphere.security.jwt.JwtException;
 
 import edu.sunyulster.genie.auth.exceptions.RegistrationException;
@@ -34,7 +32,7 @@ public class RegisterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     // JwtException handled by JwtExceptionMapper
-    public Response register(User user) throws JwtException, NoSuchAlgorithmException {
+    public Response register(User user) throws JwtException {
         try {
             String jwt = registerService.register(user);
             JsonObject content = Json.createObjectBuilder().add("token", jwt).build();

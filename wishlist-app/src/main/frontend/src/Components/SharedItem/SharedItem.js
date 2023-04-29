@@ -12,7 +12,7 @@ export default function SharedItem({id, name, price, supplier, purchased, showBu
 
     const getSupplier = () => {
         if (supplier.match(regex)) {
-            return <a className="SharedItem-link" href={supplier} target="_blank">Buy Here</a>;
+            return <a className="SharedItem-link" href={supplier}>Buy</a>;
         } else {
             return <span className="SharedItem-link">{supplier}</span>;
         }
@@ -23,16 +23,12 @@ export default function SharedItem({id, name, price, supplier, purchased, showBu
     return (
         <div className={classString}>
             <div className="SharedItem-container">
-                <h3 className="SharedItem-info">{name}</h3> 
-                <div className="SharedItem-price SharedItem-info">
-                    {price && <h4>Price: ${price}</h4>}
-                </div>
-                <div className="SharedItem-info SharedItem-info-link">
-                    {supplier && getSupplier()}
-                </div>
+                <h4 className="SharedItem-title SharedItem-info">{name}</h4> 
+                {price && <p className="SharedItem-price SharedItem-info">Price: ${price}</p>}
+                {supplier && getSupplier()}
 
-                <div className="SharedItem-buy-space SharedItem-info">
-                    {showBuyButton && <button className="SharedItem-buy-button" type="button" onClick={handleBuy}>{purchased ? "Unbuy" : "Buy"}</button>}
+                <div className="SharedItem-buy-space">
+                    {showBuyButton && <button className="SharedItem-info SharedItem-buy-button" type="button" onClick={handleBuy}>{purchased ? "Unbuy" : "Buy"}</button>}
                 </div>
                 
             </div>

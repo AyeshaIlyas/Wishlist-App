@@ -112,6 +112,7 @@ public class SharedlistService {
         list.setSharedWith((List<String>) d.get("sharedWith"));
         return list;
     }
+
     private Item documentToItem(Document d) {
         return new Item(
             d.getObjectId("_id").toString(),
@@ -120,38 +121,6 @@ public class SharedlistService {
             d.getString("supplier"),
             d.getDate("dateCreated"),
             d.getString("gifter"));
-    }
-    
-    public void leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException{
-        // check that user is added to the wishlist and get their email
-
-        // get user email
-        MongoCollection<Document> users = db.getCollection("users");
-        Document user = users.find(Filters.eq("authId", new ObjectId(userId))).first();
-        if (user == null) 
-            throw new AuthenticationException("User does not exist");
-        String email = user.getString("email");
-        
-        // get wishlist
-        MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        Document wishlist = wishlists.find(Filters.eq("_id", new ObjectId(wishlistId))).first();
-        if (wishlist == null) 
-            throw new NoSuchElementException("Wishlist does not exist");
-        List<ObjectId> wishlistIds = (ArrayList<ObjectId>) user.get("sharedWishlists");
-        if(!wishlistIds.contains(new ObjectId(wishlistId)))
-        {throw new ForbiddenException("Wishlist is not shared with this user");}
-
-        // remove user's email from wishlist
-        Bson filter = Filters.eq("_id", new ObjectId(wishlistId));
-        Bson update = Updates.pull("sharedWith", email);
-        wishlists.updateOne(filter, update);
-
-        // remove wishlist id from user
-        filter = Filters.eq("authId", new ObjectId(userId));
-        update = Updates.pull("sharedWishlists", new ObjectId(wishlistId));
-        users.updateOne(filter, update);
-
-        return;
     }
 
 }

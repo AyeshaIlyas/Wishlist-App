@@ -38,6 +38,7 @@ public class WishlistService {
         // get user's email - change to storing user id  or name later?
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("authId", new ObjectId(userId))).first();
+    
         if (match == null)
             throw new AuthenticationException("User does not exist!");
         // String name = match.getString("firstName") + " " + match.getString("lastName");    
@@ -101,19 +102,24 @@ public class WishlistService {
 
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         Document match = wishlists.find(eq("_id", wishlistId)).first();
+        if (match==null){
+            System.out.println("\n\n\n\n\n-----------------------MATCH--------------------");        
+            System.out.println(match);
+            System.out.println("-------------------------------\n\n\n\n\n");
+        }
+        System.out.println(match);
         if (match == null) 
             throw new NoSuchElementException("Wishlist does not exist");
         return documentToWishlist(match);
     }
 
-    public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException, AuthenticationException {
+    public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException {
         ObjectId wishlistId = new ObjectId(newWishlist.getId());
         checkWishlistOwnership(new ObjectId(userId), wishlistId);
-
+        
         MongoCollection<Document> wishlists = db.getCollection("wishlists");
         Bson filter = Filters.eq("_id", new ObjectId(newWishlist.getId()));
         Bson update = null;
-<<<<<<< HEAD
             
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("authId", new ObjectId(userId))).first();
@@ -136,30 +142,6 @@ public class WishlistService {
             {
                 throw new InvalidDataException("Cant share yourself to your own email!");
             }
-=======
-
-         // validate information
-        if (isWishlistValid(newWishlist)) {
-            update = Updates.set("name", newWishlist.getName());
-        }
-
-        if (newWishlist.getSharedWith()!=null && newWishlist.getSharedWith().size() > 0 && isEmailValid(newWishlist.getSharedWith().get(0))) {
-            String email = newWishlist.getSharedWith().get(0);
-            if (!isEmailReal(email))
-                throw new InvalidDataException("Email does not exist");
-
-            // get user email
-            MongoCollection<Document> users = db.getCollection("users");
-            Document match = users.find(eq("authId", new ObjectId(userId))).first();
-            if (match == null) 
-                throw new AuthenticationException("User does not exist");
-            String userEmail = match.getString("email");
-
-            // check to see if user is trying to share their own wishlist with themselves
-            if (email.equals(userEmail))
-                throw new InvalidDataException("Owner cannot share wishlist with themselves");
-    
->>>>>>> fbcecebae184d08c95932cf9398a6908a9059109
             Bson emailUpdate = Updates.addToSet("sharedWith", newWishlist.getSharedWith().get(0));
             update = update == null ? emailUpdate : Updates.combine(emailUpdate, update);
             //update user with new wishlist
@@ -172,7 +154,7 @@ public class WishlistService {
         }
 
         return documentToWishlist(wishlists.find(eq("_id", wishlistId)).first());
-    }   
+    }
 
     public void delete(String userId, String id) {
         ObjectId wishlistId = new ObjectId(id);
@@ -194,22 +176,6 @@ public class WishlistService {
         // delete wishlist from people it has been shared with
         Bson update = Updates.pull("sharedWishlists", wishlistId);
         users.updateMany(in("sharedWishlists", wishlistId), update);
-    }
-
-    public void unshareWishlist(String emailToRemove, String wishlistId, String userId) throws InvalidDataException{
-        validateUnshare(emailToRemove, wishlistId, userId);
-
-        // remove emailToRemove from wishlist with wishlistId
-        MongoCollection<Document> wishlists = db.getCollection("wishlists");
-        Bson filter = Filters.eq("_id", new ObjectId(wishlistId));
-        Bson update = Updates.pull("sharedWith", emailToRemove);
-        wishlists.updateOne(filter, update);
-
-        // remove wishlistId from the user with emailToRemove
-        MongoCollection<Document> users = db.getCollection("users");
-        filter = Filters.eq("email", emailToRemove);
-        update = Updates.pull("sharedWishlists", new ObjectId(wishlistId));
-        users.updateOne(filter, update);
     }
 
     private Wishlist documentToWishlist(Document d) {
@@ -235,31 +201,13 @@ public class WishlistService {
         throw new ForbiddenException("Wishlist does not belong to requesting user");
     }
 
-    private void validateUnshare(String userEmail, String wishlistId, String ownerId) throws InvalidDataException{
-        checkWishlistOwnership(new ObjectId(ownerId), new ObjectId(wishlistId));
-
-        //check if wishlist exists
-        MongoCollection<Document> lists=db.getCollection("wishlists");
-        Document theOne = lists.find(eq("_id", new ObjectId(wishlistId))).first();
-        if (theOne == null) 
-            throw new InvalidDataException("wishlist not found");
-
-        //check if user exists
-        if (!isEmailReal(userEmail))
-            throw new InvalidDataException("email does not exist in wishlist app");
-
-        //check if email is in the sharedwith
-        if (!documentToWishlist(theOne).getSharedWith().contains(userEmail))
-            throw new InvalidDataException("email is not in sharedWith");
-    }
-
     private boolean isEmailReal(String email) {
-        MongoCollection<Document> users = db.getCollection("users");
-        Bson filter = Filters.eq("email", email); 
-        System.out.println(filter);
-        Document theOne=users.find(filter).first();
-        System.out.println(theOne);
-        return !(theOne == null);
+        MongoCollection<Document> users=db.getCollection("users");
+        Document theOne=users.find(eq("email", email)).first();
+        if (theOne==null) 
+            return false;
+        else    
+            return true;
     }
 
     private void addWishlistToUser(String wishlistId, String userEmail) {

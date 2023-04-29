@@ -70,7 +70,7 @@ public class WishlistResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException, AuthenticationException {
+    public Response updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException {
         wishlist.setId(id);
         Wishlist updatedWishlist = wishlistService.update(userId, wishlist);
         return Response.ok()
@@ -89,15 +89,6 @@ public class WishlistResource {
     @Path("/{wishlistId}/items")
     public Class<ItemResource> getItemResource() {
         return ItemResource.class;
-    }
-
-    @DELETE
-    @Path("/{wishlistId}/sharedwith/{email}")
-    public Response deleteUser( 
-            @PathParam("wishlistId") String wishlistId,
-            @PathParam("email") String userEmail) throws InvalidDataException{
-        wishlistService.unshareWishlist(userEmail, wishlistId, userId);
-        return Response.noContent().build();
     }
 
 }

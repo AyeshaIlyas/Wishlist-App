@@ -7,11 +7,10 @@ import "./Wishlist.css";
 import { getItems, removeItem, updateItem, createItem} from "./../../services/itemService";
 import { NewItemForm } from "../NewItemForm/NewItemForm";
 import AuthContext from "../Contexts/AuthContext";
-import { getWishlist, updateWishlist, unshareWishlist } from "../../services/wishlistService";
+import { getWishlist, updateWishlist } from "../../services/wishlistService";
 import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
 import Spinner from "../Utils/Spinner";
-import UnshareForm from "../Unshare/UnshareForm";
 
 export default function Wishlist() {
     const {wishlistId} = useParams();
@@ -23,7 +22,6 @@ export default function Wishlist() {
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const [sharing, setSharing] = useState(false);
-    const [unsharing, setUnsharing] = useState(false);
 
     
     useEffect(
@@ -97,6 +95,7 @@ export default function Wishlist() {
     }
 
     const share = async (email) => {
+
         const safeUpdateWishlist = authWrapper(setIsLoggedIn, updateWishlist);
         const response = await safeUpdateWishlist(wishlistId, {
             "sharedWith": [email]
@@ -117,35 +116,12 @@ export default function Wishlist() {
                     }, 3000);
                 }
             } else {
-                setError("We couldn't share with the list with "+email)
+                setError("We could not add " + email);
                 setTimeout(() => {
                     setError(null);
-                }, 3000);
-            }
+                }, 3000);            }
         }
-    }
-
-   const unshare = async (email) => {
-        const safeUpdateWishlist = authWrapper(setIsLoggedIn, unshareWishlist);
-        const response = await safeUpdateWishlist(wishlistId, 
-            email
-        );
-        console.log(response);
-        if (response) {
-            if (response.success) {
-                const index = wishlist.sharedWith.indexOf(email);
-                wishlist.sharedWith.splice(index, 1);
-                setFeedback("Removed " + email);
-                setTimeout(() => {
-                    setFeedback(null);
-                }, 3000);
-            } else {
-                setError("We couldn't remove "+email)
-                setTimeout(() => {
-                    setError(null);
-                }, 3000);
-            }
-        }
+        
     }
 
     const handleShowForm = () => {
@@ -166,25 +142,6 @@ export default function Wishlist() {
         setSharing(false);
     }
 
-    const handleUnshareForm = () => {
-        window.scrollTo(0, 0);
-        setUnsharing(true);
-    }
-
-    const cancelUnshare = () => {
-        setUnsharing(false);
-    }
-
-    const [isOpen, setIsOpen] = useState(false);
-    const [activeAdd, setActiveAdd] = useState(false);
-    const handleAddClick = () => {
-        setActiveAdd(!activeAdd);
-    }
-    const [activeRemove, setActiveRemove] = useState(false);
-    const handleRemoveClick = () => {
-        setActiveRemove(!activeRemove);
-    }
-
     const displayContent = () => {
         return (
             <>
@@ -194,51 +151,11 @@ export default function Wishlist() {
                             <span>All Wishlists</span>
                     </Link>
                     <h1>{wishlist.name}</h1>
+                    {wishlist.sharedWith.length > 0 && <p>Shared with {wishlist.sharedWith.join(" | ")}</p>}
+                    
                 </header>
-
                 <div className="Wishlist-content-container">
-                    <div className='Wishlist-share-container'>
-                        {isOpen &&
-                        <div className="Wishlist-share">
-                            <div className="Wishlist-share-form-container">
-                                <div className="Wishlist-share-form-buttons-container">
-                                    <button className='Wishlist-share-add-button'
-                                    onClick={()=> {
-                                        handleAddClick();
-                                        setActiveRemove(false);
-                                        handleShareForm();
-                                        // add an onClick function that will close the other form that way it swaps instead of opening both
-                                        // and an onClick function that closes the current form like a toggle
-                                    }}
-                                    style={{ backgroundColor: activeAdd ? "#a6bbd2" : "rgb(213, 213, 213)" }}
-                                    >Add an Email</button>
-
-
-                                    <button className='Wishlist-share-remove-button'
-                                    onClick={()=> {
-                                        handleRemoveClick();
-                                        setActiveAdd(false);
-                                        handleUnshareForm();
-                                        // add an onClick function that will close the other form that way it swaps instead of opening both
-                                        // and an onClick function that closes the current form like a toggle
-                                    }}
-                                    style={{ backgroundColor: activeRemove ? "#a6bbd2" : "rgb(213, 213, 213)" }}
-                                    >Remove an Email</button>
-                                </div><br/>
-                                {sharing && <ShareForm share={share} cancel={cancelShare}/>}
-                                {unsharing && <UnshareForm unshare={unshare} cancel={cancelUnshare}/>}
-                            </div>
-                            <div className='Wishlist-shared-with'>
-                                <h2>Shared with</h2>
-                                {wishlist.sharedWith.length > 0 && <h4> {wishlist.sharedWith.join(' | ')}</h4>}
-                            </div>
-                            <div className="Wishlist-share-exit-button-container">
-                                <button className='Wishlist-share-exit-button' onClick={() => setIsOpen(!isOpen)}>X</button>
-                            </div>
-                        </div>
-                        }
-                    </div>
-
+                    {sharing && <ShareForm share={share} cancel={cancelShare}/>}
                     {error && <p className="Wishlist-error">{error}</p>}
                     {feedback && <p className="Wishlist-feedback">{feedback}</p>}
                     {items.length === 0 && <p>No items yet...</p>}
@@ -249,13 +166,8 @@ export default function Wishlist() {
                         </div>
                     }
                 </div>
+                <button id="Wishlist-share-button" onClick={handleShareForm}>Share</button>
                 <button id="Wishlist-new-button" onClick={handleShowForm}>New Item</button>
-                <button id='Wishlist-share-button' onClick={() => {
-                    setIsOpen(!isOpen);
-                    setActiveRemove(false);
-                    setActiveAdd(false);
-                    // add an onClick function that closes any open from
-                    }}>Share</button>
             </>
         );
     }

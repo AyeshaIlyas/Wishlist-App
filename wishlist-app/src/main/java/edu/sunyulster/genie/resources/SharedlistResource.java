@@ -11,7 +11,6 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
@@ -49,10 +48,6 @@ public class SharedlistResource {
         List<Wishlist> sharedWishlist = service.getAll(userId);
         return Response.ok(sharedWishlist).type(MediaType.APPLICATION_JSON).build();
     }
-    @DELETE
-    @Path("/{id}")
-    public Response leaveSharedWishlist(@PathParam("id") String id)throws AuthenticationException{
-        service.leaveSharedWishlist(userId,id);
-        return Response.ok().type(MediaType.APPLICATION_JSON).build();
-    }
+
+
 }

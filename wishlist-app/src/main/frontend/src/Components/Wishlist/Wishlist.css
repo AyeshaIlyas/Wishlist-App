@@ -2,7 +2,6 @@
     width: 90%;
     margin: 3em auto;
     text-align: center;
-
 }
 
 .Wishlist-items {
@@ -15,7 +14,6 @@
     margin: 1em;
     width: 250px;
 }
-
 
 .Wishlist-error  {
     padding: 1.5em;
@@ -45,6 +43,7 @@
     border-radius: 10px;
     color: rgb(213, 213, 213);
     font-size: 15px;
+    cursor: pointer;
 }
 
 #Wishlist-share-button {
@@ -59,6 +58,11 @@
     font-size: 15px;
     cursor: pointer;
 }
+
+/* .Wishlist #Wishlist-share-button:hover {
+    color: #badfec;
+    text-decoration: none;
+} */
 
 /* not used in current design */
 /* #Wishlist-unshare-button {
@@ -92,14 +96,6 @@
 
 .Wishlist h1 {
     align-self: center;
-}
-
-.Wishlist #Wishlist-share-button:hover {
-    color: #badfec;
-    text-decoration: none;
-}
-
-.Wishlist h1{
     text-decoration: underline;
 }
 
@@ -130,7 +126,8 @@
     min-width: max-content;
 }
 /* styles the share form buttons */
-.Wishlist-share-add-button, .Wishlist-share-remove-button {
+.Wishlist-share-add-button, 
+.Wishlist-share-remove-button {
     border: none;
     background-color: rgb(213, 213, 213);
     padding: .2em 1em;

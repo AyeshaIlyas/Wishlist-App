@@ -8,6 +8,7 @@
     border-radius: 10px;
     color: rgb(213, 213, 213);
     font-size: 15px;
+    cursor: pointer;
 }
 
 .MyWishlists-cards {

@@ -60,6 +60,33 @@ export const updateWishlist = async (token, wishlistId, newWishlist) => {
         } else if (e.response.status === 400) {
             return {success: false, statusCode: 400};
         }
+        else if (e.response.status === 400) {
+            return {success: false, statusCode: 400};
+        }
+    }
+}
+
+export const unshareWishlist = async (token, wishlistId, email) => {
+
+    try {
+        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/sharedwith/${email}`,
+        { 
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }       
+        }
+    );
+        return { success: true, wishlist: res.data };
+    } catch (e) {
+        console.log(e);
+        if (!e.response || e.response.status === 500) {
+            console.log(!e.response ? "no server response" : "server error");
+            return { success: false, statusCode: !e.response ? 0 : 500 };
+        } else if (e.response.status === 401) {
+            throw new Error(401);
+        } else if (e.response.status === 400) {
+            return { success: false, statusCode: 400 };
+        }
     }
 }
 

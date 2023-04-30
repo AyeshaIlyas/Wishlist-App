@@ -1,7 +1,7 @@
-.ShareForm input[type="text"],
-.ShareForm input[type="password"],
-.ShareForm input[type="email"],
-.ShareForm textarea {
+.UnshareForm input[type="text"],
+.UnshareForm input[type="password"],
+.UnshareForm input[type="email"],
+.UnshareForm textarea {
     border-radius: 0.5rem;
     border-color: #badfec;
     border-style: solid;
@@ -9,7 +9,7 @@
     padding: 0.25rem;
 }
 
-.ShareForm button{
+.UnshareForm button{
     background-color: #9ECCDD;
     border-radius: 10px;
     font-size: 16px;
@@ -18,7 +18,7 @@
     margin: 0.5%;
 }
 
-.ShareForm button:hover {
+.UnshareForm button:hover {
     color: #badfec;
     text-decoration: none;
 }

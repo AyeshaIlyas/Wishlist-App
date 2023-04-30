@@ -1,5 +1,6 @@
 package edu.sunyulster.genie.auth.resources;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import org.bson.Document;
@@ -33,7 +34,7 @@ public class LoginResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     // JwtException handled by JwtExceptionMapper, AuthenticationException handled by AuthenticationExceptionMapper
-    public Response login(Credentials creds) throws JwtException, AuthenticationException {
+    public Response login(Credentials creds) throws JwtException, AuthenticationException, NoSuchAlgorithmException {
         Document userDetails = loginService.verifyUser(creds);
         String jwt = loginService.createJwt(userDetails, "_id", "roles");
         NewCookie cookie = loginService.getNewCookie(userDetails, TimeUnit.DAYS, 7); // generate cookie that is valid for 1 week

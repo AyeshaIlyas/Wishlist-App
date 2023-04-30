@@ -20,7 +20,6 @@
     padding-bottom: 1rem;
 }
 
-
 .Register input[type="text"],
 .Register input[type="password"],
 .Register input[type="email"],
@@ -49,10 +48,9 @@
     transition: all ease 500ms;
 }
 
-.Register button:hover{
+.Register button:hover {
     background-color: #badfec;
 }
-
 
 .Register .instructions {
     font-size: 0.75rem;
@@ -91,7 +89,7 @@
     color: black;
 }
 
-.Register .errmsg  {
+.Register .errmsg {
     padding: 1.5em;
     background-color: rgb(243, 159, 159);
     color:rgb(143, 10, 10);
@@ -100,6 +98,7 @@
     font-size: 1.2em;
     margin-bottom: 0.5rem;
 }
+
 .Spinner {
     margin-top: .3em;
 }
@@ -111,5 +110,3 @@
   background-color: #cccccc;
   color: #666666;
 }
-
-

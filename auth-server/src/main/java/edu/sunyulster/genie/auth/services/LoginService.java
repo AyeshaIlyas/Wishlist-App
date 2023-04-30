@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.lte;
 import static edu.sunyulster.genie.auth.utils.AuthUtils.createCookie;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ import com.mongodb.client.MongoDatabase;
 
 import edu.sunyulster.genie.auth.models.Credentials;
 import edu.sunyulster.genie.auth.utils.AuthUtils;
+import edu.sunyulster.genie.auth.utils.Validator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -33,14 +35,17 @@ public class LoginService {
     @Inject
     MongoDatabase db;
     
-    public Document verifyUser(Credentials creds) throws AuthenticationException { 
+    public Document verifyUser(Credentials creds) throws AuthenticationException, NoSuchAlgorithmException { 
         MongoCollection<Document> users = db.getCollection("users");
         Document match = users.find(eq("email", creds.getEmail())).first();
 
         if (match == null) 
             throw new AuthenticationException("email not in db");
 
-        if (!match.get("password").equals(creds.getPassword())) 
+        // verify password
+        String pHash = match.getString("password");
+        System.out.println(pHash);
+        if (!(Validator.isPasswordValid(creds.getPassword()) && AuthUtils.verifyPassword(creds.getPassword(), pHash))) 
             throw new AuthenticationException("passwords no not match");
 
         return match;

@@ -6,6 +6,7 @@ import static edu.sunyulster.genie.auth.utils.Validator.areRolesValid;
 import static edu.sunyulster.genie.auth.utils.Validator.isEmailValid;
 import static edu.sunyulster.genie.auth.utils.Validator.isPasswordValid;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -33,7 +34,7 @@ public class RegisterService {
     @Inject
     MongoDatabase db;
 
-    public String register(User user) throws RegistrationException, JwtException {
+    public String register(User user) throws RegistrationException, JwtException, NoSuchAlgorithmException {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
         if (!areRolesValid(user.getRoles()))
             throw new RegistrationException("At least one role must be specified");
@@ -50,6 +51,7 @@ public class RegisterService {
         if (!isPasswordValid(user.getPassword())) 
             throw new RegistrationException("Password is not valid");
 
+        user.setPassword(AuthUtils.hashPassword(user.getPassword()));
         InsertOneResult result = users.insertOne(convertUserToDocument(user));
         String id = result.getInsertedId().asObjectId().getValue().toString();
         return AuthUtils.buildJwt(id, new String[] {"auth-server"});

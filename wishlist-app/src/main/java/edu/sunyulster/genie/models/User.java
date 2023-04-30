@@ -1,13 +1,14 @@
 package edu.sunyulster.genie.models;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+
 
 public class User implements Serializable {
+    // add wishlists and sharedwishlists as fields ?
+    
     private String email;
     private String firstName;
     private String lastName;
-    private LinkedList<String> sharedLists;
 
     public User() {
         
@@ -17,19 +18,6 @@ public class User implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        sharedLists = new LinkedList<String>();
-    }
-
-    public LinkedList<String> getSharedLists() {
-        return sharedLists;
-    }
-
-    public void setSharedLists(LinkedList<String> newLists) {
-        sharedLists = newLists;
-    }
-
-    public void addSharedList(String wishlistId) {
-        sharedLists.add(wishlistId);
     }
 
     public String getEmail() {

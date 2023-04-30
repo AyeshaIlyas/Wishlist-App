@@ -2,6 +2,9 @@ package edu.sunyulster.genie.utils;
 
 import java.util.regex.Pattern;
 
+import org.bson.types.ObjectId;
+
+import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
 
@@ -27,4 +30,12 @@ public class Validator {
         return i.getName() != null && !i.getName().isEmpty();
     }
 
+    public static boolean exists(String s) {
+        return s != null && !s.isEmpty();
+    }
+
+    public static void isObjectId(String id) throws InvalidDataException {
+        if (id == null || !ObjectId.isValid(id))
+            throw new InvalidDataException(String.format("Object id (%s) is not valid", id));
+    }
 }

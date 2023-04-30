@@ -9,12 +9,15 @@ export default function ConfirmationDialog({title, details, actionLabel, action,
 
     return (
         <form className="ConfirmationDialog" onSubmit={handleSubmit}>
-            <h3>{title}</h3>
-            <p>{details}</p>
-            <div className="ConfirmationDialog-controls">
-                <button>{actionLabel}</button>
-                <button onClick={cancel} type="button">Cancel</button>
+            <div className="ConfirmationDialog-container">
+                 <h3>{title}</h3>
+                <p>{details}</p>
+                <div className="ConfirmationDialog-controls">
+                    <button>{actionLabel}</button>
+                    <button onClick={cancel} type="button">Cancel</button>
+                </div>
             </div>
+           
         </form>
     )
 }

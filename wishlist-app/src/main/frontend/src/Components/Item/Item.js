@@ -13,7 +13,7 @@ export default function Item(props) {
     const [error, setError] = useState(null);
 
     const handleRemove = () => {
-        props.remove(props.id);
+        props.remove(props);
     }
 
     const handleUpdate = e => {

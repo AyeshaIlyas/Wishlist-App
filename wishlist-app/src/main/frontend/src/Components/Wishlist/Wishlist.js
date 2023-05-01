@@ -12,6 +12,7 @@ import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
 import Spinner from "../Utils/Spinner";
 import UnshareForm from "../Unshare/UnshareForm";
+import ConfirmationDialog from "../Utils/ConfirmationDialog/ConfirmationDialog";
 
 export default function Wishlist() {
     const {wishlistId} = useParams();
@@ -24,6 +25,8 @@ export default function Wishlist() {
     const [loading, setLoading] = useState(true);
     const [sharing, setSharing] = useState(false);
     const [unsharing, setUnsharing] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
+    const [deleteItem, setDeleteItem] = useState({});
 
     
     useEffect(
@@ -64,12 +67,12 @@ export default function Wishlist() {
         }
     }
 
-    const remove = async id => {
+    const remove = async () => {
         const safeRemoveItem = authWrapper(setIsLoggedIn, removeItem);
-        const response = await safeRemoveItem(wishlistId, id);
+        const response = await safeRemoveItem(wishlistId, deleteItem.id);
         if (response) {
             if (response.success) {
-                const newItems = items.filter(i => i.id !== id);
+                const newItems = items.filter(i => i.id !== deleteItem.id);
                 setItems(newItems);
                 setError(null);
             } else {
@@ -77,6 +80,7 @@ export default function Wishlist() {
                 setError("We couldn't delete your item :<...")
             }
         }
+        setShowDialog(false);
     }
 
     const create = async (item) => {
@@ -175,6 +179,17 @@ export default function Wishlist() {
         setUnsharing(false);
     }
 
+    // confirmation dialog for deleting an item
+    const confirmRemove = item => {
+        setShowDialog(true);
+        setDeleteItem(item);
+    }
+
+    const cancelRemove = () => {
+        setShowDialog(false);
+    }
+
+
     const [isOpen, setIsOpen] = useState(false);
     const [activeAdd, setActiveAdd] = useState(false);
     const handleAddClick = () => {
@@ -188,6 +203,7 @@ export default function Wishlist() {
     const displayContent = () => {
         return (
             <>
+                {showDialog && <ConfirmationDialog title="Delete Item" details={`Are you sure you want to delete ${deleteItem.name}?`} actionLabel="Delete" action={remove} cancel={cancelRemove}/>}
                 <header className="Wishlist-header">
                     <Link id="back" to="/wishlists">
                             <FontAwesomeIcon icon={faArrowLeft}/>
@@ -245,7 +261,7 @@ export default function Wishlist() {
                     {creating && <NewItemForm create={create} cancel={cancel}/>}
                     {items.length !== 0 && 
                         <div className="Wishlist-items">
-                            {items.map(i => <Item {...i} key={i.id} remove={remove} update={update}/>)}
+                            {items.map(i => <Item {...i} key={i.id} remove={confirmRemove} update={update}/>)}
                         </div>
                     }
                 </div>

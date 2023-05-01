@@ -48,7 +48,7 @@ public class ItemResource {
     public List<Item> getItems(
         @PathParam("wishlistId") String wishlistId, 
         @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) 
-        throws AuthenticationException, ForbiddenException, NoSuchElementException, InvalidDataException {
+        throws AuthenticationException, ForbiddenException, NoSuchElementException {
 
         return itemService.getAll(userId, wishlistId, isOwner);
     }
@@ -72,7 +72,7 @@ public class ItemResource {
     public void deleteItem(
         @PathParam("wishlistId") String wishlistId,
         @PathParam("id") String id) 
-        throws AuthenticationException, NoSuchElementException, InvalidDataException {
+        throws AuthenticationException, NoSuchElementException {
             
         itemService.delete(userId, wishlistId, id);
     }

@@ -69,7 +69,7 @@ export const updateWishlist = async (token, wishlistId, newWishlist) => {
 export const unshareWishlist = async (token, wishlistId, email) => {
 
     try {
-        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/sharedwith/${email}`,
+        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/shared-with/${email}`,
         { 
             headers: {
                 "Authorization": `Bearer ${token}` 

@@ -21,10 +21,10 @@ import jakarta.ws.rs.ForbiddenException;
 public class UserService {
 
     @Inject
-    MongoDatabase db;
+    private MongoDatabase db;
 
     @Inject 
-    VerifyService verifier;
+    private VerifyService verifier;
 
     public void create(User user, String authId) throws InvalidDataException, ForbiddenException {
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 

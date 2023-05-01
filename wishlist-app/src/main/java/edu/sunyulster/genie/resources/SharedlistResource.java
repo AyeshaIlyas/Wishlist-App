@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 import org.eclipse.microprofile.jwt.Claim;
 
-import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
 import edu.sunyulster.genie.services.SharedlistService;
@@ -28,11 +27,11 @@ import jakarta.ws.rs.core.Response;
 @RolesAllowed({"user"})
 public class SharedlistResource {
     @Inject 
-    SharedlistService service;
+    private SharedlistService service;
 
     @Inject 
     @Claim("sub")
-    String userId;
+    private String userId;
 
     // move into /wishlists?isOwner=false ??
     @GET
@@ -43,7 +42,7 @@ public class SharedlistResource {
     // move into /wishlists?isOwner=false ??
     @DELETE
     @Path("/{wishlistId}")
-    public Response leaveSharedWishlist(@PathParam("wishlistId") String wishlistId) throws AuthenticationException, NoSuchElementException, InvalidDataException {
+    public Response leaveSharedWishlist(@PathParam("wishlistId") String wishlistId) throws AuthenticationException, NoSuchElementException {
         service.leaveSharedWishlist(userId, wishlistId);
         return Response.noContent().type(MediaType.APPLICATION_JSON).build();
     }
@@ -59,7 +58,7 @@ public class SharedlistResource {
         @PathParam("wishlistId") String wishlistId, 
         @PathParam("itemId") String itemId,
         @DefaultValue("true") @QueryParam("buy") boolean buy) 
-        throws AuthenticationException, NoSuchElementException, InvalidDataException {
+        throws AuthenticationException, NoSuchElementException {
 
         return service.buy(userId, wishlistId, itemId, buy);
     }

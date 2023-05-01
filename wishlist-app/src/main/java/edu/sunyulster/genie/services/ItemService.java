@@ -31,10 +31,10 @@ import jakarta.ws.rs.ForbiddenException;
 @ApplicationScoped
 public class ItemService {
     @Inject
-    MongoDatabase db;
+    private MongoDatabase db;
 
     @Inject 
-    VerifyService verifier;
+    private VerifyService verifier;
 
     public Item create(String userId, String wishlistId, Item i) throws ForbiddenException, InvalidDataException, AuthenticationException{
         // checks if ids are valid objectids, user exists, wishlist exists, and wishlist belongs to user
@@ -68,7 +68,7 @@ public class ItemService {
         return DataConverter.documentToItem(newItem);
     }
 
-    public List<Item> getAll(String userId, String wishlistId, boolean isOwner) throws ForbiddenException, AuthenticationException, NoSuchElementException, InvalidDataException {
+    public List<Item> getAll(String userId, String wishlistId, boolean isOwner) throws ForbiddenException, AuthenticationException, NoSuchElementException {
         Document wishlist;
         if (isOwner)
             // checks if ids are valid objectids, user exists, wishlist exists, and wishlist belongs to user
@@ -116,7 +116,7 @@ public class ItemService {
         return DataConverter.documentToItem(items.find(Filters.eq(DbConstants.ID, itemId)).first());
     }
 
-    public void delete(String userId, String wishlistId, String itemId) throws AuthenticationException, NoSuchElementException, InvalidDataException {
+    public void delete(String userId, String wishlistId, String itemId) throws AuthenticationException, NoSuchElementException {
         // verify that all ids are valid, all resources exist, item belongs to wishlist belongs to user
         verifier.doesUserOwnItem(userId, wishlistId, itemId);
         // remove item

@@ -1,6 +1,7 @@
 package edu.sunyulster.genie.resources;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.eclipse.microprofile.jwt.Claim;
 
@@ -22,7 +23,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @RequestScoped
 @Path("/wishlists")
@@ -39,51 +39,41 @@ public class WishlistResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createWishlist(Wishlist wishlist) throws InvalidDataException, AuthenticationException {
-        Wishlist newWishlist = wishlistService.create(userId, wishlist);
-        return Response.ok()
-            .entity(newWishlist)
-            .build();
+    public Wishlist createWishlist(Wishlist wishlist) throws InvalidDataException, AuthenticationException {
+        return wishlistService.create(userId, wishlist);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getWishlists() throws AuthenticationException {
-        List<Wishlist> wishlists = wishlistService.getAll(userId);
-        return Response.ok()
-            .entity(wishlists)
-            .build();
+    public List<Wishlist> getWishlists() throws AuthenticationException {
+        return wishlistService.getAll(userId);
     }
 
+    // get wishlist which user owns or which was shared with the user
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getWishlist(@PathParam("id") String id, @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) throws AuthenticationException {
-        Wishlist wishlist = wishlistService.get(userId, id, isOwner);
-        System.out.println(wishlist);
-        return Response.ok()
-            .entity(wishlist)
-            .build();
+    public Wishlist getWishlist(
+        @PathParam("id") String id, 
+        @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) 
+        throws AuthenticationException, NoSuchElementException {
+
+        return wishlistService.get(userId, id, isOwner);
     }
 
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException, AuthenticationException {
+    public Wishlist updateWishlist(@PathParam("id") String id, Wishlist wishlist) throws InvalidDataException, AuthenticationException {
         wishlist.setId(id);
-        Wishlist updatedWishlist = wishlistService.update(userId, wishlist);
-        return Response.ok()
-            .entity(updatedWishlist)
-            .build();
+        return wishlistService.update(userId, wishlist);
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteWishlist(@PathParam("id") String id) {
-        System.out.println("IDDD: " + id);
+    public void deleteWishlist(@PathParam("id") String id) throws AuthenticationException, NoSuchElementException {
         wishlistService.delete(userId, id);
-        return Response.noContent().build();
     }
 
     @Path("/{wishlistId}/items")
@@ -92,12 +82,13 @@ public class WishlistResource {
     }
 
     @DELETE
-    @Path("/{wishlistId}/sharedwith/{email}")
-    public Response deleteUser( 
+    @Path("/{wishlistId}/shared-with/{email}")
+    public void deleteUserFromWishlist ( 
             @PathParam("wishlistId") String wishlistId,
-            @PathParam("email") String userEmail) throws InvalidDataException{
+            @PathParam("email") String userEmail) 
+            throws AuthenticationException, NoSuchElementException {
+
         wishlistService.unshareWishlist(userEmail, wishlistId, userId);
-        return Response.noContent().build();
     }
 
 }

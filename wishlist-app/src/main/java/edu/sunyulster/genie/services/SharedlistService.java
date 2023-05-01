@@ -16,7 +16,6 @@ import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
 import edu.sunyulster.genie.db.DbConstants;
-import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
 import edu.sunyulster.genie.utils.DataConverter;
@@ -30,10 +29,10 @@ import jakarta.ws.rs.ForbiddenException;
 public class SharedlistService {
 
     @Inject
-    MongoDatabase db;
+    private MongoDatabase db;
 
     @Inject
-    VerifyService verifier;
+    private VerifyService verifier;
 
     // move to /wishlists?isOwner=false
     public List<Wishlist> getAll(String userId) throws AuthenticationException {
@@ -51,7 +50,7 @@ public class SharedlistService {
         return wishlists;
     }
 
-    public void leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException, InvalidDataException{
+    public void leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException {
         Document user = verifier.verifyUser(userId); // check if user exists
         String email = user.getString(DbConstants.EMAIL);
         
@@ -72,7 +71,7 @@ public class SharedlistService {
     }
     
 
-    public Item buy(String userId, String wishlistId, String itemId, boolean buy) throws AuthenticationException, NoSuchElementException, InvalidDataException {        
+    public Item buy(String userId, String wishlistId, String itemId, boolean buy) throws AuthenticationException, NoSuchElementException {        
         // get user email
         Document user = verifier.verifyUser(userId);
         String email = user.getString(DbConstants.EMAIL);

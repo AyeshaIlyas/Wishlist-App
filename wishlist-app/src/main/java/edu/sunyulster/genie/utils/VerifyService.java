@@ -12,7 +12,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
 import edu.sunyulster.genie.db.DbConstants;
-import edu.sunyulster.genie.exceptions.InvalidDataException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationException;
@@ -22,12 +21,12 @@ import jakarta.ws.rs.ForbiddenException;
 public class VerifyService {
 
     @Inject 
-    MongoDatabase db;
+    private MongoDatabase db;
 
     // typical use case will allow the ExceptionMappers to handle the InvalidDataExcpetion
-    public static ObjectId checkObjectId(String id) throws InvalidDataException {
+    public static ObjectId checkObjectId(String id) throws NoSuchElementException {
         if (id == null || !ObjectId.isValid(id))
-            throw new InvalidDataException(String.format("Object id (%s) is not valid", id));
+            throw new NoSuchElementException(String.format("Object id (%s) is not valid", id));
         return new ObjectId(id);
     }
 
@@ -40,7 +39,7 @@ public class VerifyService {
         return user;
     }
 
-    public Document verifyWishlist(String wishlistId) throws InvalidDataException, NoSuchElementException {
+    public Document verifyWishlist(String wishlistId) throws NoSuchElementException {
         ObjectId wId = checkObjectId(wishlistId);
         MongoCollection<Document> wishlists = db.getCollection(DbConstants.WISHLISTS);
         Document wishlist = wishlists.find(Filters.eq(DbConstants.ID, wId)).first();
@@ -49,7 +48,7 @@ public class VerifyService {
         return wishlist;
     }
     
-    public Document verifyItem(String itemId) throws InvalidDataException {
+    public Document verifyItem(String itemId)  {
         ObjectId iId = checkObjectId(itemId);
         MongoCollection<Document> items = db.getCollection(DbConstants.ITEMS);
         Document item = items.find(Filters.eq(DbConstants.ID, iId)).first();
@@ -59,7 +58,7 @@ public class VerifyService {
     }
 
 
-    public Document doesUserOwnWishlist(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException, InvalidDataException {
+    public Document doesUserOwnWishlist(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException, ForbiddenException {
         Document user = verifyUser(userId); // does user exist
         Document wishlist = verifyWishlist(wishlistId); // does wishlist exist
         
@@ -70,7 +69,7 @@ public class VerifyService {
         return wishlist;
     }
 
-    public Document doesUserOwnItem(String userId, String wishlistId, String itemId) throws AuthenticationException, NoSuchElementException, InvalidDataException {
+    public Document doesUserOwnItem(String userId, String wishlistId, String itemId) throws AuthenticationException, NoSuchElementException, ForbiddenException {
         // verify ids are valid, user and wishlist exist, and user owns wishlist
         Document wishlist = doesUserOwnWishlist(userId, wishlistId);
         // checks if item id is valid and item exists
@@ -84,7 +83,7 @@ public class VerifyService {
     }
     
 
-    public Document isWishlistSharedWithUser(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException, InvalidDataException {
+    public Document isWishlistSharedWithUser(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException {
         Document user = verifyUser(userId); // does user exist
         Document wishlist = verifyWishlist(wishlistId); // does wishlist exist
         

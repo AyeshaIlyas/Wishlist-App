@@ -16,6 +16,7 @@
     padding: .5em 1em;
     border: none;
     margin: 0.5%;
+    cursor: pointer;
 }
 
 .UnshareForm button:hover {

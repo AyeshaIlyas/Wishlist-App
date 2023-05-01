@@ -33,13 +33,10 @@
     text-decoration: none;
     color: black;
 }
-.SharedWishlist-list-link-back:visited {
+.SharedWishlist-list-link-back:visited, 
+.SharedWishlist-list-link-back:hover{
     text-decoration: none;
     color: rgb(0, 0, 0)
-}
-.SharedWishlist-list-link-back:hover {
-    text-decoration: none;
-    color: #000000;
 }
 
 .SharedWishlist-content-container{

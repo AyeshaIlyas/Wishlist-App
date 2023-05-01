@@ -62,6 +62,7 @@ export default function SharedWishlists() {
                             <h2 className="SharedWishlists-card-header-info">Shared by:</h2>
                             <h2 className="SharedWishlists-card-header-info">Title:</h2>
                             <h2 className="SharedWishlists-card-header-info">Item Count:</h2>
+                            <h2 className="SharedWishlists-card-header-remove-space"></h2>
                         </div>
                         <div className="SharedWishlists-cards">
                             {sWishlists.map((s) => (

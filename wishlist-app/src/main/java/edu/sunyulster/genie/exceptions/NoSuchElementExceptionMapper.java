@@ -16,7 +16,7 @@ public class NoSuchElementExceptionMapper implements ExceptionMapper<NoSuchEleme
     public Response toResponse(NoSuchElementException exception) {
         return Response.status(Status.BAD_REQUEST)
                     .type(MediaType.APPLICATION_JSON)
-                    .entity(new AppError(400, exception.getMessage()))
+                    .entity(new AppError(404, exception.getMessage()))
                     .build();
     }
     

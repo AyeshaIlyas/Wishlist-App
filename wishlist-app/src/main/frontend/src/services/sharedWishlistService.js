@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getSharedWishlists = async (token) => {
     try {
-        const res = await axios.get("http://127.0.0.1:9081/api/sharedlists", {
+        const res = await axios.get("http://127.0.0.1:9081/api/shared-wishlists", {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -41,7 +41,7 @@ export const getSharedItems = async (token, wishlistId) => {
 
 export const buyItem = async (token, wishlistId, itemId, shouldBuy) => {
     try {
-        const res = await axios.patch(`http://127.0.0.1:9081/api/sharedlists/${wishlistId}/items/${itemId}`,
+        const res = await axios.patch(`http://127.0.0.1:9081/api/shared-wishlists/${wishlistId}/items/${itemId}`,
         null, 
         {
             params: {buy: shouldBuy},
@@ -64,7 +64,7 @@ export const buyItem = async (token, wishlistId, itemId, shouldBuy) => {
 
 export const removeSelfFromList = async (token, wishlistId) => {
     try {
-        const res = await axios.delete(`http://127.0.0.1:9081/api/sharedlists/${wishlistId}`,
+        const res = await axios.delete(`http://127.0.0.1:9081/api/shared-wishlists/${wishlistId}`,
         {
             headers: {
                 "Authorization": `Bearer ${token}`

@@ -1,6 +1,7 @@
 package edu.sunyulster.genie.resources;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.eclipse.microprofile.jwt.Claim;
 
@@ -23,7 +24,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @RequestScoped
 @RolesAllowed({"user"})
@@ -39,40 +39,42 @@ public class ItemResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createItem(Item item, @PathParam("wishlistId") String wishlistId) throws InvalidDataException, ForbiddenException, AuthenticationException {
-        Item newItem = itemService.create(userId, wishlistId, item);
-        return Response.ok()
-            .entity(newItem)
-            .build();
+    public Item createItem(Item item, @PathParam("wishlistId") String wishlistId) throws InvalidDataException, ForbiddenException, AuthenticationException {
+        return itemService.create(userId, wishlistId, item);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getItems(@PathParam("wishlistId") String wishlistId, @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) throws AuthenticationException {
-        System.out.println("IsOwner: " + isOwner);
-        List<Item> items = itemService.getAll(userId, wishlistId, isOwner);
-        return Response.ok()
-            .entity(items)
-            .build();
+    public List<Item> getItems(
+        @PathParam("wishlistId") String wishlistId, 
+        @DefaultValue("true") @QueryParam("isOwner") boolean isOwner) 
+        throws AuthenticationException, ForbiddenException, NoSuchElementException, InvalidDataException {
+
+        return itemService.getAll(userId, wishlistId, isOwner);
     }
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateItem(Item newItem, @PathParam("wishlistId") String wishlistId, @PathParam("id") String id) throws AuthenticationException, InvalidDataException {
+    public Item updateItem(
+        Item newItem, 
+        @PathParam("wishlistId") String wishlistId, 
+        @PathParam("id") String id) 
+        throws AuthenticationException, InvalidDataException {
+
         newItem.setId(id);
-        Item updatedItem = itemService.update(userId, wishlistId, newItem);
-        return Response.ok()
-            .entity(updatedItem)
-            .build();
+        return itemService.update(userId, wishlistId, newItem);
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteItem(@PathParam("wishlistId") String wishlistId, @PathParam("id") String id) throws AuthenticationException {
+    public void deleteItem(
+        @PathParam("wishlistId") String wishlistId,
+        @PathParam("id") String id) 
+        throws AuthenticationException, NoSuchElementException, InvalidDataException {
+            
         itemService.delete(userId, wishlistId, id);
-        return Response.noContent().build();
     }
 
 }

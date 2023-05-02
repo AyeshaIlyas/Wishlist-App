@@ -11,20 +11,16 @@ import { getWishlist, updateWishlist, unshareWishlist } from "../../services/wis
 import { authWrapper } from "../../services/utils";
 import ShareForm from "../ShareForm/ShareForm"
 import Spinner from "../Utils/Spinner";
-import UnshareForm from "../Unshare/UnshareForm";
 import ConfirmationDialog from "../Utils/ConfirmationDialog/ConfirmationDialog";
 
-export default function Wishlist() {
+export default function Wishlist(props) {
     const {wishlistId} = useParams();
     const [items, setItems] = useState([]);
     const [wishlist, setWishlist] = useState({});
-    const [error, setError] = useState(null);
-    const [feedback, setFeedback] = useState(null);
     const [creating, setCreating] = useState(false);
     const {setIsLoggedIn} = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const [sharing, setSharing] = useState(false);
-    const [unsharing, setUnsharing] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [deleteItem, setDeleteItem] = useState({});
 
@@ -34,149 +30,126 @@ export default function Wishlist() {
             const loadContent = async () => {
                 // get wishlist data
                 let safeGet = authWrapper(setIsLoggedIn, getWishlist);
-                const wishlist = await safeGet(wishlistId, true);
-                if (wishlist) {
-                    setWishlist(wishlist);
+                let res = await safeGet(wishlistId, true); // get wishlist object
+                if (res.success) {
+                    setWishlist(res.data);
                     // get item data
                     safeGet = authWrapper(setIsLoggedIn, getItems);
-                    const items = await safeGet(wishlistId, true);
-                    if (items) {
-                        setItems(items);
-                    } 
+                    res = await safeGet(wishlistId, true);
+                    if (res.success) {
+                        setItems(res.data);
+                    } else {
+                        console.log("STATUS CODE: " + res.code)
+                        props.announce("We couldnt load the wishlist items :<..", "error");
+                    }
                 }
                 setLoading(false);
             }   
         loadContent();
-    }, [setIsLoggedIn, wishlistId])
+    }, [setIsLoggedIn, wishlistId, props])
 
 
     const update = async (id, item) => {
         const safeUpdateItem = authWrapper(setIsLoggedIn, updateItem);
-        const response = await safeUpdateItem(wishlistId, id, item);
-        if (response) {
-            if (response.success) {
-                const newItems = items.map(i => {
-                    return i.id === id ? response.item : i;
-                });
-                setItems(newItems);
-                setError(null);
-            } else {
-                // error
-                setError("A mishap occurred when attempting to update your item...")
-            }
+        const res = await safeUpdateItem(wishlistId, id, item);
+        if (res.success) {
+            const newItems = items.map(i => {
+                return i.id === id ? res.data : i;
+            });
+            setItems(newItems);
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("A mishap occurred when attempting to update your item...", "error");
         }
+        
     }
 
     const remove = async () => {
         const safeRemoveItem = authWrapper(setIsLoggedIn, removeItem);
-        const response = await safeRemoveItem(wishlistId, deleteItem.id);
-        if (response) {
-            if (response.success) {
-                const newItems = items.filter(i => i.id !== deleteItem.id);
-                setItems(newItems);
-                setError(null);
-            } else {
-                // error
-                setError("We couldn't delete your item :<...")
-            }
+        const res = await safeRemoveItem(wishlistId, deleteItem.id);
+        if (res.success) {
+            const newItems = items.filter(i => i.id !== deleteItem.id);
+            setItems(newItems);
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("We couldn't delete your item :<...", "error");
         }
         setShowDialog(false);
     }
 
     const create = async (item) => {
-
         const safeCreateItem = authWrapper(setIsLoggedIn, createItem);
-        const response = await safeCreateItem(wishlistId, item);
-        console.log(item);
-        if (response) {
-            if (response.success) {
-                setItems([...items, response.item])
-                console.log(response.item);
-                setError(null);
-            } else {
-                setError("We couldn't create your item :<...")
-            }
+        const res = await safeCreateItem(wishlistId, item);
+        if (res.success) {
+            setItems([...items, res.data])
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("We couldn't create your item :<...", "error");
         }
-        
     }
 
     const share = async (email) => {
+        if (wishlist.sharedWith.includes(email)) {
+            props.announce(email + " has already been added", "info");
+            return;
+        }
+        
         const safeUpdateWishlist = authWrapper(setIsLoggedIn, updateWishlist);
-        const response = await safeUpdateWishlist(wishlistId, {
+        const res = await safeUpdateWishlist(wishlistId, {
             "sharedWith": [email]
         });
-        console.log(response);
-        if (response) {
-            if (response.success) {
-                if (!wishlist.sharedWith.includes(email)) {
-                    wishlist.sharedWith.push(email);
-                    setFeedback("Added " + email);
-                    setTimeout(() => {
-                        setFeedback(null);
-                    }, 3000);
-                } else {
-                    setFeedback(email + " has already been added");
-                    setTimeout(() => {
-                        setFeedback(null);
-                    }, 3000);
-                }
-            } else {
-                setError("We couldn't share with the list with "+email)
-                setTimeout(() => {
-                    setError(null);
-                }, 3000);
-            }
+        console.log(res);
+        if (res.success) {
+            wishlist.sharedWith.push(email);
+            props.announce("Added " + email, "info");
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("We couldn't share with the list with " + email, "error");
         }
     }
 
-   const unshare = async (email) => {
+   const unshare = async e => {
+        // get email from event
+        const email = e.target.id;
         const safeUpdateWishlist = authWrapper(setIsLoggedIn, unshareWishlist);
-        const response = await safeUpdateWishlist(wishlistId, 
-            email
-        );
-        console.log(response);
-        if (response) {
-            if (response.success) {
-                const index = wishlist.sharedWith.indexOf(email);
-                wishlist.sharedWith.splice(index, 1);
-                setFeedback("Removed " + email);
-                setTimeout(() => {
-                    setFeedback(null);
-                }, 3000);
-            } else {
-                setError("We couldn't remove "+email)
-                setTimeout(() => {
-                    setError(null);
-                }, 3000);
-            }
+        const res = await safeUpdateWishlist(wishlistId, email);
+        console.log(res);
+        if (res.success) {
+            const index = wishlist.sharedWith.indexOf(email);
+            wishlist.sharedWith.splice(index, 1);
+            props.announce("Removed " + email, "info");
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("We couldn't remove "+email, "error");
         }
     }
 
+    // item creation form
     const handleShowForm = () => {
-        window.scrollTo(0, 0);
-        setCreating(true);
+        if (creating) {
+            setCreating(false)
+        } else {
+            window.scrollTo(0, 0);
+            setCreating(true);
+        }
     }
 
     const cancel = () => {
         setCreating(false);
     }
 
+    // wishlist share form
     const handleShareForm = () => {
-        window.scrollTo(0, 0);
-        setSharing(true);
+        if (sharing) {
+            setSharing(false);
+        } else {
+            window.scrollTo(0, 0);
+            setSharing(true);
+        }
     }
 
     const cancelShare = () => {
         setSharing(false);
-    }
-
-    const handleUnshareForm = () => {
-        window.scrollTo(0, 0);
-        setUnsharing(true);
-    }
-
-    const cancelUnshare = () => {
-        setUnsharing(false);
     }
 
     // confirmation dialog for deleting an item
@@ -189,76 +162,37 @@ export default function Wishlist() {
         setShowDialog(false);
     }
 
-
-    const [isOpen, setIsOpen] = useState(false);
-    const [activeAdd, setActiveAdd] = useState(false);
-    const handleAddClick = () => {
-        setActiveAdd(!activeAdd);
-    }
-    const [activeRemove, setActiveRemove] = useState(false);
-    const handleRemoveClick = () => {
-        setActiveRemove(!activeRemove);
-    }
-
     const displayContent = () => {
         return (
             <>
                 {showDialog && <ConfirmationDialog title="Delete Item" details={`Are you sure you want to delete ${deleteItem.name}?`} actionLabel="Delete" action={remove} cancel={cancelRemove}/>}
                 <header className="Wishlist-header">
                     <Link id="back" to="/wishlists">
-                            <FontAwesomeIcon icon={faArrowLeft}/>
-                            <span>All Wishlists</span>
+                        <FontAwesomeIcon icon={faArrowLeft}/>
+                        <span>All Wishlists</span>
                     </Link>
                     <h1>{wishlist.name}</h1>
+                    
+                    {wishlist.sharedWith.length > 0 && 
+                    <div className="Wishlist-tag-container">
+                        {wishlist.sharedWith.map(email => {
+                             return (
+                                <div className="Wishlist-tag">
+                                    <span className="Wishlist-tag-content">{email}</span>
+                                    <span id={email} className="Wishlist-tag-x" onClick={unshare}>x</span>
+                                </div>
+                             );
+                        })}
+                    </div>
+                    }
                 </header>
 
                 <div className="Wishlist-content-container">
-                    <div className='Wishlist-share-container'>
-                        {isOpen &&
-                        <div className="Wishlist-share">
-                            <div className="Wishlist-share-form-container">
-                                <div className="Wishlist-share-form-buttons-container">
-                                    <button className='Wishlist-share-add-button'
-                                    onClick={()=> {
-                                        handleAddClick();
-                                        setActiveRemove(false);
-                                        handleShareForm();
-                                        // add an onClick function that will close the other form that way it swaps instead of opening both
-                                        // and an onClick function that closes the current form like a toggle
-                                    }}
-                                    style={{ backgroundColor: activeAdd ? "#a6bbd2" : "rgb(213, 213, 213)" }}
-                                    >Add an Email</button>
 
-
-                                    <button className='Wishlist-share-remove-button'
-                                    onClick={()=> {
-                                        handleRemoveClick();
-                                        setActiveAdd(false);
-                                        handleUnshareForm();
-                                        // add an onClick function that will close the other form that way it swaps instead of opening both
-                                        // and an onClick function that closes the current form like a toggle
-                                    }}
-                                    style={{ backgroundColor: activeRemove ? "#a6bbd2" : "rgb(213, 213, 213)" }}
-                                    >Remove an Email</button>
-                                </div><br/>
-                                {sharing && <ShareForm share={share} cancel={cancelShare}/>}
-                                {unsharing && <UnshareForm unshare={unshare} cancel={cancelUnshare}/>}
-                            </div>
-                            <div className='Wishlist-shared-with'>
-                                <h2>Shared with</h2>
-                                {wishlist.sharedWith.length > 0 && <h4> {wishlist.sharedWith.join(' | ')}</h4>}
-                            </div>
-                            <div className="Wishlist-share-exit-button-container">
-                                <button className='Wishlist-share-exit-button' onClick={() => setIsOpen(!isOpen)}>X</button>
-                            </div>
-                        </div>
-                        }
-                    </div>
-
-                    {error && <p className="Wishlist-error">{error}</p>}
-                    {feedback && <p className="Wishlist-feedback">{feedback}</p>}
-                    {items.length === 0 && <p>No items yet...</p>}
+                    {sharing && <ShareForm share={share} cancel={cancelShare}/>}                            
                     {creating && <NewItemForm create={create} cancel={cancel}/>}
+
+                    {items.length === 0 && <p>No items yet...</p>}
                     {items.length !== 0 && 
                         <div className="Wishlist-items">
                             {items.map(i => <Item {...i} key={i.id} remove={confirmRemove} update={update}/>)}
@@ -266,12 +200,7 @@ export default function Wishlist() {
                     }
                 </div>
                 <button id="Wishlist-new-button" onClick={handleShowForm}>New Item</button>
-                <button id='Wishlist-share-button' onClick={() => {
-                    setIsOpen(!isOpen);
-                    setActiveRemove(false);
-                    setActiveAdd(false);
-                    // add an onClick function that closes any open from
-                    }}>Share</button>
+                <button id='Wishlist-share-button' onClick={handleShareForm}>Share</button>
             </>
         );
     }

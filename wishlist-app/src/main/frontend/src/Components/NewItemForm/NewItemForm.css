@@ -3,8 +3,9 @@
     background-color: #395676;
     color: #bbb;
     border-radius: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     text-align: left;
+    max-width: 700px;
 }
 
 .NewItemForm button {

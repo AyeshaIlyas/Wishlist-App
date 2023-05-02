@@ -1,132 +1,61 @@
-import axios from "axios";
+import { wishlistApp } from "./configuredAxios";
+import { requestHelper } from "./utils";
 
-export const getWishlists = async (token) => {
-    try {
-        const res = await axios.get("http://127.0.0.1:9081/api/wishlists", {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return res.data;
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return [];
-        } else if (e.response.status === 401) {
-            throw new Error(401);
+export const createWishlist = requestHelper(async (token, wishlist) => {
+    const res = await wishlistApp.post("/wishlists",
+    wishlist,
+    {
+        headers: {"Authorization": `Bearer ${token}`}
+    });
+    return {success: true, data: res.data};
+})
+
+export const getWishlists = requestHelper(async (token) => {
+    const res = await wishlistApp.get("/wishlists", {
+        headers: {"Authorization": `Bearer ${token}`}
+    });
+    return {success: true, data: res.data}
+})
+
+export const getWishlist = requestHelper(async (token, wishlistId, isOwner) => {
+    const res = await wishlistApp.get(`/wishlists/${wishlistId}`, {
+        params : {isOwner},
+        headers: {
+            "Authorization": `Bearer ${token}`
         }
-    }
-}
+    });
+    return {success: true, data: res.data}
+})
 
-export const getWishlist = async (token, wishlistId, isOwner) => {
-    try {
-        const res = await axios.get(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`, {
-            params : {isOwner},
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return res.data;
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500 ) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
+export const updateWishlist = requestHelper(async (token, wishlistId, newWishlist) => {
+    const res = await wishlistApp.patch(`/wishlists/${wishlistId}`,
+    newWishlist, 
+    {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         }
-    }
-}
+    });
+    return {success: true, data: res.data};
+})
 
-export const updateWishlist = async (token, wishlistId, newWishlist) => {
-    try {
-        const res = await axios.patch(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`,
-        newWishlist, 
-        {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return {success: true, wishlist: res.data};
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {success: false, statusCode: !e.response ? 0 : 500};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        } else if (e.response.status === 400) {
-            return {success: false, statusCode: 400};
+export const removeWishlist = requestHelper(async (token, wishlistId) => {
+    await wishlistApp.delete(`/wishlists/${wishlistId}`,
+    {
+        headers: {
+            "Authorization": `Bearer ${token}`
         }
-        else if (e.response.status === 400) {
-            return {success: false, statusCode: 400};
-        }
-    }
-}
+    });
+    return {success: true};
+})
 
-export const unshareWishlist = async (token, wishlistId, email) => {
-
-    try {
-        const res = await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}/shared-with/${email}`,
+export const unshareWishlist = requestHelper(async (token, wishlistId, email) => {
+    const res = await wishlistApp.delete(`/wishlists/${wishlistId}/shared-with/${email}`,
         { 
-            headers: {
-                "Authorization": `Bearer ${token}` 
-            }       
+            headers: {"Authorization": `Bearer ${token}` }       
         }
     );
-        return { success: true, wishlist: res.data };
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return { success: false, statusCode: !e.response ? 0 : 500 };
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        } else if (e.response.status === 400) {
-            return { success: false, statusCode: 400 };
-        }
-    }
-}
+    return { success: true, wishlist: res.data };
+})
 
-export const removeWishlist = async (token, wishlistId) => {
-    try {
-        await axios.delete(`http://127.0.0.1:9081/api/wishlists/${wishlistId}`,
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return {success: true};
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {success: false, statusCode: !e.response ? 0 : 500};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        }
-    }
-}
 
-export const createWishlist = async (token, wishlist) => {
-    try {
-        const res = await axios.post("http://127.0.0.1:9081/api/wishlists",
-        wishlist,
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        return {success: true, wishlist: res.data};
-    } catch (e) {
-        console.log(e);
-        if (!e.response || e.response.status === 500) {
-            console.log(!e.response ? "no server response" : "server error");
-            return {success: false, statusCode: !e.response ? 0 : 500};
-        } else if (e.response.status === 401) {
-            throw new Error(401);
-        }
-    }
-}

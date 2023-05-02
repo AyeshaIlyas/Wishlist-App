@@ -3,40 +3,15 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import './Register.css';
-import axios from "axios";
 import AuthContext from "../Contexts/AuthContext";
 import Spinner from "../Utils/Spinner";
+import { register } from "../../services/authService";
 
 const FNAME_REGEX = /[A-Za-z]{1,}/;
 const LNAME_REGEX = /[A-Za-z'-]{1,}/;
 const EMAIL_REGEX = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 const PWD_REGEX = /^\S{5,}/;
-// const REGISTER_URL = '/register';
 
-const register = async (data) => {
-    try {
-        // register in auth-server
-        let response = await axios.post("http://127.0.0.1:9082/api/register",
-            data,
-            {headers: {'Content-Type': 'application/json'}}
-        );
-        const registrationToken = response.data.token;
-
-        // add info to wishlist-app
-        response = await axios.post("http://127.0.0.1:9081/api/user",
-            data,
-            {headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + registrationToken} }
-        );
-        return {success: true};
-    } catch (err) {
-        console.log(err);
-        return {success: false, 
-                status: !err.response 
-                ? 0 
-                : err.response.status};
-    }
-
-}
 
 const Register = () => {
     const navigate = useNavigate();

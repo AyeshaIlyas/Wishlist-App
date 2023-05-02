@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import SharedItem from "../SharedItem/SharedItem";
 import "./SharedWishlist.css"
@@ -13,68 +13,74 @@ import { authWrapper } from "../../services/utils";
 import { buyItem } from "../../services/sharedWishlistService";
 import Spinner from "../Utils/Spinner";
 
-export default function SharedWishlist() {
+export default function SharedWishlist(props) {
     const {wishlistId} = useParams();
     const {setIsLoggedIn} = useContext(AuthContext);
     const [sWishlist, setSWishlist] = useState({});
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({}); 
-    const [error, setError] = useState(null);
+
+    const loadContent = useCallback(async (setIsLoggedIn) => {
+        // get wishlist data
+        let safeGet = authWrapper(setIsLoggedIn, getWishlist);
+        let res = await safeGet(wishlistId, false);
+        if (res.success) {
+            setSWishlist(res.data);
+
+            // get item data
+            safeGet = authWrapper(setIsLoggedIn, getItems);
+            res = await safeGet(wishlistId, false);
+            if (res.success) {
+                setItems(res.data);
+            } else {
+                console.log("STATUS CODE: " + res.code)
+                props.announce("We could load the data for this wishlist :<...", "error");
+            }
+
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("We could load wishlist data :<...", "error");
+        }
+        setLoading(false);
+    }, [props, wishlistId])
 
     useEffect(
         () => {
             const getUser = async () => {
                 const safeGetProfile = authWrapper(setIsLoggedIn, getProfile);
-                const user = await safeGetProfile();
-                if (user) {
-                    setUser(user);
+                const res = await safeGetProfile();
+                if (res.success) {
+                    setUser(res.data);
+                } else {
+                    console.log("STATUS CODE: " + res.code)
+                    props.announce("We could not fetch your profile info :<...", "error");
                 }
             }
 
-            const loadContent = async () => {
-                // get wishlist data
-                let safeGet = authWrapper(setIsLoggedIn, getWishlist);
-                const wishlist = await safeGet(wishlistId, false);
-                if (wishlist) {
-                    setSWishlist(wishlist);
-                    // get item data
-                    safeGet = authWrapper(setIsLoggedIn, getItems);
-                    const items = await safeGet(wishlistId, false);
-                    setItems(items);
-                }
-                setLoading(false);
-            }   
+            getUser();
+            loadContent(setIsLoggedIn);
+    }, [setIsLoggedIn, loadContent, props]);
 
-            const loadData = async () => {
-                getUser();
-                await loadContent();
-            }
-
-        loadData();
-        setInterval(loadContent, 10 * 1000);
-    }, [setIsLoggedIn, wishlistId]);
-
-
-
+    
     const buy = async (itemId, buy) => {
         const safeBuyItem = authWrapper(setIsLoggedIn, buyItem);
-        const response = await safeBuyItem(wishlistId, itemId, buy);
-        if (response) {
-            if (response.success) {
-                const newItems = items.map(i => i.id === itemId ? {...i, purchased: buy, gifter: buy ? user.email : null} : i);
-                setItems(newItems);
-            } else {
-                // error
-                setError("We couldn't buy the item :<...")
+        const res = await safeBuyItem(wishlistId, itemId, buy);
+        if (res.success) {
+            const newItems = items.map(i => i.id === itemId ? {...i, purchased: buy, gifter: buy ? user.email : null} : i);
+            setItems(newItems);
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce("Sorry, someone else already purchased this item :<...", "error");
+            if (res.code === 403) {
+                loadContent(setIsLoggedIn);
             }
-        }        
+        }     
     }
     
     const displayContent = () => {
         return (
             <div className="SharedWishlist-container">
-                {error && <p>error</p>}
                 {loading ? (
                     <div>
                         <p className="SharedWishlist-error">Loading...</p>

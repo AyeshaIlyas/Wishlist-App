@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import {authWrapper} from "./../../services/utils";
 import { getProfile } from '../../services/profileService';
 
-export default function Navbar() {
+export default function Navbar(props) {
     const authState = useContext(AuthContext);
     const navigate = useNavigate();
     const [profileInfo, setProfileInfo] = useState({});
@@ -16,13 +16,16 @@ export default function Navbar() {
         () => {
             const makeRequest = async () => {
                 const safeGetProfile = authWrapper(authState.setIsLoggedIn, getProfile);
-                const profile = await safeGetProfile();
-                if (profile) {
-                    setProfileInfo(profile);
+                const res = await safeGetProfile();
+                if (res.success) {
+                    setProfileInfo(res.data);
+                } else {
+                    console.log("STATUS CODE: " + res.code)
+                    props.announce("We could not fetch your profile info :<...");
                 }
             }
             makeRequest();
-        }, [authState]
+        }, [authState, props]
     );
 
     const displayProfile = () => {

@@ -16,13 +16,20 @@ export default function ShareForm(props) {
         } else {
             setError(null);
             props.share(email);
-            props.cancel();
         }
+        setEmail("");
+        setError(null);
     }
 
     return (
         <form className="ShareForm" onSubmit={handleSubmit}>
-            
+            <div className="ShareForm-header">
+                <div>
+                    <h2>Share Wishlist</h2>
+                    <p>Add people to this list by email. In order to add people they must have an account.</p>
+                </div>
+                <button type="button" onClick={props.cancel} className='ShareForm-exit-button'>x</button>
+            </div>
             <section>
                 <label htmlFor="email"> </label>
                 <input type="email" 
@@ -36,10 +43,10 @@ export default function ShareForm(props) {
 
             <p>{error}</p>
 
-            <section>
+            {/* <section>
                 <button> Submit</button>
                 <button type="button" onClick={handleCancel}>Cancel</button>
-            </section>
+            </section> */}
         </form>
     );
 }

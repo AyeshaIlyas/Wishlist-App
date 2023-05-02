@@ -1,3 +1,14 @@
+.ShareForm {
+    padding: 1em;
+    background-color: #395676;
+    color: #bbb;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 1em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
 .ShareForm input[type="text"],
 .ShareForm input[type="password"],
 .ShareForm input[type="email"],
@@ -9,17 +20,23 @@
     padding: 0.25rem;
 }
 
-.ShareForm button{
-    background-color: #9ECCDD;
-    border-radius: 10px;
-    font-size: 16px;
-    padding: .5em 1em;
-    border: none;
-    margin: 0.5%;
-    cursor: pointer;
-}
-
 .ShareForm button:hover {
     color: #badfec;
     text-decoration: none;
+}
+
+.ShareForm-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.ShareForm-exit-button {
+    border: none;
+    background-color: rgb(213, 213, 213);
+    color: #395676;
+    font-size: 15px;
+    width: 2em;
+    height: 2em;
+    border-radius: 100%;
 }

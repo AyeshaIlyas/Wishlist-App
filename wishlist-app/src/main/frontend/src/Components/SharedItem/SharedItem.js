@@ -12,7 +12,7 @@ export default function SharedItem({id, name, price, supplier, purchased, showBu
 
     const getSupplier = () => {
         if (supplier.match(regex)) {
-            return <a className="SharedItem-link" href={supplier} target="_blank">Buy Here</a>;
+            return <a className="SharedItem-link" href={supplier} target="_blank" rel="noreferrer">Buy Here</a>;
         } else {
             return <span className="SharedItem-link">{supplier}</span>;
         }

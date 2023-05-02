@@ -7,7 +7,7 @@ import { authWrapper } from "../../services/utils";
 import Spinner from "../Utils/Spinner";
 import ConfirmationDialog from "../Utils/ConfirmationDialog/ConfirmationDialog";
 
-export default function SharedWishlists() {
+export default function SharedWishlists(props) {
     const {setIsLoggedIn} = useContext(AuthContext);
     const [sWishlists, setSWishlists] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,30 +18,33 @@ export default function SharedWishlists() {
         () => {
             const loadData = async () => {
                 const safeGet = authWrapper(setIsLoggedIn, getSharedWishlists);
-                const wishlists = await safeGet();
-                if (wishlists) {
-                    setSWishlists(wishlists);
-                    setLoading(false);
+                const res = await safeGet();
+                if (res.success) {
+                    setSWishlists(res.data);
+                } else {
+                    console.log("STATUS CODE: " + res.code)
+                    props.announce("Uh oh.. failed to load shared wishlists", "error");
                 }
+                setLoading(false);
             }
             loadData();
-            setInterval(loadData, 10 * 1000); // increase reload interval for performance
-        }, [setIsLoggedIn]
+        }, [setIsLoggedIn, props]
     );
 
     const removeSelf = async () => {
         const safeRemoveSelf = authWrapper(setIsLoggedIn, removeSelfFromList);
-        const response = await safeRemoveSelf(deleteWishlist.id);
-        if (response) {
-            if (response.success) {
-                const newWishlists = sWishlists.filter(i => i.id !== deleteWishlist.id);
-                setSWishlists(newWishlists);
-            }
-        } 
+        const res = await safeRemoveSelf(deleteWishlist.id);
+        if (res.success) {
+            const newWishlists = sWishlists.filter(i => i.id !== deleteWishlist.id);
+            setSWishlists(newWishlists);
+        } else {
+            console.log("STATUS CODE: " + res.code)
+            props.announce(`We could not remove you from ${deleteWishlist.name}`, "error");
+        }
         setShowDialog(false);       
-
     }
 
+    // remove self from sharedwishlist confirmation dialog
     const confirmRemove = wishlist => {
         setShowDialog(true);
         setDeleteWishlist(wishlist);
@@ -62,7 +65,7 @@ export default function SharedWishlists() {
                             <h2 className="SharedWishlists-card-header-info">Shared by:</h2>
                             <h2 className="SharedWishlists-card-header-info">Title:</h2>
                             <h2 className="SharedWishlists-card-header-info">Item Count:</h2>
-                            <h2 className="SharedWishlists-card-header-remove-space"></h2>
+                            <div className="SharedWishlists-card-header-remove-space"></div>
                         </div>
                         <div className="SharedWishlists-cards">
                             {sWishlists.map((s) => (

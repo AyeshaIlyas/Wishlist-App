@@ -20,10 +20,13 @@ export default function MyWishlists() {
     useEffect(() => {
         const loadWishlists = async () => {
             const safeGet = authWrapper(setIsLoggedIn, getWishlists);
-            const wishlists = await safeGet();
-            if (wishlists) {
-                setWishlists(wishlists);
+            const res = await safeGet();
+            if (res.success) {
+                setWishlists(res.data);
                 setIsLoading(false);
+            } else {
+                console.log("STATUS CODE: " + res.code)
+            // props.announce("We couldnt fetch all the wishlist data :<...");
             }
         }
         loadWishlists();
@@ -39,14 +42,13 @@ export default function MyWishlists() {
 
     const create = async (wishlist) => {
         const safeCreate = authWrapper(setIsLoggedIn, createWishlist);
-        const response = await safeCreate(wishlist);
-        if (response) {
-            if (response.success) {
-                setWishlists([...wishlists, response.wishlist]);
-                setError(null);
-            }
+        const res = await safeCreate(wishlist);
+        if (res.success) {
+            setWishlists([...wishlists, res.data]);
+            setError(null);
         } else {
-            // error
+            console.log("STATUS CODE: " + res.code)
+            // props.announce("We couldn't create your item :<...");
             setError("We couldn't create your item :<...")
         }
     }
@@ -54,35 +56,32 @@ export default function MyWishlists() {
     const update = async (id, newWishlist) => {
         const safeUpdate = authWrapper(setIsLoggedIn, updateWishlist);
         // updateWishlist takes an object with the updates. the object must contain the wishlist id.
-        const response = await safeUpdate(id, {...newWishlist});
-        if (response) {
-            if (response.success) {
-                const updatedWishlists = wishlists.map(w => w.id === id ? response.wishlist : w);
-                setWishlists(updatedWishlists);
-                setError(null);
-            }
+        const res = await safeUpdate(id, {...newWishlist});
+        if (res.success) {
+            const updatedWishlists = wishlists.map(w => w.id === id ? res.data : w);
+            setWishlists(updatedWishlists);
+            setError(null);
         } else {
-            // error
+            console.log("STATUS CODE: " + res.code)
+            // props.announce("We couldn't create your item :<...");
             setError("We couldn't create your item :<...")
         }
     }
 
     const remove = async () => {
         const safeRemove = authWrapper(setIsLoggedIn, removeWishlist);
-        const response = await safeRemove(deleteItem.id);
-        if (response) {
-            if (response.success) {
-                const updatedWishlists = wishlists.filter((w) => ((w.id !== deleteItem.id)))
-                setWishlists(updatedWishlists);
-                setError(null);
-            }
+        const res = await safeRemove(deleteItem.id);
+        if (res.success) {
+            const updatedWishlists = wishlists.filter((w) => ((w.id !== deleteItem.id)))
+            setWishlists(updatedWishlists);
+            setError(null);
         } else {
-            // error
+            console.log("STATUS CODE: " + res.code)
+            // props.announce("We couldn't delete your item :<...");
             setError("We couldn't delete your item :<...")
         }
         setShowDialog(false);
         setDeleteItem({});
-
     }
 
     const confirmRemove = wishlist => {
@@ -90,12 +89,10 @@ export default function MyWishlists() {
         setDeleteItem(wishlist);
     }
 
-   
     const cancelRemove = () => {
         setShowDialog(false);
     }
-
-
+    
     const displayWishlists = () => {
         return (
             <>

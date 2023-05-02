@@ -1,33 +1,9 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import { Link, Navigate} from 'react-router-dom';
 import './Login.css';
-import axios from 'axios';
 import AuthContext from '../Contexts/AuthContext';
-import Cookies from 'js-cookie';
 import Spinner from '../Utils/Spinner';
-
-const login = async (creds) => {
-    try {
-        const response = await axios.post("http://127.0.0.1:9082/api/login",
-            creds,
-            {headers: {'Content-Type': 'application/json'}}
-        );
-        // add jwt to session storage
-        sessionStorage.setItem("token", response.data.token);
-        console.log(response.data.cookie);
-        // since cookie isnt automatically being set....
-        const {name, value, ...info} = response.data.cookie;
-        Cookies.set(name, value, info);
-        return {success: true};
-    } catch (err) {
-        console.log(err)
-        return {success: false, 
-                status: !err.response 
-                ? 0 
-                : err.response.status};
-    }
-
-}
+import { login } from '../../services/authService';
 
 const Login = () => {
     const authState = useContext(AuthContext);
@@ -67,7 +43,6 @@ const Login = () => {
         }
         setLoading(false);
         setDisabled(false);
-        
     }
 
     return (

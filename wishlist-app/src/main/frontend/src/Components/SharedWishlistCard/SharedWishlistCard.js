@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./SharedWishlistCard.css"
-import { faCircle, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SharedWishlistCard({id, name, owner, itemCount, removeSelf, ...props}) {

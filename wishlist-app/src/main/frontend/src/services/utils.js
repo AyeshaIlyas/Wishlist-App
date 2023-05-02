@@ -1,11 +1,11 @@
-import axios from "axios";
+import { authServer } from "./configuredAxios";
 import Cookies from "js-cookie";
 
 // get new jwt from auth server. only successful if valid cookie exists
 const getNewToken = async (setLoggedIn) => {
     try {
         // get new token
-        const response = await axios.get("http://127.0.0.1:9082/api/login/refresh", 
+        const response = await authServer.get("/login/refresh", 
             {
                 headers: {"Content-Type": "application/json"},
                 withCredentials: true
@@ -76,4 +76,26 @@ export const authWrapper = (setLoggedIn, fn) => {
         }
     }
     return wrappedFunction;
+}
+
+export function requestHelper(fn) {
+    return async function wrapped(...args) {
+        try {
+            return await fn(...args);
+        } catch (e) {
+            if (!e.response) {
+                console.log("no server response");
+                return {success: false, code: 0}
+            } else if ( // handles all expected errors
+                e.response.status === 500 || 
+                e.response.status === 404 || 
+                e.response.status === 403) {
+                return {success: false, code: e.response.status}
+            } else if (e.response.status === 401) {
+                throw new Error(401);
+            } else { // just in case there are any errors that are not accounted for, should not happen, but is a safety
+                return {success: false, code: e.response.status}
+            }
+        }
+    }
 }

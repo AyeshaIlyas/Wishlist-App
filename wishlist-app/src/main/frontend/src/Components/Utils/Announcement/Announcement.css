@@ -1,0 +1,32 @@
+.Announcement {
+    position: fixed;
+    z-index: 100;
+    border-radius: .5em;
+    padding: .5em;
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Announcement-info {
+    background-color: rgb(137, 233, 177);
+    color: rgb(59, 88, 55);
+}
+
+.Announcement-error {
+    background-color: rgb(243, 159, 159);
+    color:rgb(143, 10, 10);
+}
+
+.Announcement-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Announcement-msg, .Announcement-x{
+    font-family: monospace;
+    font-size: 1.2em;
+}
+    

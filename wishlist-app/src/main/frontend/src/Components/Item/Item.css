@@ -14,6 +14,7 @@
     color: #395676;
     font-size: 15px;
     margin-right: 0.5rem;
+    cursor: pointer;
 }
 
 .Item button:hover {

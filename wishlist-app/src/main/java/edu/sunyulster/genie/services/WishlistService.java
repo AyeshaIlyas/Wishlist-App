@@ -173,6 +173,8 @@ public class WishlistService {
         // check that user is added to the wishlist
         MongoCollection<Document> users = db.getCollection(DbConstants.USERS);
         Document userToRemoveFrom = users.find(Filters.eq(DbConstants.EMAIL, emailToRemove)).first();
+        if (userToRemoveFrom == null)
+            throw new NoSuchElementException("user to remove does not exist");
         ObjectId removeId = userToRemoveFrom.getObjectId(DbConstants.AUTH_ID);
         verifier.isWishlistSharedWithUser(removeId.toHexString(), wishlistId);
 

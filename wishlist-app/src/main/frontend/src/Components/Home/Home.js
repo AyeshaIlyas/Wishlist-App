@@ -42,7 +42,7 @@ export default function Home() {
             <section>
                 <h2 className="Home-team">About Team Genie</h2>
 
-                <p className="Home-blurb">Team Genie is a team of fourteen students who strive to create products that can be 
+                <p className="Home-blurb">Team Genie is a team of thirteen students who strive to create products that can be 
                 of use to many people. All the members of Team Genie come from different backgrounds and have different skillsets, 
                 so there are 3 subsets of the team: frontend development, backend development, and requirements gathering/testing. 
                 All subsets work together and communicate using an agile method of development to bring our ideas to fruition. Above

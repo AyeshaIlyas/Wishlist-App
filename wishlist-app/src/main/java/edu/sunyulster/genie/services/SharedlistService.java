@@ -15,6 +15,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
+import edu.sunyulster.genie.logging.LogManager;
+import edu.sunyulster.genie.logging.Logger;
 import edu.sunyulster.genie.db.DbConstants;
 import edu.sunyulster.genie.models.Item;
 import edu.sunyulster.genie.models.Wishlist;
@@ -36,6 +38,15 @@ public class SharedlistService {
 
     // move to /wishlists?isOwner=false
     public List<Wishlist> getAll(String userId) throws AuthenticationException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "GET",
+            "List<Wishlist> getAll",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "User Id "+userId.toString());
+        //LOGGING
+
         Document user = verifier.verifyUser(userId);
 
         List<ObjectId> wishlistIds = (ArrayList<ObjectId>) user.get(DbConstants.WISHLISTS_SHARED_WITH_ME);
@@ -47,10 +58,23 @@ public class SharedlistService {
         for (Document w : matchingWishlists) 
             wishlists.add(DataConverter.documentToWishlist(w));
 
+        //LOGGING
+        logger.Success();
+        //LOGGING
+
         return wishlists;
     }
 
     public void leaveSharedWishlist(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "DELETE",
+            "void leaveSharedWishlist",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Wishlist Id "+wishlistId.toString());
+        //LOGGING
+
         Document user = verifier.verifyUser(userId); // check if user exists
         String email = user.getString(DbConstants.EMAIL);
         
@@ -68,10 +92,23 @@ public class SharedlistService {
         filter = Filters.eq(DbConstants.AUTH_ID, new ObjectId(userId));
         update = Updates.pull(DbConstants.WISHLISTS_SHARED_WITH_ME, new ObjectId(wishlistId));
         users.updateOne(filter, update);
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
     }
     
 
-    public Item buy(String userId, String wishlistId, String itemId, boolean buy) throws AuthenticationException, NoSuchElementException {        
+    public Item buy(String userId, String wishlistId, String itemId, boolean buy) throws AuthenticationException, NoSuchElementException {      
+        
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "PATCH",
+            "Item buy",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Item Id "+itemId.toString());
+        //LOGGING
+
         // get user email
         Document user = verifier.verifyUser(userId);
         String email = user.getString(DbConstants.EMAIL);
@@ -109,6 +146,10 @@ public class SharedlistService {
         
         // set gifter with correct value
         i.setGifter(buy ? email : null);
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
 
         return i;
     }

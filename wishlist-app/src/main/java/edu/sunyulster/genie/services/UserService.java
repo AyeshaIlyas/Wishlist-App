@@ -6,6 +6,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
+import edu.sunyulster.genie.logging.LogManager;
+import edu.sunyulster.genie.logging.Logger;
 import edu.sunyulster.genie.db.DbConstants;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.User;
@@ -27,6 +29,15 @@ public class UserService {
     private VerifyService verifier;
 
     public void create(User user, String authId) throws InvalidDataException, ForbiddenException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "PUT",
+            "void create",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            user.toString());
+        //LOGGING
+
         // - - - - - - - - - -  VALIDATION - - - - - - - - - - // 
         if (!Validator.exists(user.getFirstName()) || !Validator.exists(user.getLastName())) 
             throw new InvalidDataException("Name is not valid");
@@ -42,10 +53,28 @@ public class UserService {
             throw new ForbiddenException("user already exists"); // what error here??
     
         users.insertOne(DataConverter.userToDocument(user, authId));
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
     }
 
     public User get(String userId) throws AuthenticationException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "GET",
+            "User get",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "User Id "+userId);
+        //LOGGING
+
         Document user = verifier.verifyUser(userId);
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
+        
         return DataConverter.documentToUser(user);
     }
 

@@ -16,6 +16,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
+import edu.sunyulster.genie.logging.LogManager;
+import edu.sunyulster.genie.logging.Logger;
 import edu.sunyulster.genie.db.DbConstants;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Item;
@@ -37,6 +39,15 @@ public class ItemService {
     private VerifyService verifier;
 
     public Item create(String userId, String wishlistId, Item i) throws ForbiddenException, InvalidDataException, AuthenticationException{
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "POST",
+            "Item create",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            i.toString());
+        //LOGGING
+
         // checks if ids are valid objectids, user exists, wishlist exists, and wishlist belongs to user
         verifier.doesUserOwnWishlist(userId, wishlistId);
         ObjectId wId = new ObjectId(wishlistId);
@@ -65,10 +76,23 @@ public class ItemService {
         Bson update = Updates.addToSet(DbConstants.ITEMS, itemId);
         wishlists.updateOne(Filters.eq(DbConstants.ID, wId), update);
 
+        //LOGGING
+        logger.Success();
+        //LOGGING
+
         return DataConverter.documentToItem(newItem);
     }
 
     public List<Item> getAll(String userId, String wishlistId, boolean isOwner) throws ForbiddenException, AuthenticationException, NoSuchElementException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "GET",
+            "List<Item> getAll",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Wishlist Id "+wishlistId);
+        //LOGGING
+
         Document wishlist;
         if (isOwner)
             // checks if ids are valid objectids, user exists, wishlist exists, and wishlist belongs to user
@@ -86,11 +110,24 @@ public class ItemService {
         List<Item> items = new ArrayList<>(itemIds.size());
         for (Document i : matchingItems)
             items.add(DataConverter.documentToItem(i));
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
         
         return items;
     }
 
     public Item update(String userId, String wishlistId, Item newItem) throws InvalidDataException, AuthenticationException{
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "PATCH",
+            "Item update",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            newItem.toString());
+        //LOGGING
+        
         // verify that all ids are valid, all resources exist, item belongs to wishlist belongs to user
         Document oldItem = verifier.doesUserOwnItem(userId, wishlistId, newItem.getId());
         ObjectId itemId = new ObjectId(newItem.getId());
@@ -112,11 +149,24 @@ public class ItemService {
         
         MongoCollection<Document> items = db.getCollection(DbConstants.ITEMS);
         items.replaceOne(Filters.eq(DbConstants.ID, itemId), updatedItem);
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
         
         return DataConverter.documentToItem(items.find(Filters.eq(DbConstants.ID, itemId)).first());
     }
 
     public void delete(String userId, String wishlistId, String itemId) throws AuthenticationException, NoSuchElementException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "DELETE",
+            "void delete",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Item Id "+itemId.toString());
+        //LOGGING
+
         // verify that all ids are valid, all resources exist, item belongs to wishlist belongs to user
         verifier.doesUserOwnItem(userId, wishlistId, itemId);
         // remove item
@@ -125,10 +175,16 @@ public class ItemService {
         // remove item id from wishlist
         MongoCollection<Document> wishlists = db.getCollection(DbConstants.WISHLISTS);
         wishlists.updateOne(Filters.eq(DbConstants.ID, new ObjectId(wishlistId)), Updates.pull(DbConstants.ITEMS, new ObjectId(itemId)));
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
+
     }
 
 
     private void setOptionalItemData(Item source, Document destination) throws InvalidDataException {
+
         // price is optional data
         if (source.getPrice() != null) {
             if (source.getPrice() < 0)

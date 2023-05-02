@@ -86,7 +86,10 @@ public class Item {
     @Override
     public String toString() {
         return String.format(
-            "Item Name: %s", 
-            name); 
+            "Item"+
+            "%n Name : %s"+
+            "%n Price : $%.2f"+
+            "%n Supplier : %s", 
+            name,price,supplier); 
     }
 }

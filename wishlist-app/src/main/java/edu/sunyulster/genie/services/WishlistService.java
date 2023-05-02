@@ -17,6 +17,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 
+import edu.sunyulster.genie.logging.LogManager;
+import edu.sunyulster.genie.logging.Logger;
 import edu.sunyulster.genie.db.DbConstants;
 import edu.sunyulster.genie.exceptions.InvalidDataException;
 import edu.sunyulster.genie.models.Wishlist;
@@ -37,6 +39,15 @@ public class WishlistService {
     private VerifyService verifier;
 
     public Wishlist create(String userId, Wishlist w) throws InvalidDataException, AuthenticationException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "PUT",
+            "Wishlist Create",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            w.toString());
+        //LOGGING
+
         // needed to specify user for new wishlist
         // change later to userId?
         Document user = verifier.verifyUser(userId);
@@ -64,10 +75,23 @@ public class WishlistService {
         Bson update = Updates.addToSet(DbConstants.WISHLISTS, newWishlist.getObjectId(DbConstants.ID));
         users.updateOne(Filters.eq(DbConstants.AUTH_ID, new ObjectId(userId)), update);
 
+        //LOGGING
+        logger.Success();
+        //LOGGING
+
         return DataConverter.documentToWishlist(newWishlist);
     }
 
     public List<Wishlist> getAll(String userId) throws AuthenticationException {
+
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "GET",
+            "List<Wishlist> getAll",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "User Id "+userId);
+        //LOGGING
+
         // get all wishlists for the user 
         Document user = verifier.verifyUser(userId);
 
@@ -80,10 +104,22 @@ public class WishlistService {
         for (Document w : matchingWishlists) 
             wishlists.add(DataConverter.documentToWishlist(w));
         
+        //LOGGING
+        logger.Success();
+        //LOGGING
+
         return wishlists;
     }
 
     public Wishlist get(String userId, String wishlistId, boolean isOwner) throws AuthenticationException, NoSuchElementException {
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "GET",
+            "Wishlist get",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Wishlist Id "+wishlistId);
+        //LOGGING
+
         Document wishlist;
         if (isOwner)
             // checks if ids are valid objectids, user exists, wishlist exists, and wishlist belongs to user
@@ -92,10 +128,22 @@ public class WishlistService {
             // see if the user has been added to the wishlist
             wishlist = verifier.isWishlistSharedWithUser(userId, wishlistId);
 
+        //LOGGING
+        logger.Success();
+        //LOGGING
+            
         return DataConverter.documentToWishlist(wishlist);
     }
 
     public Wishlist update(String userId, Wishlist newWishlist) throws InvalidDataException, AuthenticationException {
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "PATCH",
+            "Wishlist update",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            newWishlist.toString());
+        //LOGGING
+
         verifier.doesUserOwnWishlist(userId, newWishlist.getId());
         ObjectId wishlistId = new ObjectId(newWishlist.getId());
 
@@ -141,11 +189,22 @@ public class WishlistService {
             Bson filter = Filters.eq(DbConstants.ID, wishlistId);
             wishlists.updateOne(filter, update);
         }
+        //LOGGING
+        logger.Success();
+        //LOGGING
     
         return DataConverter.documentToWishlist(wishlists.find(Filters.eq(DbConstants.ID, wishlistId)).first());
     }   
 
     public void delete(String userId, String wishlistId) throws AuthenticationException, NoSuchElementException {
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "DELETE",
+            "void delete",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Wishlist Id "+wishlistId);
+        //LOGGING
+
         Document wishlist = verifier.doesUserOwnWishlist(userId, wishlistId);
         ObjectId wId = new ObjectId(wishlistId);
 
@@ -165,9 +224,21 @@ public class WishlistService {
         // delete wishlist from people it has been shared with
         Bson update = Updates.pull(DbConstants.WISHLISTS_SHARED_WITH_ME, wId);
         users.updateMany(Filters.in(DbConstants.WISHLISTS_SHARED_WITH_ME, wId), update);
+
+        //LOGGING
+        logger.Success();
+        //LOGGING
     }
 
     public void unshareWishlist(String emailToRemove, String wishlistId, String userId) throws AuthenticationException, NoSuchElementException{
+        //LOGGING
+        Logger logger = LogManager.addLog(
+            "DELETE",
+            "void unshareWishlist",
+            getClass().getName() + ":" + new Throwable().getStackTrace()[0].getLineNumber(),
+            "Wishlist Id "+wishlistId);
+        //LOGGING
+
         verifier.doesUserOwnWishlist(userId, wishlistId);
 
         // check that user is added to the wishlist
@@ -189,6 +260,9 @@ public class WishlistService {
         update = Updates.pull(DbConstants.SHARED_WITH, emailToRemove);
         wishlists.updateOne(filter, update);
  
+        //LOGGING
+        logger.Success();
+        //LOGGING
     }
 
 }

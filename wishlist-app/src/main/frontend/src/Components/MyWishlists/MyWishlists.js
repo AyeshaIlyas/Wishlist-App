@@ -8,11 +8,10 @@ import AuthContext from "../Contexts/AuthContext";
 import ConfirmationDialog from "../Utils/ConfirmationDialog/ConfirmationDialog";
 import Spinner from "./../Utils/Spinner";
 
-export default function MyWishlists() {
+export default function MyWishlists(props) {
     const {setIsLoggedIn} = useContext(AuthContext);
     const [wishlists, setWishlists] = useState([]);
     const [isFormDisplaying, setIsFormDisplaying] = useState(false);
-    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showDialog, setShowDialog] = useState(false);
     const [deleteItem, setDeleteItem] = useState({});
@@ -26,7 +25,7 @@ export default function MyWishlists() {
                 setIsLoading(false);
             } else {
                 console.log("STATUS CODE: " + res.code)
-            // props.announce("We couldnt fetch all the wishlist data :<...");
+                props.announce("We couldnt fetch all the wishlist data :<...", "error");
             }
         }
         loadWishlists();
@@ -45,11 +44,9 @@ export default function MyWishlists() {
         const res = await safeCreate(wishlist);
         if (res.success) {
             setWishlists([...wishlists, res.data]);
-            setError(null);
         } else {
             console.log("STATUS CODE: " + res.code)
-            // props.announce("We couldn't create your item :<...");
-            setError("We couldn't create your item :<...")
+            props.announce("We couldn't create your item :<...", "error");
         }
     }
 
@@ -60,11 +57,9 @@ export default function MyWishlists() {
         if (res.success) {
             const updatedWishlists = wishlists.map(w => w.id === id ? res.data : w);
             setWishlists(updatedWishlists);
-            setError(null);
         } else {
             console.log("STATUS CODE: " + res.code)
-            // props.announce("We couldn't create your item :<...");
-            setError("We couldn't create your item :<...")
+            props.announce("We couldn't create your item :<...", "error");
         }
     }
 
@@ -74,11 +69,9 @@ export default function MyWishlists() {
         if (res.success) {
             const updatedWishlists = wishlists.filter((w) => ((w.id !== deleteItem.id)))
             setWishlists(updatedWishlists);
-            setError(null);
         } else {
             console.log("STATUS CODE: " + res.code)
-            // props.announce("We couldn't delete your item :<...");
-            setError("We couldn't delete your item :<...")
+            props.announce("We couldn't delete your item :<...", "error");
         }
         setShowDialog(false);
         setDeleteItem({});
@@ -116,7 +109,6 @@ export default function MyWishlists() {
         <div className="MyWishlists">
             <div className="MyWishlists-container">
                 <h1>Wishlists</h1>
-                {error && <p>{error}</p>}
                 { isLoading ? (
                     <div>
                         <p className="MyWishlists-msg">Loading...</p>

@@ -42,6 +42,7 @@ export default function Navbar(props) {
         sessionStorage.removeItem("token");
         authState.setIsLoggedIn(false);
         navigate("/login");
+        localStorage.removeItem("announcements");
     }
 
     return authState.isLoggedIn ? 

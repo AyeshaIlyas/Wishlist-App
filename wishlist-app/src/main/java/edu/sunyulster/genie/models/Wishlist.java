@@ -82,6 +82,6 @@ public class Wishlist {
     public String toString() {
         return String.format(
             "Wishlist %s%nTotal Items: %s%nCreated on: %s", 
-            name, itemCount, dateCreated.toString()); 
+            name, itemCount, dateCreated == null ? "no date" : dateCreated.toString()); 
     }
 }

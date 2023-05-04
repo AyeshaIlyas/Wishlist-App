@@ -24,7 +24,7 @@ export default function Home() {
 
                     </p>                
                 </section>
-                {!isLoggedIn && <Link to="/register" id="registerBtn"><button>Sign Up</button></Link>}
+                {!isLoggedIn && <Link to="/register" id="registerBtn"><button>Register</button></Link>}
             </header>
             
             <section>
